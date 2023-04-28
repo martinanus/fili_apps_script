@@ -1,7 +1,7 @@
 function main()
 {
-  paintFields()
-  validateFields()
+  paintFields(); // THIS IS DONE JUST TO INFORM THAT VALIDATION IS RUNNING
+  validateFields(); // WIP - validate items - validate dates
   savePDF();
   callCloudRun();
 } 
@@ -20,75 +20,112 @@ function main()
   for (const i of variables) {
       i.setBackground("#0AFB3A")
     }
+}
 
+function validate_mandatory_fields(field_values_dict, field_cells_dict, sheet){    
+    mandatory_field_l = ["counterpart", "relation", "is_approved", "installments", "invoice_date", "due_date"];
+    error_field_l = []
+
+    for (const field of mandatory_field_l){
+      if (field_values_dict[field] == ''){
+          console.log(field, " field is empty");
+          error_field_l.push(field);
+      }
+    }
+
+    for (const field of error_field_l){
+      sheet.getRange(field_cells_dict[field]).setBackground("#FF4122");
+    }
+
+    if (error_field_l.length){
+      throw new Error( "Por favor, complete los campos obligatorios para que el comprobante pueda ser cargado. Muchas gracias.");
+    }
+
+    return;
+}
+
+function validate_installments(field_values_dict, field_cells_dict, sheet){
+
+    if (Number(field_values_dict["installments"] > 1) && (field_values_dict["installments_periodicity"] == '')) {      
+      sheet.getRange(field_cells_dict["installments_periodicity"]).setBackground("#FF4122");
+      throw new Error( "Por favor, indique la periodicidad de las cuotas para que el comprobante pueda ser cargado. Muchas gracias.");      
+    }
+
+    return;
+}
+
+
+function validate_fixcost(field_values_dict, field_cells_dict, sheet){
+
+    if (field_values_dict["relation"] == "Costos Fijos" && field_values_dict["fixcost_periodicity"] == '') {
+      sheet.getRange(field_cells_dict["fixcost_periodicity"]).setBackground("#FF4122");
+      throw new Error( "Por favor, indique la periodicidad de su costo fijo para que el comprobante pueda ser cargado. Muchas gracias.");
+      
+    }
+
+    return;
+}
+
+function validate_items(sheet){
+  /// WIP - need to verify for each item all fields are complete
+    
+    // just verify 1st item has values
+    item1_cells = ["B14", "B15", "B16"];
+    error_cell_l = []
+    for (const cell of item1_cells){
+      if (sheet.getRange(cell).getValue() == ''){
+        error_cell_l.push(cell);        
+      }      
+    }
+
+    for (const cell of error_cell_l){
+      sheet.getRange(cell).setBackground("#FF4122");
+    }
+    if (error_cell_l.length){
+      throw new Error( "Por favor, complete los campos obligatorios para que el comprobante pueda ser cargado. Muchas gracias.");
+    }
+
+    return;
 }
 
  function validateFields(){
-    ss = SpreadsheetApp.getActiveSpreadsheet();//This assumes that the Apps Script project is bound to a G-Sheet
-    var originSheet = ss.getSheetByName("Carga de Facturas");
+    page_name = "Carga de Facturas";
+    
+    field_cells_dict = {
+      "counterpart"               : "B3",
+      "relation"                  : "B4",
+      "email"                     : "B5",
+      "is_approved"               : "B6",
+      "installments"              : "B7",
+      "fixcost_periodicity"       : "B8",
+      "installments_periodicity"  : "B9",
+      "invoice_date"              : "B10",
+      "due_date"                  : "B11", 
+      "invoice_id"                : "B12", 
+      "tax"                       : "B13", 
+    };
 
-    var rg1=originSheet.getRange("B3:B73");
-    var vA1=rg1.getValues().map(function(r){return r[0];});
-    vA1.unshift(new Date());
-
-    //// Field Validation
-
-  var variables = [
-    counterpart=originSheet.getRange("B3:B4"),
-    approved=originSheet.getRange("B6"),
-    installments=originSheet.getRange("B7"),
-    dates=originSheet.getRange("B10:B11"),
-    item=originSheet.getRange("B14:B16")
-  ];
-  var installment_periodicity =originSheet.getRange("B9")
-  var fixcost_periodicity =originSheet.getRange("B8")
+    ss = SpreadsheetApp.getActiveSpreadsheet();
+    sheet = ss.getSheetByName(page_name);
 
 
-    if (vA1[1] == "" || vA1[2] == "" || vA1[4] == "" || vA1[5] == "" || vA1[8] == "" || vA1[9] == "" || vA1[12] == "" || vA1[13] == "" || vA1[14] == "") {
-      for (const i of variables) {
-        if (i.getValue() == "") {
-          Logger.log(i.getValue())
-          i.setBackground("#FF4122");
-        }
-      }
-      console.log("Por favor, complete los campos obligatorios para que el comprobante pueda ser cargado. Muchas gracias.");
-      throw new Error( "Por favor, complete los campos obligatorios para que el comprobante pueda ser cargado. Muchas gracias.");
-      return;
-    }
-
-    if (Number(installments.getValue()) > +1 && vA1[7] == '') {
-      installment_periodicity.setBackground("#FF4122");
-      console.log("Por favor, indique la periodicidad de las cuotas para que el comprobante pueda ser cargado. Muchas gracias.");
-      throw new Error( "Por favor, indique la periodicidad de las cuotas para que el comprobante pueda ser cargado. Muchas gracias.");
-      
-      return;
-    }
-
-    if (vA1[2] == "Costos Fijos" && vA1[6] == '') {
-      fixcost_periodicity.setBackground("#FF4122");
-      console.log("Por favor, indique la periodicidad de su costo fijo para que el comprobante pueda ser cargado. Muchas gracias.");
-      throw new Error( "Por favor, indique la periodicidad de su costo fijo para que el comprobante pueda ser cargado. Muchas gracias.");
-      
-      return;
+    // Load values in dict
+    field_values_dict = {};
+    for (const [field, cell] of Object.entries(field_cells_dict)) {
+      field_values_dict[field] = sheet.getRange(cell).getValue();
     }
 
 
-    if (vA1[6] !== '' & vA1[2] !== "Costos Fijos") {
-      fixcost_periodicity.setBackground("#FF4122");
-      counterpart.setBackground("#FF4122");
-      console.log("Por favor, seleccione un costo fijo o modifique el valor de la periodicidad para que el comprobante pueda ser cargado. Muchas gracias.");
-      throw new Error( "Por favor, indique la periodicidad de su costo fijo para que el comprobante pueda ser cargado. Muchas gracias.");
-      
-      return;
-    }
+  
+  validate_mandatory_fields(field_values_dict, field_cells_dict, sheet);
 
-    /// Processing data
+  validate_installments(field_values_dict, field_cells_dict, sheet);
 
-    counterpart.setBackground("#0AFB3A");
-    installments.setBackground("#0AFB3A");
-    dates.setBackground("#0AFB3A");  
-    item.setBackground("#0AFB3A");
-    approved.setBackground("#0AFB3A");
+  validate_fixcost(field_values_dict, field_cells_dict, sheet);
+
+  validate_items(sheet); // WIP - need to check all items
+
+  // validate invoice_date vs due_date  
 
 
  }
