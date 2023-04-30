@@ -1,9 +1,9 @@
 function main()
 {
-  paintFields(); // THIS IS DONE JUST TO INFORM THAT VALIDATION IS RUNNING
-  validateFields(); // WIP - validate items - validate dates
-  savePDF();
-  callCloudRun();
+  // paintFields() // THIS IS DONE JUST TO INFORM THAT VALIDATION IS RUNNING
+  validateFields()
+  //savePDF();
+  //callCloudRun();
 } 
 
  function paintFields()
@@ -23,7 +23,10 @@ function main()
 }
 
 function validate_mandatory_fields(field_values_dict, field_cells_dict, sheet){    
-    mandatory_field_l = ["counterpart", "relation", "is_approved", "installments", "invoice_date", "due_date"];
+    mandatory_field_l = ["counterpart", "relation", "is_approved",  
+                          "installments", "invoice_date", "due_date", 
+                          "item_1", "unit_price_1", "quantity_1"];
+
     error_field_l = []
 
     for (const field of mandatory_field_l){
@@ -66,23 +69,34 @@ function validate_fixcost(field_values_dict, field_cells_dict, sheet){
     return;
 }
 
-function validate_items(sheet){
-  /// WIP - need to verify for each item all fields are complete
-    
-    // just verify 1st item has values
-    item1_cells = ["B14", "B15", "B16"];
-    error_cell_l = []
-    for (const cell of item1_cells){
-      if (sheet.getRange(cell).getValue() == ''){
-        error_cell_l.push(cell);        
-      }      
+function validate_dates(field_values_dict, field_cells_dict, sheet){    
+    if (field_values_dict["due_date"] < field_values_dict["invoice_date"]){
+      sheet.getRange(field_cells_dict["invoice_date"]).setBackground("#FF4122");
+      sheet.getRange(field_cells_dict["due_date"]).setBackground("#FF4122");
+      throw new Error( "La fecha de vencimiento no puede ser anterior a la fecha de emisión");
+    }
+    return;
+}
+
+function validate_items(sheet, items_col, first_item_row, item_q){
+  error_flag = false;
+  
+    for (let i = 0; i < item_q; i++) {
+        initial_cell = Number(first_item_row) + 3*i;
+        item_i        = sheet.getRange(items_col + (initial_cell  )).getValue();
+        unit_price_i  = sheet.getRange(items_col + (initial_cell+1)).getValue();
+        quantity_i    = sheet.getRange(items_col + (initial_cell+2)).getValue();
+
+        if (item_i != '' || unit_price_i != '' || quantity_i != ''){
+          if (item_i == '' || unit_price_i == '' || quantity_i == ''){
+            sheet.getRange(items_col+initial_cell+':'+items_col + (initial_cell+2)).setBackground("#FF4122");
+            error_flag = true;
+          }
+        }           
     }
 
-    for (const cell of error_cell_l){
-      sheet.getRange(cell).setBackground("#FF4122");
-    }
-    if (error_cell_l.length){
-      throw new Error( "Por favor, complete los campos obligatorios para que el comprobante pueda ser cargado. Muchas gracias.");
+    if (error_flag){
+      throw new Error( "Se debe indicar el precio unitario y las cantidades para cada item.");
     }
 
     return;
@@ -90,6 +104,7 @@ function validate_items(sheet){
 
  function validateFields(){
     page_name = "Carga de Facturas";
+    items_q   = 20;
     
     field_cells_dict = {
       "counterpart"               : "B3",
@@ -103,6 +118,9 @@ function validate_items(sheet){
       "due_date"                  : "B11", 
       "invoice_id"                : "B12", 
       "tax"                       : "B13", 
+      "item_1"                    : "B14", 
+      "unit_price_1"              : "B15", 
+      "quantity_1"                : "B16", 
     };
 
     ss = SpreadsheetApp.getActiveSpreadsheet();
@@ -123,10 +141,9 @@ function validate_items(sheet){
 
   validate_fixcost(field_values_dict, field_cells_dict, sheet);
 
-  validate_items(sheet); // WIP - need to check all items
-
-  // validate invoice_date vs due_date  
-
+  validate_dates(field_values_dict, field_cells_dict, sheet);
+  
+  validate_items(sheet, field_cells_dict['item_1'][0], field_cells_dict['item_1'].substring(1) ,items_q ); 
 
  }
 
