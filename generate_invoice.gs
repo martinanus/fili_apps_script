@@ -2,7 +2,8 @@ function main()
 {
   // paintFields() // THIS IS DONE JUST TO INFORM THAT VALIDATION IS RUNNING
   validateFields()
-  //savePDF();
+  savePDF();
+  clear_form();
   //callCloudRun();
 } 
 
@@ -262,11 +263,16 @@ var fixcost_periodicity =originSheet.getRange("B8")
   }
 
 
+  return
   /// Re-arrange array
 
   vA1.splice(11, 0, "")
   vA1.splice(12, 0, "")
 
+  /// Format dates
+
+  formatted_date = Utilities.formatDate(vA1[8], "GMT-3", 'MM/dd/yyyy');
+  formatted_date = Utilities.formatDate(vA1[9], "GMT-3", 'MM/dd/yyyy');
 
   /// Append invoice data
 
