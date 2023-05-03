@@ -1,15 +1,20 @@
-function clear_form(){
-    page_name         = "Carga de Facturas";
-    clear_range       = "B3:B73";
-    default_bg_colour = "white"; 
+function clear_background(){
   
-    ss = SpreadsheetApp.getActiveSpreadsheet();
-    range = ss.getRange(page_name + '!' + clear_range);
-    
-    range.clearContent();
-    range.setBackground(default_bg_colour);
-  }
+  var range = spreadsheet.getRange(invoice_upload_page_name + '!' + content_range);
   
-  function onOpen(){
-    clear_form();
-  }
+  range.setBackground(default_bg_colour);
+  SpreadsheetApp.flush();
+}
+
+function clear_form(){  
+  var range = spreadsheet.getRange(invoice_upload_page_name + '!' + content_range);
+  
+  range.clearContent();
+  SpreadsheetApp.flush();
+}
+
+function onOpen(){
+  set_global_variables();
+  clear_background();
+  clear_form();
+}

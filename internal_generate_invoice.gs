@@ -152,7 +152,7 @@ var aliases = GmailApp.getAliases();
 }
 
 function callCloudRun() {
-  var CLOUD_RUN_URL = PropertiesService.getScriptProperties().getProperty('CLOUD_RUN_URL');
+  var CLOUD_RUN_URL = 'https://dbt-fili-7txkfbm3yq-uc.a.run.app';
  // Use the OpenID token inside App Scripts
  const token = ScriptApp.getIdentityToken();
 var options = {

@@ -6,3 +6,5 @@
   - [ ] Refactor on field validation
     - [ ] Adds date validation
     - [ ] Adds item validation
+  - [ ] Indicate user script is running
+  - [ ] Clear content before dbt finish run
