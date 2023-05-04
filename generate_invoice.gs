@@ -2,9 +2,9 @@ function main()
 {
   set_global_variables();
   // TODO - set some indicator that script is running
-  validate_fields()
-  process_form_data(); // TODO - format email - format receipt
-  populate_data_table();  // TODO - implement
+  validate_fields() // TODO - periodicity empty check
+  process_form_data(); // TODO - format HTML email - format receipt
+  populate_data_table();   
   clear_form();
   run_dbt();
 }
@@ -12,6 +12,7 @@ function main()
 function set_global_variables(){
   invoice_upload_page_name  = "Carga de Facturas";
   receipt_page_name         = "Comprobante";
+  manual_upload_page_name   = "manual_upload";
   
   client_email              = 'soporte@somosfili.com';
   // fili_notif_email          = 'jeidlicz@gmail.com, \
@@ -22,11 +23,12 @@ function set_global_variables(){
   upload_folder_id          = '1gYNhl_1QetW_9v6B9j3s3awIV7LbTcn8';
   dbt_run_url               = 'https://dbt-fili-7txkfbm3yq-uc.a.run.app';
   item_q                    = 20;
-  content_range             = "B3:B73";
+  content_range             = "B3:B75";   // in invoice_upload_page
+  final_invoice_cell        = "B18";      // in receipt_page
   default_bg_colour         = "white"; 
     
-  field_cells_dict = {
-    "counterpart"               : "B3",
+  field_cells_dict = {              
+    "counterpart"               : "B3", // in invoice_upload_page
     "relation"                  : "B4",
     "email"                     : "B5",
     "is_approved"               : "B6",
@@ -36,19 +38,24 @@ function set_global_variables(){
     "invoice_date"              : "B10",
     "due_date"                  : "B11", 
     "invoice_id"                : "B12", 
-    "tax"                       : "B13", 
-    "item_1"                    : "B14", 
-    "unit_price_1"              : "B15", 
-    "quantity_1"                : "B16", 
+    "invoice_group_1"           : "B13", 
+    "invoice_group_2"           : "B14", 
+    "tax"                       : "B15", 
+    "item_1"                    : "B16", 
+    "unit_price_1"              : "B17", 
+    "quantity_1"                : "B18", 
   };
 
   spreadsheet           = SpreadsheetApp.getActiveSpreadsheet();
   invoice_upload_sheet  = spreadsheet.getSheetByName(invoice_upload_page_name);
   receipt_sheet         = spreadsheet.getSheetByName(receipt_page_name);
+  manual_upload_sheet   = spreadsheet.getSheetByName(manual_upload_page_name);
 
 
   // Load values in dict
-  field_values_dict = {};
+  field_values_dict = {
+    "timestamp"   : new Date()
+  };
   for (const [field, cell] of Object.entries(field_cells_dict)) {
     field_values_dict[field] = invoice_upload_sheet.getRange(cell).getValue();
   }
@@ -203,28 +210,10 @@ function validate_items(){
 function send_email_with_receipt(file){
   let invoice_id = field_values_dict["invoice_id"];
   let counterpart = field_values_dict["counterpart"];
-  let subject = 'Se generó su comprobante con ID ' + invoice_id;
-  let message = 'Estimado/a, \n\n Adjunto a este email vas a encontrar el comprobante ' +
-                'recientemente generado para ' +  counterpart +
-                ', con ID ' + invoice_id + '.\n\nSaludos, \nEl equipo de Fili.'
-
-                Logger.log("Se enviará la factura al email " + client_email);
-
-  GmailApp.sendEmail(client_email, subject, message, {
-    attachments: [file]
-    })
-    
-   return;
-}
-
-
-function send_email_with_receipt(file){
-  let invoice_id = field_values_dict["invoice_id"];
-  let counterpart = field_values_dict["counterpart"];
-  let subject = 'Se generó su comprobante con ID ' + invoice_id;
-  let message = 'Estimado/a, \n\n Adjunto a este email vas a encontrar el comprobante ' +
-                'recientemente generado para ' +  counterpart +
-                ', con ID ' + invoice_id + '.\n\nSaludos, \nEl equipo de Fili.'
+  let subject = `Se generó su comprobante con ID ${invoice_id}`;
+  let message = `Estimado/a, \n\nAdjunto a este email vas a encontrar el comprobante \
+recientemente generado para ${counterpart} con ID ${invoice_id}. \
+\n\nSaludos, \nEl equipo de Fili.`;
             
   GmailApp.sendEmail(client_email, subject, message, {
     attachments: [file]
@@ -235,14 +224,13 @@ function send_email_with_receipt(file){
 }
 
 
-
 function send_email_pending_generation(file){
   let invoice_id = field_values_dict["invoice_id"];
   let counterpart = field_values_dict["counterpart"];
-  let subject = 'Sus comprobantes con ID ' + invoice_id + ' están en proceso'
-  let message = 'Estimado/a, \n\n Los comprobantes recientemente generados para'
-                 + counterpart + ', con ID ' + invoice_id + ' se encuentran en ' +
-                 'proceso.\n\n  Saludos, \n El equipo de Fili.'                
+  let subject = `Sus comprobantes con ID ${invoice_id} están en proceso`;
+  let message = `Estimado/a, \n\nLos comprobantes recientemente generados \
+para ${counterpart}, con ID ${invoice_id} se encuentran en proceso. \
+\n\nSaludos, \nEl equipo de Fili.`;                
 
   GmailApp.sendEmail(client_email, subject, message);
 
@@ -258,12 +246,12 @@ function send_email_internal_notif(file){
   let sheet_name  = spreadsheet.getName();
   
 
-  let subject = 'Se cargó un nuevo comprobante en cuotas / costo fijo, ID ' + invoice_id;
-  let message = 'Equipo Fili, \n\n Se acaba de generar un comprobante para'
-                + counterpart + ', con ID ' + invoice_id + ' en la sheet ' 
-                + sheet_name + '. Se puso en marcha la generación de ' +
-                'tantos comprobantes como correspondan, con sus fechas de vencimiento, ' +
-                'montos y número de cuota si corresponde.\n\n  Saludos, \n El equipo de Fili.'
+  let subject = `Se cargó un nuevo comprobante en cuotas / costo fijo, ID ${invoice_id}`;
+  let message = `Equipo Fili, \nSe acaba de generar un comprobante \
+para ${counterpart}, con ID ${invoice_id} en la sheet ${sheet_name}. \
+Se puso en marcha la generación de tantos comprobantes como correspondan, \
+con sus fechas de vencimiento, montos y número de cuota si corresponde. \
+\n\nSaludos, \nEl equipo de Fili.`
 
   GmailApp.sendEmail(fili_notif_email, subject, message);
 
@@ -277,6 +265,25 @@ function send_email_internal_notif(file){
   var export_url  = generate_export_url();
   var options     = get_http_options();
 
+  // TODO - Format Invoice 
+// var items = [item1=sh.getRange("D17"), item2=sh.getRange("D18"), item3=sh.getRange("D19"), item4=sh.getRange("D20"), item5=sh.getRange("D21"), item6=sh.getRange("D22"), item7=sh.getRange("D23"), item8=sh.getRange("D24"), item9=sh.getRange("D25"), item10=sh.getRange("D26"), item11=sh.getRange("D27"), item12=sh.getRange("D28"), item13=sh.getRange("D29"), item14=sh.getRange("D30"), item15=sh.getRange("D31"), item16=sh.getRange("D32"), item17=sh.getRange("D33"), item18=sh.getRange("D34"), item19=sh.getRange("D35"), item20=sh.getRange("D36")];
+
+// for (const i of items) {
+//   if(i.getValue() !== ""){
+//     row = i.getRow();
+//     var resetInvoice = sh.getRange(row,4,1,5);
+//     resetInvoice.setBackground("#f3f3f3")
+//   }
+// }
+
+// for (const i of items) {
+//   if(i.getValue() == ""){
+//     row = i.getRow();
+//     var emptyRows = sh.getRange(row,1,1,sh.getLastColumn());
+//     emptyRows.setBackground("white");
+//   }
+// }
+
   var response    = UrlFetchApp.fetch(export_url, options);
   if (response.getResponseCode() !== 200) {
     console.log("Error exporting Sheet to PDF!  Response Code: " + response.getResponseCode());
@@ -284,6 +291,10 @@ function send_email_internal_notif(file){
   }
 
   var uploaded_file = upload_pdf(response);
+  
+  var final_invoice_id = receipt_sheet.getRange(final_invoice_cell).getValue()
+  field_values_dict["file_url"]   = uploaded_file.getUrl();  
+  field_values_dict['invoice_id'] = final_invoice_id;
 
   return uploaded_file;
  }
@@ -302,25 +313,6 @@ function send_email_internal_notif(file){
     send_email_internal_notif();
   }
 
-  
-// Format Invoice 
-// var items = [item1=sh.getRange("D17"), item2=sh.getRange("D18"), item3=sh.getRange("D19"), item4=sh.getRange("D20"), item5=sh.getRange("D21"), item6=sh.getRange("D22"), item7=sh.getRange("D23"), item8=sh.getRange("D24"), item9=sh.getRange("D25"), item10=sh.getRange("D26"), item11=sh.getRange("D27"), item12=sh.getRange("D28"), item13=sh.getRange("D29"), item14=sh.getRange("D30"), item15=sh.getRange("D31"), item16=sh.getRange("D32"), item17=sh.getRange("D33"), item18=sh.getRange("D34"), item19=sh.getRange("D35"), item20=sh.getRange("D36")];
-
-// for (const i of items) {
-//   if(i.getValue() !== ""){
-//     row = i.getRow();
-//     var resetInvoice = sh.getRange(row,4,1,5);
-//     resetInvoice.setBackground("#f3f3f3")
-//   }
-// }
-
-// for (const i of items) {
-//   if(i.getValue() == ""){
-//     row = i.getRow();
-//     var emptyRows = sh.getRange(row,1,1,sh.getLastColumn());
-//     emptyRows.setBackground("white");
-//   }
-// }
   return  
 }
 
@@ -329,34 +321,14 @@ function populate_data_table(){
 
   
 
-// CREATE ENTRY IN manual_upload_table
-//   var originSheet = ss.getSheetByName("Carga de Facturas");
-//   var destSheet = ss.getSheetByName("manual_upload");
-//   //
-//   const sh = ss.getSheetByName('Comprobante');
-//   var invoice_id = sh.getRange(18,2).getValue()
-//   //
-//   var rg1=originSheet.getRange("B3:B73");
-//   var vA1=rg1.getValues().map(function(r){return r[0];});
-//   vA1.unshift(new Date());
-//  /// Replace InvoiceID if null in upload
-//   if (vA1[10] == '') {
-//     vA1[10] = invoice_id;
-//     }
-//   Logger.log ("InvoiceID: " +vA1[10])
-//   //// Get url_invoice and print at 70 position (end of array)
-//   vA1[72] = fileUrl
-//   /// Re-arrange array
-//   vA1.splice(11, 0, "")
-//   vA1.splice(12, 0, "")
-//   /// Format dates
-//   formatted_date = Utilities.formatDate(vA1[8], "GMT-3", 'MM/dd/yyyy');
-//   formatted_date = Utilities.formatDate(vA1[9], "GMT-3", 'MM/dd/yyyy');
-//   /// Append invoice data
-//   destSheet.appendRow(vA1)
+  data_arr = [];
+  for (const [field, value] of Object.entries(field_values_dict)) {
+    data_arr.push(value);
+  }
+
+  manual_upload_sheet.appendRow(data_arr);
 
   return;
-
 }
 
 function run_dbt() {
