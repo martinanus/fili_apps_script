@@ -1,12 +1,11 @@
 function clear_background(){
-  
     var range = spreadsheet.getRange(invoice_upload_page_name + '!' + content_range);
-    
+
     range.setBackground(default_bg_colour);
     SpreadsheetApp.flush();
 }
-  
-function clear_form(){  
+
+function clear_form(){
     var range = spreadsheet.getRange(invoice_upload_page_name + '!' + content_range);
 
     range.clearContent();
@@ -29,6 +28,3 @@ function set_ready_status(){
 function set_error_status(){
     invoice_upload_sheet.getRange(execute_button_cell).setBackground(error_bg_colour);
 }
-  
-
-

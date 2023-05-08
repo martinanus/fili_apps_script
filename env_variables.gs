@@ -30,7 +30,7 @@ fili_notif_email          = 'jeidlicz@gmail.com, \
 item_q                    = 20;
 
 // Colors
-default_bg_colour         = "#FFFFFF";   // white 
+default_bg_colour         = "#FFFFFF";   // white
 running_bg_colour         = "#FF6D01";   // orange
 error_bg_colour           = "#FF4122";   // red
 validated_bg_colour       = "#0ADB3A";   // green
@@ -41,7 +41,7 @@ content_range             = "B3:B75";   // in invoice_upload_page
 final_invoice_cell        = "B18";      // in receipt_page
 execute_button_cell       = "B2";       // in receipt_page
 
-field_cells_dict = {              
+field_cells_dict = {
 "counterpart"               : "B3", // in invoice_upload_page
 "relation"                  : "B4",
 "email"                     : "B5",
@@ -50,12 +50,12 @@ field_cells_dict = {
 "fixcost_periodicity"       : "B8",
 "installments_periodicity"  : "B9",
 "invoice_date"              : "B10",
-"due_date"                  : "B11", 
-"invoice_id"                : "B12", 
-"invoice_group_1"           : "B13", 
-"invoice_group_2"           : "B14", 
-"tax"                       : "B15", 
-"item_1"                    : "B16", 
-"unit_price_1"              : "B17", 
-"quantity_1"                : "B18", 
+"due_date"                  : "B11",
+"invoice_id"                : "B12",
+"invoice_group_1"           : "B13",
+"invoice_group_2"           : "B14",
+"tax"                       : "B15",
+"item_1"                    : "B16",
+"unit_price_1"              : "B17",
+"quantity_1"                : "B18",
 };
