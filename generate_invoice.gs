@@ -59,6 +59,7 @@ function set_global_variables(){
         send_email_with_receipt(uploaded_file);
         send_email_internal_notif();
     } else {
+        field_values_dict["file_url"]   = '';
         send_email_pending_generation();
         send_email_internal_action_req();
     }
@@ -90,7 +91,7 @@ function run_dbt() {
     };
 
     // call the server
-    UrlFetchApp.fetch(dbt_run_url + '/hello', options);
+    UrlFetchApp.fetch(dbt_run_url , options);
 }
 
 function exit_on_error(error_msg){
