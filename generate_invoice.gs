@@ -3,7 +3,7 @@ function main()
   set_global_variables();
   set_running_status();
   validate_fields();
-  process_form_data(); // TODO - format HTML email
+  process_form_data(); 
   populate_data_table();   
   clear_form();
   run_dbt();
@@ -247,12 +247,16 @@ function send_email_with_receipt(file){
   let invoice_id = field_values_dict["invoice_id"];
   let counterpart = field_values_dict["counterpart"];
   let subject = `Se generó su comprobante con ID ${invoice_id}`;
-  let message = `Estimado/a, \n\nAdjunto a este email vas a encontrar el comprobante \
-recientemente generado para ${counterpart} con ID ${invoice_id}. \
-\n\nSaludos, \nEl equipo de Fili.`;
-            
-  GmailApp.sendEmail(client_email, subject, message, {
-    attachments: [file]
+  let message = `Estimado/a, <BR><BR>`
+                + `Adjunto a este email vas a encontrar `
+                + `el comprobante recientemente generado para ${counterpart} `
+                + `con ID ${invoice_id}. <BR><BR>`
+                + `Saludos, <BR> `
+                + `El equipo de Fili.`;
+
+  GmailApp.sendEmail(client_email, subject, '', {
+    htmlBody    : message,
+    attachments : [file]
   })
   Logger.log("Se envió la factura al cliente:  " + client_email);
     
@@ -261,14 +265,17 @@ recientemente generado para ${counterpart} con ID ${invoice_id}. \
 
 
 function send_email_pending_generation(file){
-  let invoice_id = field_values_dict["invoice_id"];
   let counterpart = field_values_dict["counterpart"];
-  let subject = `Sus comprobantes con ID ${invoice_id} están en proceso`;
-  let message = `Estimado/a, \n\nLos comprobantes recientemente generados \
-para ${counterpart}, con ID ${invoice_id} se encuentran en proceso. \
-\n\nSaludos, \nEl equipo de Fili.`;                
+  let subject = `Sus comprobantes están en proceso`;
+  let message = `Estimado/a, <BR><BR>`
+                + `Los comprobantes recientemente generados `
+                + `para ${counterpart} se encuentran en proceso. <BR><BR>` 
+                + `Saludos, <BR> `
+                + `El equipo de Fili.`;                
 
-  GmailApp.sendEmail(client_email, subject, message);
+  GmailApp.sendEmail(client_email, subject, '', {
+    htmlBody: message
+  });
 
   Logger.log("Se notificó que la generación está en proceso al cliente: " + client_email);
     
@@ -277,19 +284,22 @@ para ${counterpart}, con ID ${invoice_id} se encuentran en proceso. \
 
 
 function send_email_internal_notif(file){
-  let invoice_id  = field_values_dict["invoice_id"];
   let counterpart = field_values_dict["counterpart"];
   let sheet_name  = spreadsheet.getName();
   
+  let subject = `Se cargó un nuevo comprobante en cuotas / costo fijo`;
+  let message = `Equipo Fili, <BR><BR>`
+                + `Se acaba de generar un comprobante `
+                + `para ${counterpart} en la sheet ${sheet_name}. `
+                + `Se puso en marcha la generación de tantos comprobantes `
+                + `como correspondan, con sus fechas de vencimiento, montos `
+                + `y número de cuota si corresponde. <BR><BR>`
+                + `Saludos, <BR>`
+                + `El equipo de Fili.`
 
-  let subject = `Se cargó un nuevo comprobante en cuotas / costo fijo, ID ${invoice_id}`;
-  let message = `Equipo Fili, \nSe acaba de generar un comprobante \
-para ${counterpart}, con ID ${invoice_id} en la sheet ${sheet_name}. \
-Se puso en marcha la generación de tantos comprobantes como correspondan, \
-con sus fechas de vencimiento, montos y número de cuota si corresponde. \
-\n\nSaludos, \nEl equipo de Fili.`
-
-  GmailApp.sendEmail(fili_notif_email, subject, message);
+  GmailApp.sendEmail(fili_notif_email, subject, '', {
+    htmlBody : message
+  });
 
   Logger.log('Se notificó internamente que se debe generar las facturas recurrentes '+
               'o por cuotas a: ' + fili_notif_email);
@@ -301,36 +311,18 @@ con sus fechas de vencimiento, montos y número de cuota si corresponde. \
   var export_url  = generate_export_url();
   var options     = get_http_options();
 
-  // TODO - Format Invoice 
-// var items = [item1=sh.getRange("D17"), item2=sh.getRange("D18"), item3=sh.getRange("D19"), item4=sh.getRange("D20"), item5=sh.getRange("D21"), item6=sh.getRange("D22"), item7=sh.getRange("D23"), item8=sh.getRange("D24"), item9=sh.getRange("D25"), item10=sh.getRange("D26"), item11=sh.getRange("D27"), item12=sh.getRange("D28"), item13=sh.getRange("D29"), item14=sh.getRange("D30"), item15=sh.getRange("D31"), item16=sh.getRange("D32"), item17=sh.getRange("D33"), item18=sh.getRange("D34"), item19=sh.getRange("D35"), item20=sh.getRange("D36")];
-
-// for (const i of items) {
-//   if(i.getValue() !== ""){
-//     row = i.getRow();
-//     var resetInvoice = sh.getRange(row,4,1,5);
-//     resetInvoice.setBackground("#f3f3f3")
-//   }
-// }
-
-// for (const i of items) {
-//   if(i.getValue() == ""){
-//     row = i.getRow();
-//     var emptyRows = sh.getRange(row,1,1,sh.getLastColumn());
-//     emptyRows.setBackground("white");
-//   }
-// }
-
   var response    = UrlFetchApp.fetch(export_url, options);
   if (response.getResponseCode() !== 200) {
     console.log("Error exporting Sheet to PDF!  Response Code: " + response.getResponseCode());
     exit_on_error("Error en la generación del comprobante. Reintente luego por favor.");
   }
+  
+  var final_invoice_id = receipt_sheet.getRange(final_invoice_cell).getValue()
+  field_values_dict['invoice_id'] = final_invoice_id;
 
   var uploaded_file = upload_pdf(response);
   
-  var final_invoice_id = receipt_sheet.getRange(final_invoice_cell).getValue()
   field_values_dict["file_url"]   = uploaded_file.getUrl();  
-  field_values_dict['invoice_id'] = final_invoice_id;
 
   return uploaded_file;
  }
@@ -341,7 +333,6 @@ con sus fechas de vencimiento, montos y número de cuota si corresponde. \
   if (field_values_dict["fixcost_periodicity"] == "" &&
     field_values_dict["installments_periodicity"] == ""){
     
-    // TODO - Format invoice
     uploaded_file = generate_receipt();
     send_email_with_receipt(uploaded_file);
   } else {
@@ -354,8 +345,6 @@ con sus fechas de vencimiento, montos y número de cuota si corresponde. \
 
 
 function populate_data_table(){
-
-  
 
   data_arr = [];
   for (const [field, value] of Object.entries(field_values_dict)) {
