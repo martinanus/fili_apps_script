@@ -2,14 +2,14 @@
 // Client Custom variables
 //----------------------------------------------------------------
 
-// Drive upload Folder for generated invoiced
-upload_folder_id          = '1gYNhl_1QetW_9v6B9j3s3awIV7LbTcn8';
+// Drive upload Folder for generated invoices
+upload_folder_id          = 'REPLACE_ME';
 
-// Email config
-client_email              = 'soporte@somosfili.com';
+// Client email config
+client_email              = 'REPLACE_ME';
 
-// DBT service URL
-dbt_run_url               = 'https://dbt-fili-7txkfbm3yq-uc.a.run.app';
+// Specific DBT client service URL
+dbt_run_url               = 'REPLACE_ME';
 
 //----------------------------------------------------------------
 // Standard variables

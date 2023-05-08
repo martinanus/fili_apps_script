@@ -11,6 +11,14 @@ function generate_invoice()
 }
 
 function set_global_variables(){
+
+  // Check for client custom variables
+  if (upload_folder_id.includes("REPLACE_ME") ||
+      client_email.includes("REPLACE_ME") ||
+      dbt_run_url .includes("REPLACE_ME")){
+        throw new Error("Complete client specific variables");
+  }
+
   spreadsheet           = SpreadsheetApp.getActiveSpreadsheet();
   invoice_upload_sheet  = spreadsheet.getSheetByName(invoice_upload_page_name);
   receipt_sheet         = spreadsheet.getSheetByName(receipt_page_name);
