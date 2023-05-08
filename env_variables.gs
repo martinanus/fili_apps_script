@@ -21,12 +21,10 @@ receipt_page_name         = "Comprobante";
 manual_upload_page_name   = "manual_upload";
 
 
-// TODO - Replace emails for real operation
-// fili_notif_email          = 'jeidlicz@gmail.com, \
-//                              agmendilaharzu@gmail.com, \
-//                              soporte@somosfili.com';
-fili_notif_email          = 'anusmartin1@gmail.com, \
-                            soporte@somosfili.com';
+fili_notif_email          = 'jeidlicz@gmail.com, \
+                             agmendilaharzu@gmail.com, \
+                             soporte@somosfili.com, \
+                             anusmartin1@gmail.com';
 
 // Items quantity
 item_q                    = 20;
