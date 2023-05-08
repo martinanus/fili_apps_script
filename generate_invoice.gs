@@ -1,12 +1,13 @@
 function main()
 {
   set_global_variables();
-  // TODO - set some indicator that script is running
+  set_running_status();
   validate_fields();
-  process_form_data(); // TODO - format HTML email - format receipt
+  process_form_data(); // TODO - format HTML email
   populate_data_table();   
   clear_form();
   run_dbt();
+  set_ready_status();
 }
 
 function set_global_variables(){
@@ -25,7 +26,11 @@ function set_global_variables(){
   item_q                    = 20;
   content_range             = "B3:B75";   // in invoice_upload_page
   final_invoice_cell        = "B18";      // in receipt_page
-  default_bg_colour         = "white"; 
+  execute_button_cell       = "B2";       // in receipt_page
+  default_bg_colour         = "#FFFFFF";    // white 
+  running_bg_colour         = "#FF6D01";   // orange
+  error_bg_colour           = "#FF4122";   // red
+  validated_bg_colour       = "#0ADB3A";   // green
     
   field_cells_dict = {              
     "counterpart"               : "B3", // in invoice_upload_page
@@ -62,6 +67,24 @@ function set_global_variables(){
 
 }
 
+function set_running_status(){
+  invoice_upload_sheet.getRange(execute_button_cell).setBackground(running_bg_colour);
+}
+function set_validated_status(){
+  invoice_upload_sheet.getRange(execute_button_cell).setBackground(validated_bg_colour);
+}
+
+function set_ready_status(){
+  invoice_upload_sheet.getRange(execute_button_cell).setBackground(default_bg_colour);
+}
+function set_error_status(){
+  invoice_upload_sheet.getRange(execute_button_cell).setBackground(error_bg_colour);
+}
+
+function exit_on_error(error_msg){
+  set_error_status();
+  throw new Error(error_msg);
+}
 
 function validate_mandatory_fields(){    
     const mandatory_field_l = ["counterpart", "relation", "is_approved",  
@@ -78,11 +101,11 @@ function validate_mandatory_fields(){
     }
 
     for (const field of error_field_l){
-      invoice_upload_sheet.getRange(field_cells_dict[field]).setBackground("#FF4122");
+      invoice_upload_sheet.getRange(field_cells_dict[field]).setBackground(error_bg_colour);
     }
 
     if (error_field_l.length){
-      throw new Error( "Por favor, complete los campos obligatorios para que el comprobante pueda ser cargado. Muchas gracias.");
+      exit_on_error("Por favor, complete los campos obligatorios para que el comprobante pueda ser cargado. Muchas gracias.");
     }
 
     return;
@@ -91,14 +114,14 @@ function validate_mandatory_fields(){
 function validate_installments(){
 
     if (Number(field_values_dict["installments"] > 1) && (field_values_dict["installments_periodicity"] == '')) {      
-      invoice_upload_sheet.getRange(field_cells_dict["installments_periodicity"]).setBackground("#FF4122");
-      throw new Error( "Por favor, indique la periodicidad de las cuotas para que el comprobante pueda ser cargado. Muchas gracias.");      
+      invoice_upload_sheet.getRange(field_cells_dict["installments_periodicity"]).setBackground(error_bg_colour);
+      exit_on_error("Por favor, indique la periodicidad de las cuotas para que el comprobante pueda ser cargado. Muchas gracias.");
     }
 
     if (Number(field_values_dict["installments"] == 1) && (field_values_dict["installments_periodicity"] != '')) {      
-      invoice_upload_sheet.getRange(field_cells_dict["installments_periodicity"]).setBackground("#FF4122");
-      invoice_upload_sheet.getRange(field_cells_dict["installments"]).setBackground("#FF4122");
-      throw new Error( "La periodicidad de cuotas solo debe ingresarse si Cuotas es mayor a 1. Caso contrario, el campo debe quedar vacío.");
+      invoice_upload_sheet.getRange(field_cells_dict["installments_periodicity"]).setBackground(error_bg_colour);
+      invoice_upload_sheet.getRange(field_cells_dict["installments"]).setBackground(error_bg_colour);
+      exit_on_error("La periodicidad de cuotas solo debe ingresarse si Cuotas es mayor a 1. Caso contrario, el campo debe quedar vacío.");
     }
 
     return;
@@ -108,14 +131,14 @@ function validate_installments(){
 function validate_fixcost(){
 
     if (field_values_dict["relation"] == "Costos Fijos" && field_values_dict["fixcost_periodicity"] == '') {
-      invoice_upload_sheet.getRange(field_cells_dict["fixcost_periodicity"]).setBackground("#FF4122");
-      throw new Error( "Por favor, indique la periodicidad de su costo fijo para que el comprobante pueda ser cargado. Muchas gracias.");
+      invoice_upload_sheet.getRange(field_cells_dict["fixcost_periodicity"]).setBackground(error_bg_colour);
+      exit_on_error("Por favor, indique la periodicidad de su costo fijo para que el comprobante pueda ser cargado. Muchas gracias.");
     }
 
     if (field_values_dict["relation"] != "Costos Fijos" && field_values_dict["fixcost_periodicity"] != '') {
-      invoice_upload_sheet.getRange(field_cells_dict["fixcost_periodicity"]).setBackground("#FF4122");
-      invoice_upload_sheet.getRange(field_cells_dict["relation"]).setBackground("#FF4122");
-      throw new Error( "La periodicidad de costo fijo solo debe ingresarse si la Relación comercial es 'costos fijos'. Caso contrario, el campo  debe quedar vacío.");
+      invoice_upload_sheet.getRange(field_cells_dict["fixcost_periodicity"]).setBackground(error_bg_colour);
+      invoice_upload_sheet.getRange(field_cells_dict["relation"]).setBackground(error_bg_colour);
+      exit_on_error("La periodicidad de costo fijo solo debe ingresarse si la Relación comercial es 'costos fijos'. Caso contrario, el campo  debe quedar vacío.");
     }
 
     return;
@@ -123,9 +146,9 @@ function validate_fixcost(){
 
 function validate_dates(){    
     if (field_values_dict["due_date"] < field_values_dict["invoice_date"]){
-      invoice_upload_sheet.getRange(field_cells_dict["invoice_date"]).setBackground("#FF4122");
-      invoice_upload_sheet.getRange(field_cells_dict["due_date"]).setBackground("#FF4122");
-      throw new Error( "La fecha de vencimiento no puede ser anterior a la fecha de emisión");
+      invoice_upload_sheet.getRange(field_cells_dict["invoice_date"]).setBackground(error_bg_colour);
+      invoice_upload_sheet.getRange(field_cells_dict["due_date"]).setBackground(error_bg_colour);
+      exit_on_error("La fecha de vencimiento no puede ser anterior a la fecha de emisión");
     }
 
     return;
@@ -145,14 +168,14 @@ function validate_items(){
 
         if (item_i != '' || unit_price_i != '' || quantity_i != ''){
           if (item_i == '' || unit_price_i == '' || quantity_i == ''){
-            invoice_upload_sheet.getRange(items_col+initial_cell+':'+items_col + (initial_cell+2)).setBackground("#FF4122");
+            invoice_upload_sheet.getRange(items_col+initial_cell+':'+items_col + (initial_cell+2)).setBackground(error_bg_colour);
             error_flag = true;
           }
         }           
     }
 
     if (error_flag){
-      throw new Error( "Se debe indicar el precio unitario y las cantidades para cada item.");
+      exit_on_error("Se debe indicar el precio unitario y las cantidades para cada item.");
     }
 
     return;
@@ -167,6 +190,8 @@ function validate_items(){
   validate_fixcost();
   validate_dates();
   validate_items(); 
+
+  set_validated_status();
   
   return;
  }
@@ -298,7 +323,7 @@ con sus fechas de vencimiento, montos y número de cuota si corresponde. \
   var response    = UrlFetchApp.fetch(export_url, options);
   if (response.getResponseCode() !== 200) {
     console.log("Error exporting Sheet to PDF!  Response Code: " + response.getResponseCode());
-    throw new "Error en la generación del comprobante. Reintente luego por favor."
+    exit_on_error("Error en la generación del comprobante. Reintente luego por favor.");
   }
 
   var uploaded_file = upload_pdf(response);
