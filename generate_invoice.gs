@@ -2,7 +2,7 @@ function main()
 {
   set_global_variables();
   // TODO - set some indicator that script is running
-  validate_fields() // TODO - periodicity empty check
+  validate_fields();
   process_form_data(); // TODO - format HTML email - format receipt
   populate_data_table();   
   clear_form();
@@ -95,6 +95,12 @@ function validate_installments(){
       throw new Error( "Por favor, indique la periodicidad de las cuotas para que el comprobante pueda ser cargado. Muchas gracias.");      
     }
 
+    if (Number(field_values_dict["installments"] == 1) && (field_values_dict["installments_periodicity"] != '')) {      
+      invoice_upload_sheet.getRange(field_cells_dict["installments_periodicity"]).setBackground("#FF4122");
+      invoice_upload_sheet.getRange(field_cells_dict["installments"]).setBackground("#FF4122");
+      throw new Error( "La periodicidad de cuotas solo debe ingresarse si Cuotas es mayor a 1. Caso contrario, el campo debe quedar vacío.");
+    }
+
     return;
 }
 
@@ -104,6 +110,12 @@ function validate_fixcost(){
     if (field_values_dict["relation"] == "Costos Fijos" && field_values_dict["fixcost_periodicity"] == '') {
       invoice_upload_sheet.getRange(field_cells_dict["fixcost_periodicity"]).setBackground("#FF4122");
       throw new Error( "Por favor, indique la periodicidad de su costo fijo para que el comprobante pueda ser cargado. Muchas gracias.");
+    }
+
+    if (field_values_dict["relation"] != "Costos Fijos" && field_values_dict["fixcost_periodicity"] != '') {
+      invoice_upload_sheet.getRange(field_cells_dict["fixcost_periodicity"]).setBackground("#FF4122");
+      invoice_upload_sheet.getRange(field_cells_dict["relation"]).setBackground("#FF4122");
+      throw new Error( "La periodicidad de costo fijo solo debe ingresarse si la Relación comercial es 'costos fijos'. Caso contrario, el campo  debe quedar vacío.");
     }
 
     return;
@@ -155,8 +167,7 @@ function validate_items(){
   validate_fixcost();
   validate_dates();
   validate_items(); 
-  validate_items(field_cells_dict['item_1'][0],  
-                  field_cells_dict['item_1'].substring(1)); 
+  
   return;
  }
 
