@@ -16,6 +16,7 @@ function set_global_variables(){
   manual_upload_page_name   = "manual_upload";
   
   client_email              = 'soporte@somosfili.com';
+  // TODO - Replace emails for real operation
   // fili_notif_email          = 'jeidlicz@gmail.com, \
   //                              agmendilaharzu@gmail.com, \
   //                              soporte@somosfili.com';
@@ -264,7 +265,31 @@ function send_email_with_receipt(file){
 }
 
 
-function send_email_pending_generation(file){
+function send_email_internal_notif(file){
+  let counterpart = field_values_dict["counterpart"];
+  let invoice_id = field_values_dict["invoice_id"];
+  let sheet_name  = spreadsheet.getName();
+  
+  let subject = `[INFO] ${sheet_name} - Nuevo comprobante automático con ID ${invoice_id}`;
+  let message = `Equipo Fili, <BR><BR>`
+                + `Se acaba de generar un comprobante `
+                + `para ${counterpart} en la sheet ${sheet_name} con ID ${invoice_id}. `
+                + `No se requiere ninguna acción por parte de Fili. <BR><BR>`
+                + `Saludos, <BR>`
+                + `El equipo de Fili.`
+
+  GmailApp.sendEmail(fili_notif_email, subject, '', {
+    htmlBody : message
+  });
+
+  Logger.log('Se notificó internamente que se debe generar las facturas recurrentes '+
+              'o por cuotas a: ' + fili_notif_email);
+    
+  return;
+}
+
+
+function send_email_pending_generation(){
   let counterpart = field_values_dict["counterpart"];
   let subject = `Sus comprobantes están en proceso`;
   let message = `Estimado/a, <BR><BR>`
@@ -283,11 +308,11 @@ function send_email_pending_generation(file){
 }
 
 
-function send_email_internal_notif(file){
+function send_email_internal_action_req(file){
   let counterpart = field_values_dict["counterpart"];
   let sheet_name  = spreadsheet.getName();
   
-  let subject = `Se cargó un nuevo comprobante en cuotas / costo fijo`;
+  let subject = `[URGENTE] ${sheet_name} - Nuevo comprobante en cuotas / costo fijo`;
   let message = `Equipo Fili, <BR><BR>`
                 + `Se acaba de generar un comprobante `
                 + `para ${counterpart} en la sheet ${sheet_name}. `
@@ -329,15 +354,15 @@ function send_email_internal_notif(file){
 
  function process_form_data(){
   
-  // TODO - AVOID BREAKING EMAIL MESSAGE IN MULTIPLE LINES
   if (field_values_dict["fixcost_periodicity"] == "" &&
     field_values_dict["installments_periodicity"] == ""){
     
     uploaded_file = generate_receipt();
     send_email_with_receipt(uploaded_file);
+    send_email_internal_notif();
   } else {
     send_email_pending_generation();
-    send_email_internal_notif();
+    send_email_internal_action_req();
   }
 
   return  
