@@ -31,6 +31,20 @@ function set_global_variables(){
     for (const [field, cell] of Object.entries(field_cells_dict)) {
         field_values_dict[field] = invoice_upload_sheet.getRange(cell).getValue();
     }
+
+    // Load items
+    var items_col       = field_cells_dict['item_1'][0];
+    var first_item_row  = field_cells_dict['item_1'].substring(1);
+    for (let i = 1; i < item_q; i++) {
+        let initial_cell  = Number(first_item_row) + 3*i;
+        field_values_dict["item_" + (i+1)]        = invoice_upload_sheet.getRange(items_col + (initial_cell  )).getValue();
+        field_values_dict["unit_price_" + (i+1)]  = invoice_upload_sheet.getRange(items_col + (initial_cell+1)).getValue();
+        field_values_dict["quantity_" + (i+1)]    = invoice_upload_sheet.getRange(items_col + (initial_cell+2)).getValue();
+
+        field_cells_dict["item_" + (i+1)]        = items_col + (initial_cell  );
+        field_cells_dict["unit_price_" + (i+1)]  = items_col + (initial_cell+1);
+        field_cells_dict["quantity_" + (i+1)]    = items_col + (initial_cell+2);
+    }
 }
 
 
@@ -54,6 +68,7 @@ function set_global_variables(){
 
 
 function populate_data_table(){
+    field_values_dict["is_invoice"] = false;
 
     var data_arr = [];
     for (const [field, value] of Object.entries(field_values_dict)) {

@@ -83,20 +83,19 @@ function validate_dates(){
 }
 
 function validate_items(){
-    var items_col       = field_cells_dict['item_1'][0];
-    var first_item_row  = field_cells_dict['item_1'].substring(1);
 
     var error_flag = false;
 
     for (let i = 0; i < item_q; i++) {
-        let initial_cell  = Number(first_item_row) + 3*i;
-        let item_i        = invoice_upload_sheet.getRange(items_col + (initial_cell  )).getValue();
-        let unit_price_i  = invoice_upload_sheet.getRange(items_col + (initial_cell+1)).getValue();
-        let quantity_i    = invoice_upload_sheet.getRange(items_col + (initial_cell+2)).getValue();
+        let item_i        = field_values_dict["item_" + (i+1)];
+        let unit_price_i  = field_values_dict["unit_price_" + (i+1)];
+        let quantity_i    = field_values_dict["quantity_" + (i+1)];
 
         if (item_i != '' || unit_price_i != '' || quantity_i != ''){
             if (item_i == '' || unit_price_i == '' || quantity_i == ''){
-                invoice_upload_sheet.getRange(items_col+initial_cell+':'+items_col + (initial_cell+2)).setBackground(error_bg_colour);
+                let range        = field_cells_dict["item_" + (i+1)] + ":"
+                                    + field_cells_dict["quantity_" + (i+1)];
+                invoice_upload_sheet.getRange(range).setBackground(error_bg_colour);
                 error_flag = true;
             }
         }
