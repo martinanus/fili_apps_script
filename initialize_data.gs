@@ -3,7 +3,8 @@ function set_global_variables(trig_source){
     source = trig_source;
 
     // Check for client custom variables
-    if (upload_folder_id.includes("REPLACE_ME") ||
+    if (client_name.includes("REPLACE_ME") ||
+        upload_folder_id.includes("REPLACE_ME") ||
         client_email.includes("REPLACE_ME") ||
         dbt_run_url.includes("REPLACE_ME")){
 

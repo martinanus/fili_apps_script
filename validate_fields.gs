@@ -6,8 +6,6 @@ function validate_fields(){
     validate_dates();
     validate_items();
 
-    set_validated_status();
-
     return;
 }
 

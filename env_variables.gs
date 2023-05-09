@@ -2,6 +2,9 @@
 // Client Custom variables
 //----------------------------------------------------------------
 
+// Client name
+client_name               = 'REPLACE_ME';
+
 // Drive upload Folder for generated invoices
 upload_folder_id          = 'REPLACE_ME';
 

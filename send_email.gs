@@ -25,7 +25,7 @@ function send_email_internal_notif(){
     let invoice_id = field_values_dict["invoice_id"];
     let sheet_name  = spreadsheet.getName();
 
-    let subject = `[INFO] ${sheet_name} - Nuevo comprobante automático con ID ${invoice_id}`;
+    let subject = `[INFO] ${client_email} - Nuevo comprobante automático con ID ${invoice_id}`;
     let message = `Equipo Fili, <BR><BR>`
                   + `Se acaba de generar un comprobante `
                   + `para ${counterpart} en la sheet ${sheet_name} con ID ${invoice_id}. <BR><BR>`
@@ -67,7 +67,7 @@ function send_email_internal_action_req(file){
     let counterpart = field_values_dict["counterpart"];
     let sheet_name  = spreadsheet.getName();
 
-    let subject = `[URGENTE] ${sheet_name} - Nuevo comprobante en cuotas / costo fijo`;
+    let subject = `[URGENTE] ${client_name} - Nuevo comprobante en cuotas / costo fijo`;
     let message = `Equipo Fili, <BR><BR>`
                   + `Se acaba de generar un comprobante `
                   + `para ${counterpart} en la sheet ${sheet_name}. `
