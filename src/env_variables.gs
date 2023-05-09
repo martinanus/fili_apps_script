@@ -24,7 +24,7 @@ receipt_page_name         = "Comprobante";
 manual_upload_page_name   = "manual_upload";
 internal_upload_page_name = "internal_upload";
 
-
+// Internal email configuration
 fili_notif_email          = 'jeidlicz@gmail.com, \
                              agmendilaharzu@gmail.com, \
                              soporte@somosfili.com, \

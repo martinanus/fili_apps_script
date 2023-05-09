@@ -6,8 +6,7 @@ function exit_on_error(error_msg){
   throw new Error(error_msg);
 }
 
-function columnToLetter(column)
-{
+function columnToLetter(column){
   var temp, letter = '';
   while (column > 0)
   {
@@ -18,8 +17,7 @@ function columnToLetter(column)
   return letter;
 }
 
-function letterToColumn(letter)
-{
+function letterToColumn(letter){
   var column = 0, length = letter.length;
   for (var i = 0; i < length; i++)
   {

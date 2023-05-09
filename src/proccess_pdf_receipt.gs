@@ -15,7 +15,6 @@ function generate_pdf_receipt(){
 }
 
 
-
 function generate_export_url(){
 
     const url_base = spreadsheet.getUrl().replace(/edit$/,'');
@@ -38,7 +37,8 @@ function generate_export_url(){
     Logger.log('exportUrl: ' + export_url)
 
     return export_url;
-   }
+}
+
 
 function get_http_options(){
 
@@ -50,7 +50,8 @@ function get_http_options(){
     options.muteHttpExceptions = true;
 
     return options;
-   }
+}
+
 
 function upload_pdf(http_response){
     var folder          = DriveApp.getFolderById(upload_folder_id);
@@ -61,6 +62,6 @@ function upload_pdf(http_response){
     field_values_dict["url_invoice"]   = uploaded_file.getUrl();
 
     return uploaded_file;
-  }
+}
 
 
