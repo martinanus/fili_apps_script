@@ -13,14 +13,23 @@ function validate_fields(){
 function validate_mandatory_fields(){
     const mandatory_field_l = ["counterpart", "relation", "is_approved",
                           "installments", "invoice_date", "due_date",
-                          "item_1", "unit_price_1", "quantity_1", "is_invoice"];
+                          "item_1", "unit_price_1", "quantity_1"];
+    const mandatory_internal_field_l = ["is_invoice", "url_invoice"];
 
     var error_field_l = []
 
     for (const field of mandatory_field_l){
-        if (field_values_dict[field] == '' && typeof(field_values_dict[field]) != "boolean"){
+        if (field_values_dict[field] == ''){
             console.log(field, " field is empty");
             error_field_l.push(field);
+        }
+    }
+    if (source == "INTERNAL"){
+        for (const field of mandatory_internal_field_l){
+            if (field_values_dict[field] == '' && typeof(field_values_dict[field]) != "boolean"){
+                console.log(field, " field is empty");
+                error_field_l.push(field);
+            }
         }
     }
 

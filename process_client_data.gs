@@ -1,4 +1,3 @@
-
  function process_form_data(){
 
     if (field_values_dict["fixcost_periodicity"] == "" &&
