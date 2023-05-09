@@ -1,5 +1,8 @@
 function exit_on_error(error_msg){
-  set_error_status();
+  if (source == "CLIENT"){
+    set_error_status();
+  }
+
   throw new Error(error_msg);
 }
 
