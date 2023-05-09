@@ -11,7 +11,7 @@ function validate_fields(){
 
 
 function validate_mandatory_fields(){
-    const mandatory_field_l = ["counterpart", "relation", "is_approved",
+    const mandatory_field_l = ["timestamp", "counterpart", "relation", "is_approved",
                           "installments", "invoice_date", "due_date",
                           "item_1", "unit_price_1", "quantity_1"];
     const mandatory_internal_field_l = ["is_invoice", "url_invoice"];
