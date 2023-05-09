@@ -123,14 +123,14 @@ function validate_duplicated_field(arr, col, field){
     const dup_elements      = find_duplicates(arr);
 
     var error_flag  = false;
-    var i           = first_row_internal_load;
+    var row_i       = first_row_internal_load;
 
     for (const element of arr) {
         if(dup_elements.includes(element)){
-            validate_sheet.getRange(col+i).setBackground(error_bg_colour);
+            validate_sheet.getRange(col+row_i).setBackground(error_bg_colour);
             error_flag = true;
         }
-        i++;
+        row_i++;
     }
 
     if (error_flag){

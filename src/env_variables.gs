@@ -5,11 +5,11 @@
 // Client name
 client_name               = 'REPLACE_ME';
 
-// Drive upload Folder for generated invoices
-upload_folder_id          = 'REPLACE_ME';
-
 // Client email config
 client_email              = 'REPLACE_ME';
+
+// Drive upload Folder for generated invoices
+upload_folder_id          = 'REPLACE_ME';
 
 // Specific DBT client service URL
 dbt_run_url               = 'REPLACE_ME';
@@ -43,7 +43,7 @@ validated_bg_colour       = "#0ADB3A";   // green
 // Cells declaration
 content_range             = "B3:B75";   // in invoice_upload_page
 final_invoice_cell        = "B18";      // in receipt_page
-status_cell               = "B2";       // in receipt_page
+status_cell               = "B2";       // in invoice_upload_page
 first_col_internal_load   = 1;          // =A in manual_upload
 first_row_internal_load   = 2;          // in manual_upload
 inv_id_col_internal_load  = 'K';        // in manual_upload

@@ -37,13 +37,7 @@
 - Tipos de variables
 
 
-
-
-
 - JS Compila todos los archivos
-
-
-
 
 - mantener estilo de escritura
     - JavaScript es mas camelCase
