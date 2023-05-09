@@ -25,9 +25,11 @@ function set_global_variables(trig_source){
         load_field_values_from_client();
         validate_sheet      = invoice_upload_sheet;
         cell_validate_dict  = cells_client_dict;
-    } else {
+    } else if (source == "INTERNAL"){
         validate_sheet      = internal_upload_sheet;
         cells_internal_dict = {};
+        invoice_id_l        = [];
+        url_invoice_l       = [];
     }
 }
 
@@ -83,4 +85,7 @@ function load_field_values_from_internal(row){
         cells_internal_dict[field_name] = cell;
         i++;
     }
+    cell_validate_dict  = cells_internal_dict;
+    invoice_id_l.push(field_values_dict["invoice_id"]);
+    url_invoice_l.push(field_values_dict["url_invoice"]);
 }

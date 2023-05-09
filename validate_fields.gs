@@ -112,3 +112,28 @@ function validate_items(){
 
     return;
 }
+
+function validate_duplicated(){
+    validate_duplicated_field(invoice_id_l, inv_id_col_internal_load, "invoice_id");
+    validate_duplicated_field(url_invoice_l, url_inv_col_internal_load, "url_invoice");
+}
+
+function validate_duplicated_field(arr, col, field){
+    const find_duplicates   = arr => arr.filter((item, index) => arr.indexOf(item) !== index);
+    const dup_elements      = find_duplicates(arr);
+
+    var error_flag  = false;
+    var i           = first_row_internal_load;
+
+    for (const element of arr) {
+        if(dup_elements.includes(element)){
+            validate_sheet.getRange(col+i).setBackground(error_bg_colour);
+            error_flag = true;
+        }
+        i++;
+    }
+
+    if (error_flag){
+        exit_on_error(`Se encontraron ${field} repetidos`);
+    }
+}

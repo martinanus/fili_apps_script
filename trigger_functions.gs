@@ -27,9 +27,9 @@ function check_internal_data(){
 
     for (let row = first_row_internal_load; row <= last_row ; row++ ){
         load_field_values_from_internal(row);
-        cell_validate_dict  = cells_internal_dict;
         validate_fields();
     }
+    validate_duplicated();
 }
 
 function load_internal_data(){
