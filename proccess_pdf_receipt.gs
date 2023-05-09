@@ -58,7 +58,7 @@ function upload_pdf(http_response){
     var the_blob        = http_response.getBlob().getAs('application/pdf').setName(invoice_id +'.pdf');
     var uploaded_file   = folder.createFile(the_blob);
 
-    field_values_dict["file_url"]   = uploaded_file.getUrl();
+    field_values_dict["url_invoice"]   = uploaded_file.getUrl();
 
     return uploaded_file;
   }

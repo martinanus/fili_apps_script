@@ -19,6 +19,7 @@ dbt_run_url               = 'REPLACE_ME';
 invoice_upload_page_name  = "Carga de Facturas";
 receipt_page_name         = "Comprobante";
 manual_upload_page_name   = "manual_upload";
+internal_upload_page_name = "internal_upload";
 
 
 fili_notif_email          = 'jeidlicz@gmail.com, \
@@ -39,9 +40,11 @@ validated_bg_colour       = "#0ADB3A";   // green
 // Cells declaration
 content_range             = "B3:B75";   // in invoice_upload_page
 final_invoice_cell        = "B18";      // in receipt_page
-execute_button_cell       = "B2";       // in receipt_page
+status_cell               = "B2";       // in receipt_page
+first_col_internal_load   = 1;          // =A in manual_upload
+first_row_internal_load   = 2;          // in manual_upload
 
-field_cells_dict = {
+cells_client_dict = {
 "counterpart"               : "B3", // in invoice_upload_page
 "relation"                  : "B4",
 "email"                     : "B5",
