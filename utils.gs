@@ -24,3 +24,16 @@ function letterToColumn(letter)
   }
   return column;
 }
+
+
+function run_dbt() {
+  // Use the OpenID token inside App Scripts
+  const token = ScriptApp.getIdentityToken();
+  var options = {
+      'method' : 'get',
+      'headers': {'Authorization': 'Bearer ' + token},
+  };
+
+  // call the server
+  UrlFetchApp.fetch(dbt_run_url , options);
+}

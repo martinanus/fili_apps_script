@@ -18,7 +18,7 @@ function validate_mandatory_fields(){
     var error_field_l = []
 
     for (const field of mandatory_field_l){
-        if (field_values_dict[field] == ''){
+        if (field_values_dict[field] == '' && typeof(field_values_dict[field]) != "boolean"){
             console.log(field, " field is empty");
             error_field_l.push(field);
         }

@@ -72,7 +72,7 @@ function load_field_values_from_client(){
         cells_client_dict["quantity_" + (i+1)]    = items_col + (initial_cell+2);
     }
 
-    field_values_dict["is_invoice"] = "FALSE";
+    field_values_dict["is_invoice"] = false;
 }
 
 function load_field_values_from_internal(row){

@@ -1,16 +1,3 @@
-function generate_invoice(){
-    set_global_variables("CLIENT");
-    set_running_status();
-    clear_form_background();
-    validate_fields();
-    set_validated_status();
-    process_form_data();
-    populate_data_table();
-    clear_form_content();
-    run_dbt();
-    set_ready_status();
-}
-
 
  function process_form_data(){
 
@@ -41,17 +28,4 @@ function populate_data_table(){
     manual_upload_sheet.appendRow(data_arr);
 
     return;
-}
-
-
-function run_dbt() {
-    // Use the OpenID token inside App Scripts
-    const token = ScriptApp.getIdentityToken();
-    var options = {
-        'method' : 'get',
-        'headers': {'Authorization': 'Bearer ' + token},
-    };
-
-    // call the server
-    UrlFetchApp.fetch(dbt_run_url , options);
 }
