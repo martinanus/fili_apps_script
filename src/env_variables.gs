@@ -27,8 +27,7 @@ internal_upload_page_name = "internal_upload";
 // Internal email configuration
 fili_notif_email          = 'jeidlicz@gmail.com, \
                              agmendilaharzu@gmail.com, \
-                             soporte@somosfili.com, \
-                             anusmartin1@gmail.com';
+                             soporte@somosfili.com';
 
 // Items quantity
 item_q                    = 20;
