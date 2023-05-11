@@ -19,14 +19,15 @@ function set_global_variables(trig_source){
 
     initialize_field_value_dict();
 
-
-
     if (source == "CLIENT"){
         load_field_values_from_client();
         validate_sheet      = invoice_upload_sheet;
         cell_validate_dict  = cells_client_dict;
     } else if (source == "INTERNAL"){
         validate_sheet      = internal_upload_sheet;
+        last_col            = columnToLetter(upload_table_fields_l.length);
+        last_row            = internal_upload_sheet.getLastRow();
+        internal_data       = [[]];
         cells_internal_dict = {};
         invoice_id_l        = [];
         url_invoice_l       = [];
@@ -77,11 +78,18 @@ function load_field_values_from_client(){
     field_values_dict["is_invoice"] = false;
 }
 
+function get_internal_data(){
+    var range   = first_col_internal_load + first_row_internal_load + ":"
+                + last_col + last_row;
+
+    internal_data = internal_upload_sheet.getRange(range).getValues();
+}
+
 function load_field_values_from_internal(row){
     var i = 0;
     for (const field_name of upload_table_fields_l) {
-        let cell   = columnToLetter(first_col_internal_load + i) + row;
-        field_values_dict[field_name]   = internal_upload_sheet.getRange(cell).getValue();
+        let cell   = columnToLetter(letterToColumn(first_col_internal_load) + i) + row;
+        field_values_dict[field_name]   = internal_data[row - first_row_internal_load][i]
         cells_internal_dict[field_name] = cell;
         i++;
     }

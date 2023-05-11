@@ -10,9 +10,7 @@ function clear_form_background(){
 }
 
 function clear_internal_upload_background(){
-    var last_col = columnToLetter(upload_table_fields_l.length);
-    var last_row = internal_upload_sheet.getLastRow();
-    var clear_range = columnToLetter(first_col_internal_load) + first_row_internal_load + ":"
+    var clear_range = first_col_internal_load + first_row_internal_load + ":"
                   + last_col + last_row;
     clear_background(internal_upload_page_name, clear_range);
 }
