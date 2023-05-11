@@ -63,7 +63,7 @@ function send_email_internal_notif(){
   }
 
 
-function send_email_internal_action_req(file){
+function send_email_internal_action_req(){
     let counterpart = field_values_dict["counterpart"];
     let sheet_name  = spreadsheet.getName();
 

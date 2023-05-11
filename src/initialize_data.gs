@@ -19,8 +19,6 @@ function set_global_variables(trig_source){
 
     initialize_field_value_dict();
 
-
-
     if (source == "CLIENT"){
         load_field_values_from_client();
         validate_sheet      = invoice_upload_sheet;
@@ -29,6 +27,7 @@ function set_global_variables(trig_source){
         validate_sheet      = internal_upload_sheet;
         last_col            = columnToLetter(upload_table_fields_l.length);
         last_row            = internal_upload_sheet.getLastRow();
+        internal_data       = [[]];
         cells_internal_dict = {};
         invoice_id_l        = [];
         url_invoice_l       = [];
