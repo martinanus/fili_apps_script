@@ -25,7 +25,7 @@ git clone https://github.com/martinanus/fili_apps_script.git
 
 
 #### Attach buttons in Sheets
-- Once code and environment variables have been set, you should attach sheet buttons to run the scipt accordingly.
+- Once code and environment variables have been set, you should attach sheet buttons to run the script accordingly.
     - **Client invoice generation**: on the client invoice upload page, create a button and assign it the command sequence `generate_invoice`
-     - **Internal data validation**: on the internal invoice upload page, create a button and assign it the command sequence `check_internal_data`
-      - **Synchronization with BigQuery**: on the internal invoice upload page, create a button and assign it the command sequence `load_internal_data`. This will first validate the data, and then synchronize with BigQuery.
+    - **Internal data validation**: on the internal invoice upload page, create a button and assign it the command sequence `check_internal_data`
+    - **Synchronization with BigQuery**: on the internal invoice upload page, create a button and assign it the command sequence `load_internal_data`. This will first validate the data, and then synchronize with BigQuery.

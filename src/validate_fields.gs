@@ -13,23 +13,14 @@ function validate_fields(){
 function validate_mandatory_fields(){
     const mandatory_field_l = ["timestamp", "counterpart", "relation", "is_approved",
                           "installments", "invoice_date", "due_date",
-                          "item_1", "unit_price_1", "quantity_1"];
-    const mandatory_internal_field_l = ["is_invoice", "url_invoice"];
+                          "item_1", "unit_price_1", "quantity_1", "is_invoice"];
 
     var error_field_l = []
 
     for (const field of mandatory_field_l){
-        if (field_values_dict[field] == ''){
+        if (field_values_dict[field] == '' && typeof(field_values_dict[field]) != "boolean"){
             console.log(field, " field is empty");
             error_field_l.push(field);
-        }
-    }
-    if (source == "INTERNAL"){
-        for (const field of mandatory_internal_field_l){
-            if (field_values_dict[field] == '' && typeof(field_values_dict[field]) != "boolean"){
-                console.log(field, " field is empty");
-                error_field_l.push(field);
-            }
         }
     }
 
@@ -115,12 +106,20 @@ function validate_items(){
 
 function validate_duplicated(){
     validate_duplicated_field(invoice_id_l, inv_id_col_internal_load, "invoice_id");
-    validate_duplicated_field(url_invoice_l, url_inv_col_internal_load, "url_invoice");
+    validate_duplicated_field(url_invoice_l, url_inv_col_internal_load, "url_invoice",
+                              allow_empties=true);
 }
 
-function validate_duplicated_field(arr, col, field){
+function validate_duplicated_field(arr, col, field, allow_empties=false){
     const find_duplicates   = arr => arr.filter((item, index) => arr.indexOf(item) !== index);
-    const dup_elements      = find_duplicates(arr);
+    var dup_elements      = find_duplicates(arr);
+
+    if (allow_empties){
+        let index;
+        while((index = dup_elements.indexOf('')) > -1){
+            dup_elements.splice(index, 1);
+        }
+    }
 
     var error_flag  = false;
     var row_i       = first_row_internal_load;
