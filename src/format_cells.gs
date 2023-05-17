@@ -6,7 +6,10 @@ function clear_background(page_name, clear_range){
 }
 
 function clear_form_background(){
-    clear_background(invoice_upload_page_name, content_range);
+    for (const [field, cell] of Object.entries(cells_client_dict)) {
+        invoice_upload_sheet.getRange(cell).setBackground(default_bg_colour);
+    }
+    SpreadsheetApp.flush();
 }
 
 function clear_internal_upload_background(){
@@ -16,9 +19,9 @@ function clear_internal_upload_background(){
 }
 
 function clear_form_content(){
-    var range = spreadsheet.getRange(invoice_upload_page_name + '!' + content_range);
-
-    range.clearContent();
+    for (const [field, cell] of Object.entries(cells_client_dict)) {
+        invoice_upload_sheet.getRange(cell).clearContent();
+    }
     SpreadsheetApp.flush();
 }
 

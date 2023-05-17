@@ -89,9 +89,9 @@ function validate_items(){
 
         if (item_i != '' || unit_price_i != '' || quantity_i != ''){
             if (item_i == '' || unit_price_i == '' || quantity_i == ''){
-                let range        = cell_validate_dict["item_" + (i+1)] + ":"
-                                    + cell_validate_dict["quantity_" + (i+1)];
-                validate_sheet.getRange(range).setBackground(error_bg_colour);
+                validate_sheet.getRange(cell_validate_dict["item_" + (i+1)]).setBackground(error_bg_colour);
+                validate_sheet.getRange(cell_validate_dict["unit_price_" + (i+1)]).setBackground(error_bg_colour);
+                validate_sheet.getRange(cell_validate_dict["quantity_" + (i+1)]).setBackground(error_bg_colour);
                 error_flag = true;
             }
         }
