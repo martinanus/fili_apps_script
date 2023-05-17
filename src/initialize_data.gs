@@ -20,7 +20,7 @@ function set_global_variables(trig_source){
     initialize_field_value_dict();
 
     if (source == "CLIENT"){
-        load_field_values_from_client();
+        load_client_dicts();
         validate_sheet      = invoice_upload_sheet;
         cell_validate_dict  = cells_client_dict;
     } else if (source == "INTERNAL"){
@@ -55,7 +55,7 @@ function initialize_field_value_dict(){
     }
 }
 
-function load_field_values_from_client(){
+function load_client_dicts(){
     field_values_dict["timestamp"] = new Date();
 
     for (const [field, cell] of Object.entries(cells_client_dict)) {
@@ -65,14 +65,19 @@ function load_field_values_from_client(){
     var items_col       = cells_client_dict['item_1'][0];
     var first_item_row  = cells_client_dict['item_1'].substring(1);
     for (let i = 1; i < item_q; i++) {
-        let initial_cell  = Number(first_item_row) + 3*i;
-        field_values_dict["item_" + (i+1)]        = invoice_upload_sheet.getRange(items_col + (initial_cell  )).getValue();
-        field_values_dict["unit_price_" + (i+1)]  = invoice_upload_sheet.getRange(items_col + (initial_cell+1)).getValue();
-        field_values_dict["quantity_" + (i+1)]    = invoice_upload_sheet.getRange(items_col + (initial_cell+2)).getValue();
+        let initial_cell  = Number(first_item_row) + 3*(spacing*i);
+        let cell = items_col + (initial_cell  );
 
-        cells_client_dict["item_" + (i+1)]        = items_col + (initial_cell  );
-        cells_client_dict["unit_price_" + (i+1)]  = items_col + (initial_cell+1);
-        cells_client_dict["quantity_" + (i+1)]    = items_col + (initial_cell+2);
+        cells_client_dict["item_" + (i+1)]        = cell;
+        field_values_dict["item_" + (i+1)]        = invoice_upload_sheet.getRange(cell).getValue();
+
+        cell = items_col + (initial_cell + spacing);
+        cells_client_dict["unit_price_" + (i+1)]  = cell;
+        field_values_dict["unit_price_" + (i+1)]  = invoice_upload_sheet.getRange(cell).getValue();
+
+        cell = items_col + (initial_cell + (2 * spacing));
+        cells_client_dict["quantity_" + (i+1)]    = cell;
+        field_values_dict["quantity_" + (i+1)]    = invoice_upload_sheet.getRange(cell).getValue();
     }
 
     field_values_dict["is_invoice"] = false;

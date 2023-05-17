@@ -48,21 +48,23 @@ first_col_internal_load   = "A";        // in manual_upload
 inv_id_col_internal_load  = 'K';        // in manual_upload
 url_inv_col_internal_load = 'BW';       // in manual_upload
 
+spacing                   = 2;          // separation btw content cells int invoice_upload_page
+
 cells_client_dict = {
-"counterpart"               : "B3", // in invoice_upload_page
-"relation"                  : "B4",
-"email"                     : "B5",
-"is_approved"               : "B6",
-"installments"              : "B7",
-"fixcost_periodicity"       : "B8",
-"installments_periodicity"  : "B9",
-"invoice_date"              : "B10",
-"due_date"                  : "B11",
-"invoice_id"                : "B12",
-"invoice_group_1"           : "B13",
-"invoice_group_2"           : "B14",
-"tax"                       : "B15",
-"item_1"                    : "B16",
-"unit_price_1"              : "B17",
-"quantity_1"                : "B18",
+"counterpart"               : "B4", // in invoice_upload_page
+"relation"                  : "B6",
+"email"                     : "B8",
+"is_approved"               : "B10",
+"installments"              : "B12",
+"fixcost_periodicity"       : "B14",
+"installments_periodicity"  : "B16",
+"invoice_date"              : "B18",
+"due_date"                  : "B20",
+"invoice_id"                : "B22",
+"invoice_group_1"           : "B24",
+"invoice_group_2"           : "B26",
+"tax"                       : "B28",
+"item_1"                    : "B30",
+"unit_price_1"              : "B32",
+"quantity_1"                : "B34",
 };

@@ -1,5 +1,5 @@
 function onOpen(){
-    set_global_variables();
+    set_global_variables("CLIENT");
     clear_form_background();
     clear_form_content();
     set_ready_status();
