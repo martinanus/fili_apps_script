@@ -63,8 +63,9 @@ cells_client_dict = {
 "invoice_id"                : "B22",
 "invoice_group_1"           : "B24",
 "invoice_group_2"           : "B26",
-"tax"                       : "B28",
-"item_1"                    : "B30",
-"unit_price_1"              : "B32",
-"quantity_1"                : "B34",
+"currency"                  : "B28",
+"tax"                       : "B30",
+"item_1"                    : "B32",
+"unit_price_1"              : "B34",
+"quantity_1"                : "B36",
 };
