@@ -1,6 +1,8 @@
  function process_form_data(){
 
-    if (field_values_dict["fixcost_periodicity"] == "" &&
+    get_final_invoice_id();
+
+    if (field_values_dict["recurrence_periodicity"] == "" &&
         field_values_dict["installments_periodicity"] == ""){
 
         var response = generate_pdf_receipt();
@@ -16,7 +18,6 @@
     return
 }
 
-
 function populate_data_table(){
 
     var data_arr = [];
@@ -27,4 +28,11 @@ function populate_data_table(){
     manual_upload_sheet.appendRow(data_arr);
 
     return;
+}
+
+function get_final_invoice_id(){
+    var final_invoice_id = receipt_sheet.getRange(final_invoice_cell).getValue()
+
+    field_values_dict['invoice_id'] = final_invoice_id;
+    return
 }
