@@ -2,7 +2,7 @@ function validate_fields(){
 
     validate_mandatory_fields();
     validate_installments();
-    validate_fixcost();
+    validate_recurrence();
     validate_dates();
     validate_items();
 
@@ -52,15 +52,19 @@ function validate_installments(){
 }
 
 
-function validate_fixcost(){
+function validate_recurrence(){
 
-    if (field_values_dict["relation"] == "Costos Fijos" && field_values_dict["fixcost_periodicity"] == '') {
-        validate_sheet.getRange(cell_validate_dict["fixcost_periodicity"]).setBackground(error_bg_colour);
+    if (["Costos Fijos", "Ingreso Recurrente"].includes(field_values_dict["relation"])
+            && field_values_dict["recurrence_periodicity"] == '') {
+
+        validate_sheet.getRange(cell_validate_dict["recurrence_periodicity"]).setBackground(error_bg_colour);
         exit_on_error("Por favor, indique la periodicidad de su costo fijo para que el comprobante pueda ser cargado. Muchas gracias.");
     }
 
-    if (field_values_dict["relation"] != "Costos Fijos" && field_values_dict["fixcost_periodicity"] != '') {
-        validate_sheet.getRange(cell_validate_dict["fixcost_periodicity"]).setBackground(error_bg_colour);
+    if (!["Costos Fijos", "Ingreso Recurrente"].includes(field_values_dict["relation"])
+            && field_values_dict["recurrence_periodicity"] != '') {
+
+        validate_sheet.getRange(cell_validate_dict["recurrence_periodicity"]).setBackground(error_bg_colour);
         validate_sheet.getRange(cell_validate_dict["relation"]).setBackground(error_bg_colour);
         exit_on_error("La periodicidad de costo fijo solo debe ingresarse si la Relación comercial es 'costos fijos'. Caso contrario, el campo  debe quedar vacío.");
     }

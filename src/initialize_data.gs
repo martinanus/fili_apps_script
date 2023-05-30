@@ -37,7 +37,7 @@ function set_global_variables(trig_source){
 
 function initialize_field_value_dict(){
     upload_table_fields_l = ["timestamp", "counterpart", "relation", "email", "is_approved",
-    "installments", "fixcost_periodicity", "installments_periodicity",
+    "installments", "recurrence_periodicity", "installments_periodicity",
     "invoice_date", "due_date", "invoice_id", "invoice_group_1",
     "invoice_group_2", "tax"];
 
