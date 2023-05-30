@@ -56,7 +56,7 @@ cells_client_dict = {
 "email"                     : "B8",
 "is_approved"               : "B10",
 "installments"              : "B12",
-"fixcost_periodicity"       : "B14",
+"recurrence_periodicity"    : "B14",
 "installments_periodicity"  : "B16",
 "invoice_date"              : "B18",
 "due_date"                  : "B20",

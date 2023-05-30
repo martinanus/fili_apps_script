@@ -8,9 +8,6 @@ function generate_pdf_receipt(){
       exit_on_error("Error en la generación del comprobante. Reintente luego por favor.");
     }
 
-    var final_invoice_id = receipt_sheet.getRange(final_invoice_cell).getValue()
-    field_values_dict['invoice_id'] = final_invoice_id;
-
     return response;
 }
 
