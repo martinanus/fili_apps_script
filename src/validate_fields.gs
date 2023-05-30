@@ -15,12 +15,23 @@ function validate_mandatory_fields(){
                           "installments", "invoice_date", "due_date",
                           "item_1", "unit_price_1", "quantity_1", "is_invoice"];
 
+    const mandatory_internal_field_l = ["invoice_id"];
+
     var error_field_l = []
 
     for (const field of mandatory_field_l){
         if (field_values_dict[field] == '' && typeof(field_values_dict[field]) != "boolean"){
             console.log(field, " field is empty");
             error_field_l.push(field);
+        }
+    }
+
+    if (source == "INTERNAL"){
+        for (const field of mandatory_internal_field_l){
+            if (field_values_dict[field] == '' && typeof(field_values_dict[field]) != "boolean"){
+                console.log(field, " field is empty");
+                error_field_l.push(field);
+            }
         }
     }
 
