@@ -39,7 +39,7 @@ function initialize_field_value_dict(){
     upload_table_fields_l = ["timestamp", "counterpart", "relation", "email", "is_approved",
     "installments", "recurrence_periodicity", "installments_periodicity",
     "invoice_date", "due_date", "invoice_id", "invoice_group_1",
-    "invoice_group_2", "tax"];
+    "invoice_group_2","currency", "tax"];
 
     for (let i = 0; i < item_q; i++) {
         upload_table_fields_l.push("item_" + (i+1));
