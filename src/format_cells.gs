@@ -7,6 +7,9 @@ function clear_background(page_name, clear_range){
 
 function clear_form_background(){
     for (const [field, cell] of Object.entries(cells_client_dict)) {
+        if (multicurrency_allowed==false && field == "currency"){
+            continue;
+        }
         invoice_upload_sheet.getRange(cell).setBackground(default_bg_colour);
     }
     SpreadsheetApp.flush();
@@ -20,6 +23,9 @@ function clear_internal_upload_background(){
 
 function clear_form_content(){
     for (const [field, cell] of Object.entries(cells_client_dict)) {
+        if (multicurrency_allowed==false && field == "currency"){
+            continue;
+        }
         invoice_upload_sheet.getRange(cell).clearContent();
     }
     SpreadsheetApp.flush();
