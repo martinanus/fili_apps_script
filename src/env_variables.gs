@@ -14,6 +14,9 @@ upload_folder_id          = 'REPLACE_ME';
 // Specific DBT client service URL
 dbt_run_url               = 'REPLACE_ME';
 
+// Set true to allow multicurrency use
+multicurrency_allowed     = false;
+
 //----------------------------------------------------------------
 // Standard variables
 //----------------------------------------------------------------

@@ -69,7 +69,7 @@ function validate_recurrence(){
             && field_values_dict["recurrence_periodicity"] == '') {
 
         validate_sheet.getRange(cell_validate_dict["recurrence_periodicity"]).setBackground(error_bg_colour);
-        exit_on_error("Por favor, indique la periodicidad de su costo fijo para que el comprobante pueda ser cargado. Muchas gracias.");
+        exit_on_error("Por favor, indique la periodicidad de su costo fijo / ingreso recurrente para que el comprobante pueda ser cargado. Muchas gracias.");
     }
 
     if (!["Costos Fijos", "Ingreso Recurrente"].includes(field_values_dict["relation"])
@@ -77,7 +77,7 @@ function validate_recurrence(){
 
         validate_sheet.getRange(cell_validate_dict["recurrence_periodicity"]).setBackground(error_bg_colour);
         validate_sheet.getRange(cell_validate_dict["relation"]).setBackground(error_bg_colour);
-        exit_on_error("La periodicidad de costo fijo solo debe ingresarse si la Relación comercial es 'costos fijos'. Caso contrario, el campo  debe quedar vacío.");
+        exit_on_error("La periodicidad de costo fijo / ingreso recurrente solo debe ingresarse si la Relación comercial es 'Costos Fijos' o 'Ingreso Recurrente'. Caso contrario, el campo debe quedar vacío.");
     }
 
     return;

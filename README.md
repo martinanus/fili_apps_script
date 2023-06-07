@@ -21,7 +21,8 @@ git clone https://github.com/martinanus/fili_apps_script.git
   - **Client name:** set the name to internally refer to the client
   - **Client email:** set the client email to send generated invoices
   - **Upload folder id:** set the drive folder ID where the invoices will be uploaded after generated
-   - **DBT Run URL:** set the URL of the specific client DBT Run service to update BigQuery.
+  - **DBT Run URL:** set the URL of the specific client DBT Run service to update BigQuery.
+  - **Multicurrency:** enable or disable the multicurrency feature.
 
 
 #### Attach buttons in Sheets
