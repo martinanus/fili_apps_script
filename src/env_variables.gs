@@ -15,7 +15,7 @@ upload_folder_id          = 'REPLACE_ME';
 dbt_run_url               = 'REPLACE_ME';
 
 // Set true to allow multicurrency use
-multicurrency_allowed     = false;
+multicurrency_allowed     = true;
 
 //----------------------------------------------------------------
 // Standard variables
@@ -43,32 +43,32 @@ validated_bg_colour       = "#0ADB3A";   // green
 
 
 // Cells declaration
-content_range             = "B3:B75";   // in invoice_upload_page
-final_invoice_cell        = "B18";      // in receipt_page
+final_invoice_cell        = "F13";      // in receipt_page
 status_cell               = "B2";       // in invoice_upload_page
 first_row_internal_load   = 2;          // in manual_upload
 first_col_internal_load   = "A";        // in manual_upload
-inv_id_col_internal_load  = 'K';        // in manual_upload
-url_inv_col_internal_load = 'BW';       // in manual_upload
+inv_id_col_internal_load  = 'I';        // in manual_upload
+url_inv_col_internal_load = 'BY';       // in manual_upload
 
 spacing                   = 2;          // separation btw content cells int invoice_upload_page
 
 cells_client_dict = {
 "counterpart"               : "B4", // in invoice_upload_page
-"relation"                  : "B6",
-"email"                     : "B8",
-"is_approved"               : "B10",
-"installments"              : "B12",
-"recurrence_periodicity"    : "B14",
-"installments_periodicity"  : "B16",
-"invoice_date"              : "B18",
-"due_date"                  : "B20",
-"invoice_id"                : "B22",
-"invoice_group_1"           : "B24",
-"invoice_group_2"           : "B26",
-"currency"                  : "B28",
-"tax"                       : "B30",
-"item_1"                    : "B32",
-"unit_price_1"              : "B34",
+"is_approved"               : "B6",
+"recurrence_periodicity"    : "B8",
+"installments"              : "B10",
+"installments_periodicity"  : "B12",
+"invoice_date"              : "B14",
+"due_date"                  : "B16",
+"invoice_id"                : "B18",
+"invoice_group_1"           : "B20",
+"invoice_group_2"           : "B22",
+"invoice_group_3"           : "B24",
+"invoice_group_4"           : "B26",
+"invoice_group_5"           : "B28",
+"currency"                  : "B30",
+"tax"                       : "B32",
+"item_1"                    : "B34",
 "quantity_1"                : "B36",
+"unit_price_1"              : "B38"
 };

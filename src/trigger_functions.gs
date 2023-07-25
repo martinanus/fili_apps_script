@@ -11,10 +11,10 @@ function generate_invoice(){
     clear_form_background();
     validate_fields();
     set_validated_status();
-    process_form_data();
+    // process_form_data();
     populate_data_table();
     clear_form_content();
-    run_dbt();
+    // run_dbt();
     set_ready_status();
 }
 

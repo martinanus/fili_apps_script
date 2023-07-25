@@ -36,15 +36,15 @@ function set_global_variables(trig_source){
 
 
 function initialize_field_value_dict(){
-    upload_table_fields_l = ["timestamp", "counterpart", "relation", "email", "is_approved",
-    "installments", "recurrence_periodicity", "installments_periodicity",
+    upload_table_fields_l = ["timestamp", "counterpart", "is_approved",
+    "recurrence_periodicity", "installments", "installments_periodicity",
     "invoice_date", "due_date", "invoice_id", "invoice_group_1",
-    "invoice_group_2","currency", "tax"];
+    "invoice_group_2", "invoice_group_3", "invoice_group_4", "invoice_group_5", "currency", "tax"];
 
     for (let i = 0; i < item_q; i++) {
         upload_table_fields_l.push("item_" + (i+1));
-        upload_table_fields_l.push("unit_price_" + (i+1));
         upload_table_fields_l.push("quantity_" + (i+1));
+        upload_table_fields_l.push("unit_price_" + (i+1));
     }
 
     upload_table_fields_l.push("url_invoice", "is_invoice");

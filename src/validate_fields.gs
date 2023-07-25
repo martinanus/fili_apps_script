@@ -2,7 +2,6 @@ function validate_fields(){
 
     validate_mandatory_fields();
     validate_installments();
-    validate_recurrence();
     validate_dates();
     validate_items();
 
@@ -11,8 +10,9 @@ function validate_fields(){
 
 
 function validate_mandatory_fields(){
-    const mandatory_field_l = ["timestamp", "counterpart", "relation", "is_approved",
-                          "installments", "invoice_date", "due_date", "currency",
+    const mandatory_field_l = ["timestamp", "counterpart", "is_approved",
+                          "recurrence_periodicity", "installments", "invoice_date",
+                          "due_date", "currency",
                           "item_1", "unit_price_1", "quantity_1", "is_invoice"];
 
     const mandatory_internal_field_l = ["invoice_id"];
@@ -63,26 +63,6 @@ function validate_installments(){
 }
 
 
-function validate_recurrence(){
-
-    if (["Costos Fijos", "Ingreso Recurrente"].includes(field_values_dict["relation"])
-            && field_values_dict["recurrence_periodicity"] == '') {
-
-        validate_sheet.getRange(cell_validate_dict["recurrence_periodicity"]).setBackground(error_bg_colour);
-        exit_on_error("Por favor, indique la periodicidad de su costo fijo / ingreso recurrente para que el comprobante pueda ser cargado. Muchas gracias.");
-    }
-
-    if (!["Costos Fijos", "Ingreso Recurrente"].includes(field_values_dict["relation"])
-            && field_values_dict["recurrence_periodicity"] != '') {
-
-        validate_sheet.getRange(cell_validate_dict["recurrence_periodicity"]).setBackground(error_bg_colour);
-        validate_sheet.getRange(cell_validate_dict["relation"]).setBackground(error_bg_colour);
-        exit_on_error("La periodicidad de costo fijo / ingreso recurrente solo debe ingresarse si la Relación comercial es 'Costos Fijos' o 'Ingreso Recurrente'. Caso contrario, el campo debe quedar vacío.");
-    }
-
-    return;
-}
-
 function validate_dates(){
     if (field_values_dict["due_date"] < field_values_dict["invoice_date"]){
         validate_sheet.getRange(cell_validate_dict["invoice_date"]).setBackground(error_bg_colour);
@@ -99,14 +79,14 @@ function validate_items(){
 
     for (let i = 0; i < item_q; i++) {
         let item_i        = field_values_dict["item_" + (i+1)];
-        let unit_price_i  = field_values_dict["unit_price_" + (i+1)];
         let quantity_i    = field_values_dict["quantity_" + (i+1)];
+        let unit_price_i  = field_values_dict["unit_price_" + (i+1)];
 
         if (item_i != '' || unit_price_i != '' || quantity_i != ''){
             if (item_i == '' || unit_price_i == '' || quantity_i == ''){
                 validate_sheet.getRange(cell_validate_dict["item_" + (i+1)]).setBackground(error_bg_colour);
-                validate_sheet.getRange(cell_validate_dict["unit_price_" + (i+1)]).setBackground(error_bg_colour);
                 validate_sheet.getRange(cell_validate_dict["quantity_" + (i+1)]).setBackground(error_bg_colour);
+                validate_sheet.getRange(cell_validate_dict["unit_price_" + (i+1)]).setBackground(error_bg_colour);
                 error_flag = true;
             }
         }
