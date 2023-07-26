@@ -26,7 +26,7 @@ function set_global_variables(trig_source){
         initialize_inv_field_value_dict();
         load_inv_dicts();
         validate_sheet      = invoice_upload_sheet;
-        cell_validate_dict  = cells_client_dict;
+        cell_validate_dict  = cells_inv_dict;
     } else if (source == "INTERNAL"){
         initialize_inv_field_value_dict();
         validate_sheet      = internal_upload_sheet;
@@ -40,7 +40,7 @@ function set_global_variables(trig_source){
         initialize_client_field_value_dict();
         load_client_dicts();
         // validate_sheet      = invoice_upload_sheet;
-        // cell_validate_dict  = cells_client_dict;
+        // cell_validate_dict  = cells_inv_dict;
     }
 
 }

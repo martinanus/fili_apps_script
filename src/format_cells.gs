@@ -6,7 +6,7 @@ function clear_background(page_name, clear_range){
 }
 
 function clear_form_background(){
-    for (const [field, cell] of Object.entries(cells_client_dict)) {
+    for (const [field, cell] of Object.entries(cells_inv_dict)) {
         if (multicurrency_allowed==false && field == "currency"){
             continue;
         }
@@ -22,7 +22,7 @@ function clear_internal_upload_background(){
 }
 
 function clear_form_content(){
-    for (const [field, cell] of Object.entries(cells_client_dict)) {
+    for (const [field, cell] of Object.entries(cells_inv_dict)) {
         if (multicurrency_allowed==false && field == "currency"){
             continue;
         }

@@ -15,7 +15,7 @@ upload_folder_id          = 'REPLACE_ME';
 dbt_run_url               = 'REPLACE_ME';
 
 // Set true to allow multicurrency use
-multicurrency_allowed     = true;
+multicurrency_allowed     = false;
 
 //----------------------------------------------------------------
 // Standard variables
