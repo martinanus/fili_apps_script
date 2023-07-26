@@ -26,6 +26,10 @@ function clear_form_content(){
         if (multicurrency_allowed==false && field == "currency"){
             continue;
         }
+        if (field == "invoice_id"){
+            invoice_upload_sheet.getRange(invoice_id_cell_to_clear).clearContent();
+            continue;
+        }
         invoice_upload_sheet.getRange(cell).clearContent();
     }
     SpreadsheetApp.flush();

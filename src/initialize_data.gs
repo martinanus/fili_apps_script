@@ -17,13 +17,18 @@ function set_global_variables(trig_source){
     manual_upload_sheet   = spreadsheet.getSheetByName(manual_upload_page_name);
     internal_upload_sheet = spreadsheet.getSheetByName(internal_upload_page_name);
 
-    initialize_field_value_dict();
+    client_upload_sheet = spreadsheet.getSheetByName(client_upload_page_name);
+    crm_page_sheet      = spreadsheet.getSheetByName(crm_page_name);
+
+
 
     if (source == "CLIENT"){
-        load_client_dicts();
+        initialize_inv_field_value_dict();
+        load_inv_dicts();
         validate_sheet      = invoice_upload_sheet;
         cell_validate_dict  = cells_client_dict;
     } else if (source == "INTERNAL"){
+        initialize_inv_field_value_dict();
         validate_sheet      = internal_upload_sheet;
         last_col            = columnToLetter(upload_table_fields_l.length);
         last_row            = internal_upload_sheet.getLastRow();
@@ -31,11 +36,17 @@ function set_global_variables(trig_source){
         cells_internal_dict = {};
         invoice_id_l        = [];
         url_invoice_l       = [];
+    } else if (source == "CRM"){
+        initialize_client_field_value_dict();
+        load_client_dicts();
+        // validate_sheet      = invoice_upload_sheet;
+        // cell_validate_dict  = cells_client_dict;
     }
+
 }
 
 
-function initialize_field_value_dict(){
+function initialize_inv_field_value_dict(){
     upload_table_fields_l = ["timestamp", "counterpart", "is_approved",
     "recurrence_periodicity", "installments", "installments_periodicity",
     "invoice_date", "due_date", "invoice_id", "invoice_group_1",
@@ -55,32 +66,54 @@ function initialize_field_value_dict(){
     }
 }
 
-function load_client_dicts(){
+
+function initialize_client_field_value_dict(){
+    upload_table_fields_l = ["timestamp", "counterpart", "relation",
+    "payment_methods", "contact_email", "country", "city", "address",
+    "language","client_group_1", "client_group_2", "client_group_3",
+    "url_logo"];
+
+    field_values_dict = {};
+    for (const field_name of upload_table_fields_l) {
+        field_values_dict[field_name] = "";
+    }
+}
+
+function load_inv_dicts(){
     field_values_dict["timestamp"] = new Date();
 
-    for (const [field, cell] of Object.entries(cells_client_dict)) {
+    for (const [field, cell] of Object.entries(cells_inv_dict)) {
         field_values_dict[field] = invoice_upload_sheet.getRange(cell).getValue();
     }
 
-    var items_col       = cells_client_dict['item_1'][0];
-    var first_item_row  = cells_client_dict['item_1'].substring(1);
+    var items_col       = cells_inv_dict['item_1'][0];
+    var first_item_row  = cells_inv_dict['item_1'].substring(1);
     for (let i = 1; i < item_q; i++) {
         let initial_cell  = Number(first_item_row) + 3*(spacing*i);
         let cell = items_col + (initial_cell  );
 
-        cells_client_dict["item_" + (i+1)]        = cell;
+        cells_inv_dict["item_" + (i+1)]        = cell;
         field_values_dict["item_" + (i+1)]        = invoice_upload_sheet.getRange(cell).getValue();
 
         cell = items_col + (initial_cell + spacing);
-        cells_client_dict["unit_price_" + (i+1)]  = cell;
+        cells_inv_dict["unit_price_" + (i+1)]  = cell;
         field_values_dict["unit_price_" + (i+1)]  = invoice_upload_sheet.getRange(cell).getValue();
 
         cell = items_col + (initial_cell + (2 * spacing));
-        cells_client_dict["quantity_" + (i+1)]    = cell;
+        cells_inv_dict["quantity_" + (i+1)]    = cell;
         field_values_dict["quantity_" + (i+1)]    = invoice_upload_sheet.getRange(cell).getValue();
     }
 
     field_values_dict["is_invoice"] = false;
+}
+
+
+function load_client_dicts(){
+    field_values_dict["timestamp"] = new Date();
+
+    for (const [field, cell] of Object.entries(cells_client_dict)) {
+        field_values_dict[field] = client_upload_sheet.getRange(cell).getValue();
+    }
 }
 
 function get_internal_data(){

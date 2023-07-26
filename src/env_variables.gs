@@ -22,6 +22,9 @@ multicurrency_allowed     = true;
 //----------------------------------------------------------------
 
 // Sheet pages name
+client_upload_page_name  = "Alta de Clientes";
+crm_page_name            = "client_upload";
+
 invoice_upload_page_name  = "Carga de Facturas";
 receipt_page_name         = "en_Comprobante";
 manual_upload_page_name   = "manual_upload";
@@ -48,10 +51,11 @@ first_row_internal_load   = 2;          // in manual_upload
 first_col_internal_load   = "A";        // in manual_upload
 inv_id_col_internal_load  = 'I';        // in manual_upload
 url_inv_col_internal_load = 'BY';       // in manual_upload
+invoice_id_cell_to_clear  = "B18";      // in invoice_upload_page
 
 spacing                   = 2;          // separation btw content cells int invoice_upload_page
 
-cells_client_dict = {
+cells_inv_dict = {
 "counterpart"               : "B4", // in invoice_upload_page
 "is_approved"               : "B6",
 "recurrence_periodicity"    : "B8",
@@ -71,3 +75,18 @@ cells_client_dict = {
 "quantity_1"                : "B36",
 "unit_price_1"              : "B38"
 };
+
+cells_client_dict = {
+    "counterpart"        : "B4", // in client_upload_page
+    "relation"           : "B6",
+    "payment_methods"    : "B8",
+    "contact_email"      : "B10",
+    "country"            : "B12",
+    "city"               : "B14",
+    "address"            : "B16",
+    "language"           : "B18",
+    "client_group_1"     : "B20",
+    "client_group_2"     : "B22",
+    "client_group_3"     : "B24",
+    "url_logo"           : "B26"
+    };

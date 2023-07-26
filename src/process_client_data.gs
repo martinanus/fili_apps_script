@@ -8,7 +8,7 @@
     return
 }
 
-function populate_data_table(){
+function populate_inv_data_table(){
 
     var data_arr = [];
     for (const [field, value] of Object.entries(field_values_dict)) {
@@ -20,3 +20,14 @@ function populate_data_table(){
     return;
 }
 
+function populate_client_data_table(){
+
+    var data_arr = [];
+    for (const [field, value] of Object.entries(field_values_dict)) {
+        data_arr.push(value);
+    }
+
+    crm_page_sheet.appendRow(data_arr);
+
+    return;
+}
