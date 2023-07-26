@@ -23,7 +23,7 @@ multicurrency_allowed     = true;
 
 // Sheet pages name
 invoice_upload_page_name  = "Carga de Facturas";
-receipt_page_name         = "Comprobante";
+receipt_page_name         = "en_Comprobante";
 manual_upload_page_name   = "manual_upload";
 internal_upload_page_name = "internal_upload";
 
@@ -43,7 +43,6 @@ validated_bg_colour       = "#0ADB3A";   // green
 
 
 // Cells declaration
-final_invoice_cell        = "F13";      // in receipt_page
 status_cell               = "B2";       // in invoice_upload_page
 first_row_internal_load   = 2;          // in manual_upload
 first_col_internal_load   = "A";        // in manual_upload
@@ -60,7 +59,7 @@ cells_client_dict = {
 "installments_periodicity"  : "B12",
 "invoice_date"              : "B14",
 "due_date"                  : "B16",
-"invoice_id"                : "B18",
+"invoice_id"                : "B19",
 "invoice_group_1"           : "B20",
 "invoice_group_2"           : "B22",
 "invoice_group_3"           : "B24",

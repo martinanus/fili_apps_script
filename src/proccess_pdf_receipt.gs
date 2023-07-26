@@ -24,8 +24,8 @@ function generate_export_url(){
       '&id=' + ss_id +
       '&size=A4' +
       '&portrait=true' +
-      '&fitw=true' +
-      '&sheetnames=true'+
+      '&fith=true' +
+      '&sheetnames=false'+
       '&printtitle=false'+
       '&pagenumbers=true' +
       '&gridlines=false' +
