@@ -2,6 +2,8 @@ function onOpen(){
     set_global_variables("CLIENT");
     clear_inv_form_background();
     clear_inv_form_content();
+    set_ready_status();
+    set_global_variables("CRM");
     clear_client_form_background();
     clear_client_form_content();
     set_ready_status();
@@ -15,6 +17,7 @@ function add_new_client(){
     set_validated_status();
     populate_client_data_table();
     clear_client_form_content();
+    // run_dbt();
     set_ready_status();
 }
 
