@@ -160,7 +160,7 @@ function validate_duplicated_field(arr, col, field, allow_empties=false){
 
 function validate_duplicated_counterpart(){
 
-    counterpart_duplicated        = client_form_sheet.getRange(duplicated_counterpart_cell).getValue();
+    counterpart_duplicated = client_form_sheet.getRange(duplicated_counterpart_cell).getValue();
 
     if (counterpart_duplicated == true){
         validate_sheet.getRange(cell_validate_dict["counterpart"]).setBackground(error_bg_colour);

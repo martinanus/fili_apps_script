@@ -14,12 +14,14 @@ upload_folder_id          = 'REPLACE_ME';
 // Specific DBT client service URL
 dbt_run_url               = 'REPLACE_ME';
 
+// Internal email configuration
+fili_notif_email          = 'anusmartin1@gmail.com';
+
 // Set true to allow multicurrency use
 multicurrency_allowed     = false;
 
 // this is use to ommit formating and clearing relation fielZ
 upload_only_client     = true; // LL_specific
-
 
 //----------------------------------------------------------------
 // Standard variables
@@ -30,14 +32,15 @@ client_form_page_name     = "Alta de Clientes";
 client_upload_page_name   = "client_upload";
 
 invoice_upload_page_name  = "Carga de Facturas";
-receipt_page_name         = "en_Comprobante";
+
+receipt_en_page_name      = "en_Comprobante"; // LL_specific
+receipt_fr_page_name      = "fr_Comprobante";
+receipt_es_page_name      = "es_Comprobante";
+
+
 manual_upload_page_name   = "manual_upload";
 internal_upload_page_name = "internal_upload";
 
-// Internal email configuration
-fili_notif_email          = 'jeidlicz@gmail.com, \
-                             agmendilaharzu@gmail.com, \
-                             soporte@somosfili.com';
 
 // Items quantity
 item_q                    = 20;
@@ -57,6 +60,7 @@ inv_id_col_internal_load  = 'I';        // in manual_upload
 url_inv_col_internal_load = 'BY';       // in manual_upload
 invoice_id_cell_to_clear  = "B18";      // in invoice_upload_page
 duplicated_counterpart_cell = "B5";      // in client_form_page
+language_cell               = "B31";      // in manual_upload
 
 spacing                   = 2;          // separation btw content cells int invoice_upload_page
 

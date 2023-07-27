@@ -15,7 +15,22 @@ function generate_pdf_receipt(){
 function generate_export_url(){
 
     const url_base = spreadsheet.getUrl().replace(/edit$/,'');
-    const sheet_tab_id = receipt_sheet.getSheetId();
+    var sheet_tab_id; // LL_specific
+
+    language        = invoice_upload_sheet.getRange(language_cell).getValue(); // LL_specific
+
+    switch (language) { // LL_specific
+      case 'Inglés':
+          sheet_tab_id = receipt_en_sheet.getSheetId();
+          break;
+      case 'Francés':
+          sheet_tab_id = receipt_fr_sheet.getSheetId();
+          break;
+      case 'Español':
+          sheet_tab_id = receipt_es_sheet.getSheetId();
+          break;
+    } // LL_specific
+
     const ss_id = spreadsheet.getId();
     const export_url = url_base +
       'export?'+

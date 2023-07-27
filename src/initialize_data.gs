@@ -13,7 +13,12 @@ function set_global_variables(trig_source){
 
     spreadsheet           = SpreadsheetApp.getActiveSpreadsheet();
     invoice_upload_sheet  = spreadsheet.getSheetByName(invoice_upload_page_name);
-    receipt_sheet         = spreadsheet.getSheetByName(receipt_page_name);
+
+    receipt_en_sheet         = spreadsheet.getSheetByName(receipt_en_page_name); // LL_specific
+    receipt_fr_sheet         = spreadsheet.getSheetByName(receipt_fr_page_name); // LL_specific
+    receipt_es_sheet         = spreadsheet.getSheetByName(receipt_es_page_name); // LL_specific
+
+
     manual_upload_sheet   = spreadsheet.getSheetByName(manual_upload_page_name);
     internal_upload_sheet = spreadsheet.getSheetByName(internal_upload_page_name);
 
