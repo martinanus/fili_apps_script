@@ -89,5 +89,6 @@ cells_client_dict = {
     "client_group_1"     : "B20",
     "client_group_2"     : "B22",
     "client_group_3"     : "B24",
-    "url_logo"           : "B26"
+    "url_logo"           : "B26",
+    "currency"           : "B28" // LL_specific
     };

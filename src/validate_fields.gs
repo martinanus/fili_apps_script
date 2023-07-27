@@ -49,7 +49,7 @@ function validate_inv_mandatory_fields(){
 
 function validate_client_mandatory_fields(){
     const mandatory_field_l = ["timestamp", "counterpart", "relation",
-                                "payment_methods", "language"];
+                                "payment_methods", "language", "currency"]; // LL_specific
 
 
     var error_field_l = []
