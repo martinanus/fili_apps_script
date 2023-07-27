@@ -17,8 +17,8 @@ function set_global_variables(trig_source){
     manual_upload_sheet   = spreadsheet.getSheetByName(manual_upload_page_name);
     internal_upload_sheet = spreadsheet.getSheetByName(internal_upload_page_name);
 
-    client_upload_sheet = spreadsheet.getSheetByName(client_upload_page_name);
-    crm_page_sheet      = spreadsheet.getSheetByName(crm_page_name);
+    client_form_sheet     = spreadsheet.getSheetByName(client_form_page_name);
+    client_upload_sheet   = spreadsheet.getSheetByName(client_upload_page_name);
 
 
 
@@ -39,8 +39,8 @@ function set_global_variables(trig_source){
     } else if (source == "CRM"){
         initialize_client_field_value_dict();
         load_client_dicts();
-        // validate_sheet      = invoice_upload_sheet;
-        // cell_validate_dict  = cells_inv_dict;
+        validate_sheet      = client_form_sheet;
+        cell_validate_dict  = cells_client_dict;
     }
 
 }
@@ -112,7 +112,7 @@ function load_client_dicts(){
     field_values_dict["timestamp"] = new Date();
 
     for (const [field, cell] of Object.entries(cells_client_dict)) {
-        field_values_dict[field] = client_upload_sheet.getRange(cell).getValue();
+        field_values_dict[field] = client_form_sheet.getRange(cell).getValue();
     }
 }
 

@@ -27,7 +27,7 @@ function populate_client_data_table(){
         data_arr.push(value);
     }
 
-    crm_page_sheet.appendRow(data_arr);
+    client_upload_sheet.appendRow(data_arr);
 
     return;
 }

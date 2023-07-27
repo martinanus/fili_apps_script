@@ -22,8 +22,8 @@ multicurrency_allowed     = false;
 //----------------------------------------------------------------
 
 // Sheet pages name
-client_upload_page_name  = "Alta de Clientes";
-crm_page_name            = "client_upload";
+client_form_page_name     = "Alta de Clientes";
+client_upload_page_name   = "client_upload";
 
 invoice_upload_page_name  = "Carga de Facturas";
 receipt_page_name         = "en_Comprobante";
@@ -52,6 +52,7 @@ first_col_internal_load   = "A";        // in manual_upload
 inv_id_col_internal_load  = 'I';        // in manual_upload
 url_inv_col_internal_load = 'BY';       // in manual_upload
 invoice_id_cell_to_clear  = "B18";      // in invoice_upload_page
+duplicated_counterpart_cell = "B5";      // in client_form_page
 
 spacing                   = 2;          // separation btw content cells int invoice_upload_page
 

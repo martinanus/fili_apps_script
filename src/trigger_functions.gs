@@ -9,12 +9,10 @@ function add_new_client(){
     set_global_variables("CRM");
     // set_running_status();
     // clear_form_background();
-    // validate_fields();
+    validate_client_fields();
     // set_validated_status();
-    // process_form_data();
     populate_client_data_table();
     // clear_form_content();
-    // run_dbt();
     // set_ready_status();
 }
 
@@ -22,7 +20,7 @@ function generate_invoice(){
     set_global_variables("CLIENT");
     set_running_status();
     clear_form_background();
-    validate_fields();
+    validate_inv_fields();
     set_validated_status();
     process_form_data();
     populate_inv_data_table();
