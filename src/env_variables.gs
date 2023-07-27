@@ -17,6 +17,10 @@ dbt_run_url               = 'REPLACE_ME';
 // Set true to allow multicurrency use
 multicurrency_allowed     = false;
 
+// this is use to ommit formating and clearing relation fielZ
+upload_only_client     = true; // LL_specific
+
+
 //----------------------------------------------------------------
 // Standard variables
 //----------------------------------------------------------------

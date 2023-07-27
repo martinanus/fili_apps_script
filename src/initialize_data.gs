@@ -71,7 +71,7 @@ function initialize_client_field_value_dict(){
     upload_table_fields_l = ["timestamp", "counterpart", "relation",
     "payment_methods", "contact_email", "country", "city", "address",
     "language","client_group_1", "client_group_2", "client_group_3",
-    "url_logo", "hash", "currency"]; // LL_specific
+    "url_logo", "external_notification", "counterpart_id", "currency"]; // LL_specific
 
     field_values_dict = {};
     for (const field_name of upload_table_fields_l) {
@@ -104,7 +104,7 @@ function load_inv_dicts(){
         field_values_dict["quantity_" + (i+1)]    = invoice_upload_sheet.getRange(cell).getValue();
     }
 
-    field_values_dict["is_invoice"] = false;
+    field_values_dict["is_invoice"] = true; // LL_specific
 }
 
 
@@ -114,6 +114,8 @@ function load_client_dicts(){
     for (const [field, cell] of Object.entries(cells_client_dict)) {
         field_values_dict[field] = client_form_sheet.getRange(cell).getValue();
     }
+
+    field_values_dict["external_notification"] = "notify"
 }
 
 function get_internal_data(){
