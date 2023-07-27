@@ -28,6 +28,9 @@ function validate_inv_mandatory_fields(){
 
     for (const field of mandatory_field_l){
         if (field_values_dict[field] == '' && typeof(field_values_dict[field]) != "boolean"){
+            if (multicurrency_allowed==false && field == "currency"){
+                continue;
+            }
             console.log(field, " field is empty");
             error_field_l.push(field);
         }
