@@ -5,12 +5,19 @@ function clear_background(page_name, clear_range){
     SpreadsheetApp.flush();
 }
 
-function clear_form_background(){
+function clear_inv_form_background(){
     for (const [field, cell] of Object.entries(cells_inv_dict)) {
         if (multicurrency_allowed==false && field == "currency"){
             continue;
         }
         invoice_upload_sheet.getRange(cell).setBackground(default_bg_colour);
+    }
+    SpreadsheetApp.flush();
+}
+
+function clear_client_form_background(){
+    for (const [field, cell] of Object.entries(cells_client_dict)) {
+        client_form_sheet.getRange(cell).setBackground(default_bg_colour);
     }
     SpreadsheetApp.flush();
 }
@@ -21,7 +28,7 @@ function clear_internal_upload_background(){
     clear_background(internal_upload_page_name, clear_range);
 }
 
-function clear_form_content(){
+function clear_inv_form_content(){
     for (const [field, cell] of Object.entries(cells_inv_dict)) {
         if (multicurrency_allowed==false && field == "currency"){
             continue;
@@ -35,19 +42,26 @@ function clear_form_content(){
     SpreadsheetApp.flush();
 }
 
+function clear_client_form_content(){
+    for (const [field, cell] of Object.entries(cells_client_dict)) {
+        client_form_sheet.getRange(cell).clearContent();
+    }
+    SpreadsheetApp.flush();
+}
+
 
 function set_running_status(){
-    invoice_upload_sheet.getRange(status_cell).setBackground(running_bg_colour);
+    validate_sheet.getRange(status_cell).setBackground(running_bg_colour);
 }
 
 function set_validated_status(){
-    invoice_upload_sheet.getRange(status_cell).setBackground(validated_bg_colour);
+    validate_sheet.getRange(status_cell).setBackground(validated_bg_colour);
 }
 
 function set_ready_status(){
-    invoice_upload_sheet.getRange(status_cell).setBackground(default_bg_colour);
+    validate_sheet.getRange(status_cell).setBackground(default_bg_colour);
 }
 
 function set_error_status(){
-    invoice_upload_sheet.getRange(status_cell).setBackground(error_bg_colour);
+    validate_sheet.getRange(status_cell).setBackground(error_bg_colour);
 }

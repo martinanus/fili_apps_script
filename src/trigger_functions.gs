@@ -1,30 +1,32 @@
 function onOpen(){
     set_global_variables("CLIENT");
-    clear_form_background();
-    clear_form_content();
+    clear_inv_form_background();
+    clear_inv_form_content();
+    clear_client_form_background();
+    clear_client_form_content();
     set_ready_status();
 }
 
 function add_new_client(){
     set_global_variables("CRM");
-    // set_running_status();
-    // clear_form_background();
+    set_running_status();
+    clear_client_form_background();
     validate_client_fields();
-    // set_validated_status();
+    set_validated_status();
     populate_client_data_table();
-    // clear_form_content();
-    // set_ready_status();
+    clear_client_form_content();
+    set_ready_status();
 }
 
 function generate_invoice(){
     set_global_variables("CLIENT");
     set_running_status();
-    clear_form_background();
+    clear_inv_form_background();
     validate_inv_fields();
     set_validated_status();
     process_form_data();
     populate_inv_data_table();
-    clear_form_content();
+    clear_inv_form_content();
     // run_dbt();
     set_ready_status();
 }
