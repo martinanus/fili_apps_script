@@ -2,11 +2,13 @@
 function send_email_to_user(file){
     let invoice_id = field_values_dict["invoice_id"];
     let counterpart = field_values_dict["counterpart"];
+    let contact_email = invoice_upload_sheet.getRange(contact_email_cell).getValue(); // LL_specific
     let subject = `Se generó su comprobante con ID ${invoice_id}`;
     let message = `Estimado/a, <BR><BR>`
                   + `Adjunto a este email vas a encontrar `
                   + `el comprobante recientemente generado para ${counterpart} `
-                  + `con ID ${invoice_id}. <BR><BR>`
+                  + `con ID ${invoice_id}. <BR>`
+                  + `El mail de contacto proporcionado es:  ${contact_email} <BR><BR>`
                   + `Saludos, <BR> `
                   + `El equipo de Fili.`;
 
@@ -47,7 +49,7 @@ function send_email_to_client(file){
 
   let message = get_translated_message();
 
-  contact_email = invoice_upload_sheet.getRange(contact_email_cell).getValue(); // LL_specific
+  let contact_email = invoice_upload_sheet.getRange(contact_email_cell).getValue(); // LL_specific
 
   GmailApp.sendEmail(contact_email, subject, '', {
     cc          : client_email,

@@ -111,6 +111,10 @@ function load_inv_dicts(){
     }
 
     field_values_dict["is_invoice"] = true; // LL_specific
+
+    if ((installments_period_fix == true) && (field_values_dict["installments"] == 1)){
+        field_values_dict["installments_periodicity"] = ""; // LL_specific
+    }
 }
 
 

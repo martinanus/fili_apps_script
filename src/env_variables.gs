@@ -26,6 +26,9 @@ multicurrency_allowed     = false;
 // this is use to ommit formating and clearing relation fields
 upload_only_client     = true; // LL_specific
 
+// this is use to ommit formating and clearing installment periodicity
+installments_period_fix     = true; // LL_specific
+
 //----------------------------------------------------------------
 // Standard variables
 //----------------------------------------------------------------

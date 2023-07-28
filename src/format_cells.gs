@@ -34,7 +34,11 @@ function clear_inv_form_content(){
             invoice_upload_sheet.getRange(invoice_id_cell_to_clear).clearContent();
             continue;
         }
+        if (installments_period_fix == true && field == "installments_periodicity"){
+            continue;
+        }
         invoice_upload_sheet.getRange(cell).clearContent();
+
     }
     SpreadsheetApp.flush();
 }
