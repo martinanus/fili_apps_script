@@ -32,6 +32,7 @@ function set_global_variables(trig_source){
         load_inv_dicts();
         validate_sheet      = invoice_upload_sheet;
         cell_validate_dict  = cells_inv_dict;
+        language            = invoice_upload_sheet.getRange(language_cell).getValue(); // LL_specific
     } else if (source == "INTERNAL"){
         initialize_inv_field_value_dict();
         validate_sheet      = internal_upload_sheet;

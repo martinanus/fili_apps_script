@@ -5,7 +5,7 @@ function generate_pdf_receipt(){
     var response    = UrlFetchApp.fetch(export_url, options);
     if (response.getResponseCode() !== 200) {
       console.log("Error exporting Sheet to PDF!  Response Code: " + response.getResponseCode());
-      exit_on_error("Error en la generación del comprobante. Reintente luego por favor.");
+      exit_on_error("Error en la generación del comprobante. Contacte al administrador para solucionarlo.");
     }
 
     return response;
@@ -16,8 +16,6 @@ function generate_export_url(){
 
     const url_base = spreadsheet.getUrl().replace(/edit$/,'');
     var sheet_tab_id; // LL_specific
-
-    language        = invoice_upload_sheet.getRange(language_cell).getValue(); // LL_specific
 
     switch (language) { // LL_specific
       case 'Inglés':
