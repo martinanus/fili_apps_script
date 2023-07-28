@@ -40,6 +40,10 @@ function generate_export_url(){
       '&size=A4' +
       '&portrait=true' +
       '&fith=true' +
+      '&top_margin=0.30' +
+      '&bottom_margin=0.20' +
+      '&left_margin=0.00' +
+      '&right_margin=0.40' +
       '&sheetnames=false'+
       '&printtitle=false'+
       '&pagenumbers=true' +
