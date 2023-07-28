@@ -29,6 +29,8 @@ function generate_export_url(){
           break;
     } // LL_specific
 
+    Logger.log('La factura se generará en: ' + language)
+
     const ss_id = spreadsheet.getId();
     const export_url = url_base +
       'export?'+
