@@ -17,6 +17,9 @@ dbt_run_url               = 'REPLACE_ME';
 // Internal email configuration
 fili_notif_email          = 'anusmartin1@gmail.com';
 
+// Set true to send generated receipt to client contact
+send_external_mail     = true;
+
 // Set true to allow multicurrency use
 multicurrency_allowed     = false;
 
@@ -33,9 +36,9 @@ client_upload_page_name   = "client_upload";
 
 invoice_upload_page_name  = "Carga de Facturas";
 
-receipt_en_page_name      = "en_Comprobante"; // LL_specific
-receipt_fr_page_name      = "fr_Comprobante";
-receipt_es_page_name      = "es_Comprobante";
+receipt_en_page_name      = "en_inv"; // LL_specific
+receipt_fr_page_name      = "fr_inv";
+receipt_es_page_name      = "es_inv";
 
 
 manual_upload_page_name   = "manual_upload";
