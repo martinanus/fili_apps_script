@@ -63,12 +63,12 @@ function send_email_to_client(file){
 }
 
 function get_translated_subject(){
+    let counterpart = field_values_dict["counterpart"];
+    let invoice_month = get_month_in_translated_text();
 
-    let en_subject = `New invoice issued by ${client_name}`
-
-    let fr_subject = `Nouvelle facture émise par ${client_name}`
-
-    let es_subject = `Nueva Factura de ${client_name}`;
+    let en_subject = `SEO Invoice ${invoice_month} - ${counterpart}`
+    let fr_subject = `Facture SEO ${invoice_month} - ${counterpart}`
+    let es_subject = `Factura SEO ${invoice_month} - ${counterpart}`
 
     switch (language) { // LL_specific
         case 'Inglés':
@@ -78,32 +78,35 @@ function get_translated_subject(){
         case 'Español':
             return es_subject;
     } // LL_specific
-
 }
 
 function get_translated_message(){
-    let counterpart = field_values_dict["counterpart"];
+    let invoice_month = get_month_in_translated_text();
+    let emoji_html = "&#128075;"
 
-    let en_message = `Hello ${counterpart} team, <BR><BR>`
-                + `I hope all is well.  `
-                + `Attached you will find the invoice issued to you `
-                + `by ${client_name}. <BR><BR>`
-                + `Regards, <BR> `
-                + `${client_name}`;
+    let en_message = `Hello ${emoji_html}, <BR><BR>`
+                + `Attached you will find the invoice regarding the `
+                + `the SEO services provided during ${invoice_month}.<BR><BR>`
+                + `Thank you and have a nice day! <BR><BR>`
+                + `Lucio Laria, <BR> `
+                + `<font size="-2">Sent with Fili</font>`
 
-    let fr_message = `Bonjour à l'équipe de ${counterpart}, <BR><BR>`
-                + `J'espère que tout va bien. `
-                + `Vous trouverez ci-joint la facture émise par `
-                + `${client_name}. <BR><BR>`
-                + `Cordialement, <BR> `
-                + `${client_name}`;
 
-    let es_message = `Hola equipo de ${counterpart}, <BR><BR>`
-                + `Espero que todo vaya bien. `
-                + `Adjunta encontrarán la factura emitida para ustedes por `
-                + `parte de ${client_name}. <BR><BR>`
-                + `Saludos, <BR> `
-                + `${client_name}`;
+    let fr_message = `Bonjour ${emoji_html}, <BR><BR>`
+                  + `Vous trouverez ci-joint la facture correspondante aux services `
+                  + `de référencement naturel réalisés lors du mois de ${invoice_month}.<BR><BR>`
+                  + `Merci beaucoup et bonne journée! <BR><BR>`
+                  + `Lucio Laria, <BR> `
+                  + `<font size="-2">Envoyé avec Fili</font>`
+
+
+    let es_message = `Hola ${emoji_html}, <BR><BR>`
+                + `Adjunta encontrarán la factura correspondiente a los servicios `
+                + `de SEO brindados en ${invoice_month}.<BR><BR>`
+                + `¡Muchas gracias! <BR><BR>`
+                + `Lucio Laria, <BR> `
+                + `<font size="-2">Enviado con Fili</font>`
+
 
     switch (language) { // LL_specific
         case 'Inglés':
@@ -113,5 +116,33 @@ function get_translated_message(){
         case 'Español':
             return es_message
     } // LL_specific
+
+}
+
+function get_month_in_translated_text(){
+  const en_month_names = ["January", "February", "March", "April", "May", "June",
+              "July", "August", "September", "October", "November", "December"];
+
+    const es_month_names = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+              "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+
+    const fr_month_names = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin",
+              "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
+
+
+    let invoice_month_num = field_values_dict["invoice_date"].getMonth();
+    let invoice_month;
+
+
+    switch (language) { // LL_specific
+      case 'Inglés':
+        invoice_month = en_month_names[invoice_month_num];
+      case 'Francés':
+        invoice_month = fr_month_names[invoice_month_num];
+      case 'Español':
+        invoice_month = es_month_names[invoice_month_num];
+  } // LL_specific
+
+  return invoice_month;
 
 }
