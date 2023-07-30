@@ -15,10 +15,10 @@ upload_folder_id          = 'REPLACE_ME';
 dbt_run_url               = 'REPLACE_ME';
 
 // Internal email configuration
-fili_notif_email          = 'anusmartin1@gmail.com';
+fili_notif_email          = 'soporte@somosfili.com';
 
 // Set true to send generated receipt to client contact with CC client
-send_external_mail     = true;
+send_external_mail     = false;
 
 // Set true to allow multicurrency use - ommit formating and clearing currency field
 multicurrency_allowed     = false;

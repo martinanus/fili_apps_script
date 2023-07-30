@@ -2,8 +2,6 @@
     var response = generate_pdf_receipt();
     var uploaded_file = upload_pdf(response);
 
-    send_email_internal_notif();
-
     if (send_external_mail == true){
         send_email_to_client(uploaded_file);
     } else {

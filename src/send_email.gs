@@ -13,6 +13,7 @@ function send_email_to_user(file){
                   + `El equipo de Fili.`;
 
     GmailApp.sendEmail(client_email, subject, '', {
+      bcc         : fili_notif_email,
       htmlBody    : message,
       attachments : [file]
     })
@@ -20,27 +21,6 @@ function send_email_to_user(file){
 
     return;
   }
-
-
-function send_email_internal_notif(){
-    let counterpart = field_values_dict["counterpart"];
-    let invoice_id = field_values_dict["invoice_id"];
-    let sheet_name  = spreadsheet.getName();
-
-    let subject = `[INFO] ${client_name} - Nuevo comprobante automático con ID ${invoice_id}`;
-    let message = `Equipo Fili, <BR><BR>`
-                  + `Se acaba de generar un comprobante `
-                  + `para ${counterpart} en la sheet ${sheet_name} con ID ${invoice_id}. <BR><BR>`
-                  + `Saludos, <BR>`
-                  + `El equipo de Fili.`
-
-    GmailApp.sendEmail(fili_notif_email, subject, '', {
-        htmlBody : message
-    });
-
-    return;
-  }
-
 
 
 function send_email_to_client(file){
@@ -53,6 +33,7 @@ function send_email_to_client(file){
 
   GmailApp.sendEmail(contact_email, subject, '', {
     cc          : client_email,
+    bcc         : fili_notif_email,
     htmlBody    : message,
     attachments : [file]
   })
