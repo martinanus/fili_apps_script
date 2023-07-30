@@ -118,10 +118,13 @@ function get_month_in_translated_text(){
     switch (language) { // LL_specific
       case 'Inglés':
         invoice_month = en_month_names[invoice_month_num];
+        break;
       case 'Francés':
         invoice_month = fr_month_names[invoice_month_num];
+        break;
       case 'Español':
         invoice_month = es_month_names[invoice_month_num];
+        break;
   } // LL_specific
 
   return invoice_month;
