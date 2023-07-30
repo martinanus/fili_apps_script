@@ -67,7 +67,7 @@ function get_translated_message(){
 
     let en_message = `Hello ${emoji_html}, <BR><BR>`
                 + `Attached you will find the invoice regarding the `
-                + `the SEO services provided during ${invoice_month}.<BR><BR>`
+                + `SEO services provided during ${invoice_month}.<BR><BR>`
                 + `Thank you and have a nice day! <BR><BR>`
                 + `Lucio Laria, <BR> `
                 + `<font size="-2">Sent with Fili</font>`
