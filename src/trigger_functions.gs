@@ -17,7 +17,6 @@ function add_new_client(){
     set_validated_status();
     populate_client_data_table();
     clear_client_form_content();
-    // run_dbt();
     set_ready_status();
 }
 
@@ -30,8 +29,8 @@ function generate_invoice(){
     process_form_data();
     populate_inv_data_table();
     clear_inv_form_content();
-    // run_dbt();
     set_ready_status();
+    run_dbt();
 }
 
 
