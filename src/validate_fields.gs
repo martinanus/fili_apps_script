@@ -23,6 +23,7 @@ function validate_inv_mandatory_fields(){
                           "due_date", "invoice_id", "currency",
                           "item_1", "unit_price_1", "quantity_1", "is_invoice"];
 
+    const mandatory_internal_field_l = ["url_source_reference"];
 
     var error_field_l = []
 
@@ -30,6 +31,16 @@ function validate_inv_mandatory_fields(){
         if (field_values_dict[field] == '' && typeof(field_values_dict[field]) != "boolean"){
             console.log(field, " field is empty");
             error_field_l.push(field);
+        }
+    }
+
+
+    if (source == "INTERNAL"){
+        for (const field of mandatory_internal_field_l){
+            if (field_values_dict[field] == '' && typeof(field_values_dict[field]) != "boolean"){
+                console.log(field, " field is empty");
+                error_field_l.push(field);
+            }
         }
     }
 
