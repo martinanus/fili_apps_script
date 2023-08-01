@@ -64,7 +64,7 @@ function initialize_inv_field_value_dict(){
         upload_table_fields_l.push("unit_price_" + (i+1));
     }
 
-    upload_table_fields_l.push("url_invoice", "is_invoice");
+    upload_table_fields_l.push("url_invoice", "url_source_reference" ,"is_invoice");
 
     field_values_dict = {};
     for (const field_name of upload_table_fields_l) {

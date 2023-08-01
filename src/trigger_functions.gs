@@ -42,7 +42,7 @@ function check_internal_data(){
 
     for (let row = first_row_internal_load; row <= last_row ; row++ ){
         load_field_values_from_internal(row);
-        validate_fields();
+        validate_inv_fields();
     }
     validate_duplicated();
 }
