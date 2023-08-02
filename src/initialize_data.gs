@@ -102,12 +102,12 @@ function load_inv_dicts(){
         field_values_dict["item_" + (i+1)]        = invoice_upload_sheet.getRange(cell).getValue();
 
         cell = items_col + (initial_cell + spacing);
-        cells_inv_dict["unit_price_" + (i+1)]  = cell;
-        field_values_dict["unit_price_" + (i+1)]  = invoice_upload_sheet.getRange(cell).getValue();
-
-        cell = items_col + (initial_cell + (2 * spacing));
         cells_inv_dict["quantity_" + (i+1)]    = cell;
         field_values_dict["quantity_" + (i+1)]    = invoice_upload_sheet.getRange(cell).getValue();
+
+        cell = items_col + (initial_cell + (2 * spacing));
+        cells_inv_dict["unit_price_" + (i+1)]  = cell;
+        field_values_dict["unit_price_" + (i+1)]  = invoice_upload_sheet.getRange(cell).getValue();
     }
 
     field_values_dict["is_invoice"] = true; // LL_specific
