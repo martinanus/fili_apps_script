@@ -5,7 +5,7 @@ function generate_pdf_receipt(){
     var response    = UrlFetchApp.fetch(export_url, options);
     if (response.getResponseCode() !== 200) {
       console.log("Error exporting Sheet to PDF!  Response Code: " + response.getResponseCode());
-      exit_on_error("Error en la generación del comprobante. Reintente luego por favor.");
+      exit_on_error("Error en la generación del comprobante. Contacte al administrador para solucionarlo.");
     }
 
     return response;
@@ -56,7 +56,8 @@ function upload_pdf(http_response){
     var the_blob        = http_response.getBlob().getAs('application/pdf').setName(invoice_id +'.pdf');
     var uploaded_file   = folder.createFile(the_blob);
 
-    field_values_dict["url_invoice"]   = uploaded_file.getUrl();
+    field_values_dict["url_invoice"]            = uploaded_file.getUrl();
+    field_values_dict["url_source_reference"]   = uploaded_file.getUrl();
 
     return uploaded_file;
 }

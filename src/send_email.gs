@@ -10,11 +10,12 @@ function send_email_with_receipt(file){
                   + `Saludos, <BR> `
                   + `El equipo de Fili.`;
 
-    GmailApp.sendEmail(client_email, subject, '', {
+    GmailApp.sendEmail(user_email, subject, '', {
+      cc          : fili_notif_email,
       htmlBody    : message,
       attachments : [file]
     })
-    Logger.log("Se envió la factura al cliente:  " + client_email);
+    Logger.log("Se envió la factura al usuario:  " + user_email);
 
     return;
   }
@@ -53,11 +54,12 @@ function send_email_internal_notif(){
                   + `Saludos, <BR> `
                   + `El equipo de Fili.`;
 
-    GmailApp.sendEmail(client_email, subject, '', {
+    GmailApp.sendEmail(user_email, subject, '', {
+        cc          : fili_notif_email,
         htmlBody: message
     });
 
-    Logger.log("Se notificó que la generación está en proceso al cliente: " + client_email);
+    Logger.log("Se notificó que la generación está en proceso al cliente: " + user_email);
 
     return;
   }

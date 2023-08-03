@@ -23,16 +23,24 @@ function validate_inv_mandatory_fields(){
                           "due_date", "invoice_id", "currency",
                           "item_1", "unit_price_1", "quantity_1", "is_invoice"];
 
+    const mandatory_internal_field_l = ["url_source_reference"];
 
     var error_field_l = []
 
     for (const field of mandatory_field_l){
         if (field_values_dict[field] == '' && typeof(field_values_dict[field]) != "boolean"){
-            if (multicurrency_allowed==false && field == "currency"){
-                continue;
-            }
             console.log(field, " field is empty");
             error_field_l.push(field);
+        }
+    }
+
+
+    if (source == "INTERNAL"){
+        for (const field of mandatory_internal_field_l){
+            if (field_values_dict[field] == '' && typeof(field_values_dict[field]) != "boolean"){
+                console.log(field, " field is empty");
+                error_field_l.push(field);
+            }
         }
     }
 
@@ -41,15 +49,14 @@ function validate_inv_mandatory_fields(){
     }
 
     if (error_field_l.length){
-        exit_on_error("Por favor, complete los campos obligatorios para que el comprobante pueda ser cargado. Muchas gracias.");
+        exit_on_error("Campos obligatorios incompletos");
     }
 
     return;
 }
 
 function validate_client_mandatory_fields(){
-    const mandatory_field_l = ["timestamp", "counterpart", "relation",
-                                "payment_methods", "language"];
+    const mandatory_field_l = ["timestamp", "counterpart", "relation"];
 
 
     var error_field_l = []
@@ -67,7 +74,7 @@ function validate_client_mandatory_fields(){
     }
 
     if (error_field_l.length){
-        exit_on_error("Por favor, complete los campos obligatorios para que el comprobante pueda ser cargado. Muchas gracias.");
+        exit_on_error("Campos obligatorios incompletos");
     }
 
     return;
@@ -77,13 +84,13 @@ function validate_installments(){
 
     if (Number(field_values_dict["installments"] > 1) && (field_values_dict["installments_periodicity"] == '')) {
         validate_sheet.getRange(cell_validate_dict["installments_periodicity"]).setBackground(error_bg_colour);
-        exit_on_error("Por favor, indique la periodicidad de las cuotas para que el comprobante pueda ser cargado. Muchas gracias.");
+        exit_on_error("Indique la periodicidad de las cuotas ");
     }
 
     if (Number(field_values_dict["installments"] == 1) && (field_values_dict["installments_periodicity"] != '')) {
         validate_sheet.getRange(cell_validate_dict["installments_periodicity"]).setBackground(error_bg_colour);
         validate_sheet.getRange(cell_validate_dict["installments"]).setBackground(error_bg_colour);
-        exit_on_error("La periodicidad de cuotas solo debe ingresarse si Cuotas es mayor a 1. Caso contrario, el campo debe quedar vacío.");
+        exit_on_error("Periodicidad de cuotas debe quedar vacío si Cuotas es 1");
     }
 
     return;
@@ -163,11 +170,11 @@ function validate_duplicated_field(arr, col, field, allow_empties=false){
 
 function validate_duplicated_counterpart(){
 
-    counterpart_duplicated        = client_form_sheet.getRange(duplicated_counterpart_cell).getValue();
+    counterpart_duplicated = client_form_sheet.getRange(duplicated_counterpart_cell).getValue();
 
     if (counterpart_duplicated == true){
         validate_sheet.getRange(cell_validate_dict["counterpart"]).setBackground(error_bg_colour);
-        exit_on_error(`La contraparte ya ha sido dada de alta.`);
+        exit_on_error(`La contraparte ya ha sido dada de alta. Para modificaciones, contacte al administrador.`);
     }
 
     return;

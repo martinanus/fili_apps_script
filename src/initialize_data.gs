@@ -5,7 +5,7 @@ function set_global_variables(trig_source){
     // Check for client custom variables
     if (client_name.includes("REPLACE_ME") ||
         upload_folder_id.includes("REPLACE_ME") ||
-        client_email.includes("REPLACE_ME") ||
+        user_email.includes("REPLACE_ME") ||
         dbt_run_url.includes("REPLACE_ME")){
 
             throw new Error("Complete client specific variables");
@@ -58,7 +58,7 @@ function initialize_inv_field_value_dict(){
         upload_table_fields_l.push("unit_price_" + (i+1));
     }
 
-    upload_table_fields_l.push("url_invoice", "is_invoice");
+    upload_table_fields_l.push("url_invoice", "url_source_reference" ,"is_invoice");
 
     field_values_dict = {};
     for (const field_name of upload_table_fields_l) {
@@ -71,7 +71,7 @@ function initialize_client_field_value_dict(){
     upload_table_fields_l = ["timestamp", "counterpart", "relation",
     "payment_methods", "contact_email", "country", "city", "address",
     "language","client_group_1", "client_group_2", "client_group_3",
-    "url_logo"];
+    "url_logo", "external_notification", "counterpart_id"];
 
     field_values_dict = {};
     for (const field_name of upload_table_fields_l) {
@@ -96,12 +96,12 @@ function load_inv_dicts(){
         field_values_dict["item_" + (i+1)]        = invoice_upload_sheet.getRange(cell).getValue();
 
         cell = items_col + (initial_cell + spacing);
-        cells_inv_dict["unit_price_" + (i+1)]  = cell;
-        field_values_dict["unit_price_" + (i+1)]  = invoice_upload_sheet.getRange(cell).getValue();
-
-        cell = items_col + (initial_cell + (2 * spacing));
         cells_inv_dict["quantity_" + (i+1)]    = cell;
         field_values_dict["quantity_" + (i+1)]    = invoice_upload_sheet.getRange(cell).getValue();
+
+        cell = items_col + (initial_cell + (2 * spacing));
+        cells_inv_dict["unit_price_" + (i+1)]  = cell;
+        field_values_dict["unit_price_" + (i+1)]  = invoice_upload_sheet.getRange(cell).getValue();
     }
 
     field_values_dict["is_invoice"] = false;
@@ -114,6 +114,8 @@ function load_client_dicts(){
     for (const [field, cell] of Object.entries(cells_client_dict)) {
         field_values_dict[field] = client_form_sheet.getRange(cell).getValue();
     }
+
+    field_values_dict["external_notification"] = "notify"
 }
 
 function get_internal_data(){

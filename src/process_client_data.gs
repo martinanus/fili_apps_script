@@ -2,6 +2,7 @@
     var response = generate_pdf_receipt();
     var uploaded_file = upload_pdf(response);
 
+    // TODO - send conditional mail depending on cuotas and recurrence
     send_email_with_receipt(uploaded_file);
     send_email_internal_notif();
 
