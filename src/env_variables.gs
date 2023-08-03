@@ -25,7 +25,7 @@ multicurrency_allowed     = false;
 //----------------------------------------------------------------
 
 // Sheet pages name
-client_form_page_name     = "Alta de Clientes";
+client_form_page_name     = "Alta de Contraparte";
 client_upload_page_name   = "counterpart_upload";
 
 invoice_upload_page_name  = "Carga de Facturas";
