@@ -35,7 +35,7 @@ installments_period_fix     = true; // LL_specific
 
 // Sheet pages name
 client_form_page_name     = "Alta de Clientes";
-client_upload_page_name   = "client_upload";
+client_upload_page_name   = "counterpart_upload";
 
 invoice_upload_page_name  = "Carga de Facturas";
 manual_upload_page_name   = "manual_upload";
