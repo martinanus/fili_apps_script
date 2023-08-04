@@ -28,7 +28,7 @@ multicurrency_allowed     = false;
 client_form_page_name     = "Alta de Contraparte";
 client_upload_page_name   = "counterpart_upload";
 
-invoice_upload_page_name  = "Carga de Facturas";
+invoice_upload_page_name  = "Registro de Movimiento";
 receipt_page_name         = "Comprobante";
 manual_upload_page_name   = "manual_upload";
 internal_upload_page_name = "internal_upload";
