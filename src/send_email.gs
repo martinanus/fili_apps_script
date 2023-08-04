@@ -9,8 +9,8 @@ function send_email_with_receipt(file){
                   + `Adjunto a este email vas a encontrar `
                   + `el comprobante recientemente generado para ${counterpart} `
                   + `con ID ${invoice_id}. <BR><BR>`
-                  + `Cuota: 1 / ${installments}. <BR>`
-                  + `Recurrencia: ${recurrence}. <BR><BR>`
+                  + `Cuota: 1 / ${installments} <BR>`
+                  + `Recurrencia: ${recurrence} <BR><BR>`
                   + `Saludos, <BR> `
                   + `El equipo de Fili.`;
 
