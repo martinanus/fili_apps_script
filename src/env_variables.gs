@@ -6,7 +6,7 @@
 client_name               = 'REPLACE_ME';
 
 // Client email config
-client_email              = 'REPLACE_ME';
+user_email              = 'REPLACE_ME';
 
 // Drive upload Folder for generated invoices
 upload_folder_id          = 'REPLACE_ME';
@@ -14,7 +14,10 @@ upload_folder_id          = 'REPLACE_ME';
 // Specific DBT client service URL
 dbt_run_url               = 'REPLACE_ME';
 
-// Set true to allow multicurrency use
+// Internal email configuration
+fili_notif_email          = 'soporte@somosfili.com';
+
+// Set true to allow multicurrency use - ommit formating and clearing currency field
 multicurrency_allowed     = false;
 
 //----------------------------------------------------------------
@@ -22,15 +25,14 @@ multicurrency_allowed     = false;
 //----------------------------------------------------------------
 
 // Sheet pages name
-invoice_upload_page_name  = "Carga de Facturas";
+client_form_page_name     = "Alta de Contraparte";
+client_upload_page_name   = "counterpart_upload";
+
+invoice_upload_page_name  = "Registro de Movimiento";
 receipt_page_name         = "Comprobante";
 manual_upload_page_name   = "manual_upload";
 internal_upload_page_name = "internal_upload";
 
-// Internal email configuration
-fili_notif_email          = 'jeidlicz@gmail.com, \
-                             agmendilaharzu@gmail.com, \
-                             soporte@somosfili.com';
 
 // Items quantity
 item_q                    = 20;
@@ -43,32 +45,49 @@ validated_bg_colour       = "#0ADB3A";   // green
 
 
 // Cells declaration
-content_range             = "B3:B75";   // in invoice_upload_page
-final_invoice_cell        = "B18";      // in receipt_page
 status_cell               = "B2";       // in invoice_upload_page
+invoice_id_cell_to_clear  = "B18";      // in invoice_upload_page
+
 first_row_internal_load   = 2;          // in manual_upload
 first_col_internal_load   = "A";        // in manual_upload
-inv_id_col_internal_load  = 'K';        // in manual_upload
-url_inv_col_internal_load = 'BW';       // in manual_upload
+inv_id_col_internal_load  = 'I';        // in manual_upload
+url_inv_col_internal_load = 'BY';       // in manual_upload
+duplicated_counterpart_cell = "B5";     // in client_form_page
 
 spacing                   = 2;          // separation btw content cells int invoice_upload_page
 
+cells_inv_dict = {
+    "counterpart"               : "B4", // in invoice_upload_page
+    "is_approved"               : "B6",
+    "recurrence_periodicity"    : "B8",
+    "installments"              : "B10",
+    "installments_periodicity"  : "B12",
+    "invoice_date"              : "B14",
+    "due_date"                  : "B16",
+    "invoice_id"                : "B19",
+    "invoice_group_1"           : "B20",
+    "invoice_group_2"           : "B22",
+    "invoice_group_3"           : "B24",
+    "invoice_group_4"           : "B26",
+    "invoice_group_5"           : "B28",
+    "currency"                  : "B30",
+    "tax"                       : "B32",
+    "item_1"                    : "B34",
+    "quantity_1"                : "B36",
+    "unit_price_1"              : "B38"
+};
+
 cells_client_dict = {
-"counterpart"               : "B4", // in invoice_upload_page
-"relation"                  : "B6",
-"email"                     : "B8",
-"is_approved"               : "B10",
-"installments"              : "B12",
-"recurrence_periodicity"    : "B14",
-"installments_periodicity"  : "B16",
-"invoice_date"              : "B18",
-"due_date"                  : "B20",
-"invoice_id"                : "B22",
-"invoice_group_1"           : "B24",
-"invoice_group_2"           : "B26",
-"currency"                  : "B28",
-"tax"                       : "B30",
-"item_1"                    : "B32",
-"unit_price_1"              : "B34",
-"quantity_1"                : "B36",
+    "counterpart"        : "B4", // in client_form_page_name
+    "relation"           : "B6",
+    "payment_methods"    : "B8",
+    "contact_email"      : "B10",
+    "country"            : "B12",
+    "city"               : "B14",
+    "address"            : "B16",
+    "language"           : "B18",
+    "client_group_1"     : "B20",
+    "client_group_2"     : "B22",
+    "client_group_3"     : "B24",
+    "url_logo"           : "B26"
 };
