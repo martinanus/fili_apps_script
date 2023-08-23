@@ -32,10 +32,12 @@ invoice_upload_page_name  = "Registro de Movimiento";
 receipt_page_name         = "Comprobante";
 manual_upload_page_name   = "manual_upload";
 internal_upload_page_name = "internal_upload";
+payment_upload_page_name  = "payment_upload";
 
 
 // Items quantity
-item_q                    = 20;
+inv_item_q                = 20;
+payment_concept_q         = 10;
 
 // Colors
 default_bg_colour         = "#FFFFFF";   // white
@@ -48,6 +50,8 @@ validated_bg_colour       = "#0ADB3A";   // green
 status_cell               = "B2";       // in invoice_upload_page
 invoice_id_cell_to_clear  = "B18";      // in invoice_upload_page
 is_approved_cell          = "B6";
+payment_id_cell           = "B17";
+relation_cell             = "B5";
 
 first_row_internal_load   = 2;          // in manual_upload
 first_col_internal_load   = "A";        // in manual_upload

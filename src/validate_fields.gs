@@ -28,22 +28,20 @@ function validate_inv_mandatory_fields(){
     var error_field_l = []
 
     for (const field of mandatory_field_l){
-        if (field_values_dict[field] == '' && typeof(field_values_dict[field]) != "boolean"){
+        if (inv_field_values_dict[field] == '' && typeof(inv_field_values_dict[field]) != "boolean"){
             console.log(field, " field is empty");
             error_field_l.push(field);
         }
     }
 
-    // TODO - check is_approved
     if (source == "MANUAL"){
-        var is_approved = invoice_upload_sheet.getRange(is_approved_cell).getValue();
         if (is_approved == ''){
             console.log("is approved field is empty");
             validate_sheet.getRange(is_approved_cell).setBackground(error_bg_colour);
         }
     } else if (source == "INTERNAL"){
         for (const field of mandatory_internal_field_l){
-            if (field_values_dict[field] == '' && typeof(field_values_dict[field]) != "boolean"){
+            if (inv_field_values_dict[field] == '' && typeof(inv_field_values_dict[field]) != "boolean"){
                 console.log(field, " field is empty");
                 error_field_l.push(field);
             }
@@ -69,7 +67,7 @@ function validate_client_mandatory_fields(){
     var error_field_l = []
 
     for (const field of mandatory_field_l){
-        if (field_values_dict[field] == '' && typeof(field_values_dict[field]) != "boolean"){
+        if (inv_field_values_dict[field] == '' && typeof(inv_field_values_dict[field]) != "boolean"){
             console.log(field, " field is empty");
             error_field_l.push(field);
         }
@@ -89,12 +87,12 @@ function validate_client_mandatory_fields(){
 
 function validate_installments(){
 
-    if (Number(field_values_dict["installments"] > 1) && (field_values_dict["installments_periodicity"] == '')) {
+    if (Number(inv_field_values_dict["installments"] > 1) && (inv_field_values_dict["installments_periodicity"] == '')) {
         validate_sheet.getRange(cell_validate_dict["installments_periodicity"]).setBackground(error_bg_colour);
         exit_on_error("Indique la periodicidad de las cuotas ");
     }
 
-    if (Number(field_values_dict["installments"] == 1) && (field_values_dict["installments_periodicity"] != '')) {
+    if (Number(inv_field_values_dict["installments"] == 1) && (inv_field_values_dict["installments_periodicity"] != '')) {
         validate_sheet.getRange(cell_validate_dict["installments_periodicity"]).setBackground(error_bg_colour);
         validate_sheet.getRange(cell_validate_dict["installments"]).setBackground(error_bg_colour);
         exit_on_error("Periodicidad de cuotas debe quedar vacío si Cuotas es 1");
@@ -105,7 +103,7 @@ function validate_installments(){
 
 
 function validate_dates(){
-    if (field_values_dict["due_date"] < field_values_dict["invoice_date"]){
+    if (inv_field_values_dict["due_date"] < inv_field_values_dict["invoice_date"]){
         validate_sheet.getRange(cell_validate_dict["invoice_date"]).setBackground(error_bg_colour);
         validate_sheet.getRange(cell_validate_dict["due_date"]).setBackground(error_bg_colour);
         exit_on_error("La fecha de vencimiento no puede ser anterior a la fecha de emisión");
@@ -118,10 +116,10 @@ function validate_items(){
 
     var error_flag = false;
 
-    for (let i = 0; i < item_q; i++) {
-        let item_i        = field_values_dict["item_" + (i+1)];
-        let quantity_i    = field_values_dict["quantity_" + (i+1)];
-        let unit_price_i  = field_values_dict["unit_price_" + (i+1)];
+    for (let i = 0; i < inv_item_q; i++) {
+        let item_i        = inv_field_values_dict["item_" + (i+1)];
+        let quantity_i    = inv_field_values_dict["quantity_" + (i+1)];
+        let unit_price_i  = inv_field_values_dict["unit_price_" + (i+1)];
 
         if (item_i != '' || unit_price_i != '' || quantity_i != ''){
             if (item_i == '' || unit_price_i == '' || quantity_i == ''){

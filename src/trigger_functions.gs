@@ -28,6 +28,7 @@ function generate_invoice(){
     set_validated_status();
     process_form_data();
     populate_inv_data_table();
+    populate_payment_data_table();
     clear_inv_form_content();
     set_ready_status();
     run_dbt();

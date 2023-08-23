@@ -1,9 +1,9 @@
 
 function send_email_with_receipt(file){
-    let invoice_id = field_values_dict["invoice_id"];
-    let counterpart = field_values_dict["counterpart"];
-    let recurrence = field_values_dict["recurrence_periodicity"];
-    let installments = field_values_dict["installments"];
+    let invoice_id = inv_field_values_dict["invoice_id"];
+    let counterpart = inv_field_values_dict["counterpart"];
+    let recurrence = inv_field_values_dict["recurrence_periodicity"];
+    let installments = inv_field_values_dict["installments"];
     let subject = `Se generó su comprobante con ID ${invoice_id}`;
     let message = `Estimado/a, <BR><BR>`
                   + `Adjunto a este email vas a encontrar `
