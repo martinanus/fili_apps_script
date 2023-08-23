@@ -71,7 +71,7 @@ function initialize_client_field_value_dict(){
     upload_table_fields_l = ["timestamp", "counterpart", "relation",
     "payment_methods", "contact_email", "country", "city", "address",
     "language","client_group_1", "client_group_2", "client_group_3",
-    "url_logo", "external_notification", "counterpart_id"];
+    "url_logo", "external_notification", "counterpart_id", "upload_source"];
 
     field_values_dict = {};
     for (const field_name of upload_table_fields_l) {
@@ -116,6 +116,8 @@ function load_client_dicts(){
     }
 
     field_values_dict["external_notification"] = "notify"
+    field_values_dict["upload_source"]         = "manual"
+    field_values_dict["counterpart_id"]        = hash_str(field_values_dict["counterpart"]);
 }
 
 function get_internal_data(){
