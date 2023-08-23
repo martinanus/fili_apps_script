@@ -40,6 +40,12 @@ function validate_inv_mandatory_fields(){
             console.log("is approved field is empty");
             validate_sheet.getRange(is_approved_cell).setBackground(error_bg_colour);
         }
+
+        var relation = invoice_upload_sheet.getRange(relation_cell).getValue();
+        if (relation == ''){
+            console.log("relation field is empty");
+            validate_sheet.getRange(relation_cell).setBackground(error_bg_colour);
+        }
     } else if (source == "INTERNAL"){
         for (const field of mandatory_internal_field_l){
             if (inv_field_values_dict[field] == '' && typeof(inv_field_values_dict[field]) != "boolean"){
@@ -62,7 +68,7 @@ function validate_inv_mandatory_fields(){
 }
 
 function validate_client_mandatory_fields(){
-    const mandatory_field_l = ["timestamp", "counterpart", "relation"];
+    const mandatory_field_l = ["timestamp", "counterpart", "relation", "contact_email"];
 
 
     var error_field_l = []

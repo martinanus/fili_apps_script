@@ -27,15 +27,17 @@ function set_global_variables(trig_source){
         is_approved         = get_approve_status();
         initialize_inv_field_value_dict();
         initialize_payment_field_value_dict();
+        initialize_client_field_value_dict();
         load_inv_dicts();
         load_payment_dicts();
+        load_indirect_client_dicts();
         validate_sheet      = invoice_upload_sheet;
         cell_validate_dict  = cells_inv_dict;
-
+        counterpart_duplicated = get_counterpart_duplicated();
     } else if (source == "INTERNAL"){
         initialize_inv_field_value_dict();
         validate_sheet      = internal_upload_sheet;
-        last_col            = columnToLetter(upload_table_fields_l.length);
+        last_col            = columnToLetter(inv_upload_table_fields_l.length);
         last_row            = internal_upload_sheet.getLastRow();
         internal_data       = [[]];
         cells_internal_dict = {};
@@ -180,6 +182,17 @@ function load_client_dicts(){
     client_field_values_dict["counterpart_id"]        = hash_str(client_field_values_dict["counterpart"]);
 }
 
+function load_indirect_client_dicts(){
+    client_field_values_dict["timestamp"] = inv_field_values_dict["timestamp"];
+
+    client_field_values_dict["counterpart"] = inv_field_values_dict["counterpart"];
+    client_field_values_dict["relation"]    = invoice_upload_sheet.getRange(relation_cell).getValue();
+
+    client_field_values_dict["external_notification"] = "notify"
+    client_field_values_dict["upload_source"]         = "manual_indirect"
+    client_field_values_dict["counterpart_id"]        = hash_str(client_field_values_dict["counterpart"]);
+}
+
 function get_internal_data(){
     var range   = first_col_internal_load + first_row_internal_load + ":"
                 + last_col + last_row;
@@ -189,7 +202,7 @@ function get_internal_data(){
 
 function load_field_values_from_internal(row){
     var i = 0;
-    for (const field_name of upload_table_fields_l) {
+    for (const field_name of inv_upload_table_fields_l) {
         let cell   = columnToLetter(letterToColumn(first_col_internal_load) + i) + row;
         inv_field_values_dict[field_name]   = internal_data[row - first_row_internal_load][i]
         cells_internal_dict[field_name] = cell;
@@ -223,4 +236,8 @@ function calculate_invoice_total_amount(){
     }
 
     return invoice_total_amount;
+}
+
+function get_counterpart_duplicated(){
+    return invoice_upload_sheet.getRange(duplicated_counterpart_cell).getValue();
 }

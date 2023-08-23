@@ -20,12 +20,15 @@ fili_notif_email          = 'soporte@somosfili.com';
 // Set true to allow multicurrency use - ommit formating and clearing currency field
 multicurrency_allowed     = false;
 
+invoice_upload_fix_fields_l     = ["recurrence_periodicity", "installments", "due_date", "is_approved"]
+counterpart_upload_fix_fields_l = ["relation"]
+
 //----------------------------------------------------------------
 // Standard variables
 //----------------------------------------------------------------
 
 // Sheet pages name
-client_form_page_name     = "Alta de Contraparte";
+client_form_page_name     = "Alta de Clientes";
 client_upload_page_name   = "counterpart_upload";
 
 invoice_upload_page_name  = "Registro de Movimiento";
@@ -49,9 +52,10 @@ validated_bg_colour       = "#0ADB3A";   // green
 // Cells declaration
 status_cell               = "B2";       // in invoice_upload_page
 invoice_id_cell_to_clear  = "B18";      // in invoice_upload_page
-is_approved_cell          = "B6";
+is_approved_cell          = "B7";
 payment_id_cell           = "B17";
-relation_cell             = "B5";
+relation_cell             = "B6";
+duplicated_indirect_counterpart = "B3";
 
 first_row_internal_load   = 2;          // in manual_upload
 first_col_internal_load   = "A";        // in manual_upload
