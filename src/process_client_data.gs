@@ -36,7 +36,7 @@ function populate_payment_data_table(){
 function populate_client_data_table(){
 
     var data_arr = [];
-    for (const [field, value] of Object.entries(inv_field_values_dict)) {
+    for (const [field, value] of Object.entries(client_field_values_dict)) {
         data_arr.push(value);
     }
 

@@ -35,7 +35,8 @@ function validate_inv_mandatory_fields(){
     }
 
     if (source == "MANUAL"){
-        if (is_approved == ''){
+        var is_approve_value = invoice_upload_sheet.getRange(is_approved_cell).getValue();
+        if (is_approve_value == ''){
             console.log("is approved field is empty");
             validate_sheet.getRange(is_approved_cell).setBackground(error_bg_colour);
         }
@@ -53,7 +54,7 @@ function validate_inv_mandatory_fields(){
     }
 
 
-    if ((error_field_l.length) || (is_approved == '')){
+    if ((error_field_l.length) || (is_approve_value == '')){
         exit_on_error("Campos obligatorios incompletos");
     }
 
@@ -67,7 +68,7 @@ function validate_client_mandatory_fields(){
     var error_field_l = []
 
     for (const field of mandatory_field_l){
-        if (inv_field_values_dict[field] == '' && typeof(inv_field_values_dict[field]) != "boolean"){
+        if (client_upload_table_fields_l[field] == '' && typeof(client_upload_table_fields_l[field]) != "boolean"){
             console.log(field, " field is empty");
             error_field_l.push(field);
         }

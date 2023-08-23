@@ -52,21 +52,21 @@ function set_global_variables(trig_source){
 
 
 function initialize_inv_field_value_dict(){
-    upload_table_fields_l = ["timestamp", "counterpart",
+    inv_upload_table_fields_l = ["timestamp", "counterpart",
     "recurrence_periodicity", "installments", "installments_periodicity",
     "invoice_date", "due_date", "invoice_id", "payment_id", "invoice_group_1",
     "invoice_group_2", "invoice_group_3", "invoice_group_4", "invoice_group_5", "currency"];
 
     for (let i = 0; i < inv_item_q; i++) {
-        upload_table_fields_l.push("item_" + (i+1));
-        upload_table_fields_l.push("quantity_" + (i+1));
-        upload_table_fields_l.push("unit_price_" + (i+1));
+        inv_upload_table_fields_l.push("item_" + (i+1));
+        inv_upload_table_fields_l.push("quantity_" + (i+1));
+        inv_upload_table_fields_l.push("unit_price_" + (i+1));
     }
 
-    upload_table_fields_l.push("url_invoice", "url_source_reference" ,"is_invoice");
+    inv_upload_table_fields_l.push("url_invoice", "url_source_reference" ,"is_invoice");
 
     inv_field_values_dict = {};
-    for (const field_name of upload_table_fields_l) {
+    for (const field_name of inv_upload_table_fields_l) {
         inv_field_values_dict[field_name] = "";
     }
 }
@@ -94,15 +94,15 @@ function initialize_payment_field_value_dict(){
 
 
 function initialize_client_field_value_dict(){
-    upload_table_fields_l = ["timestamp", "counterpart", "relation",
+    client_upload_table_fields_l = ["timestamp", "counterpart", "relation",
     "payment_methods", "payment_bank", "payment_alias_cbu", "cuit",
     "contact_email", "country", "city", "address",
     "language","client_group_1", "client_group_2", "client_group_3",
     "url_logo", "external_notification", "counterpart_id", "upload_source"];
 
-    inv_field_values_dict = {};
-    for (const field_name of upload_table_fields_l) {
-        inv_field_values_dict[field_name] = "";
+    client_field_values_dict = {};
+    for (const field_name of client_upload_table_fields_l) {
+        client_field_values_dict[field_name] = "";
     }
 }
 
@@ -169,15 +169,15 @@ function load_payment_dicts(){
 
 
 function load_client_dicts(){
-    inv_field_values_dict["timestamp"] = new Date();
+    client_field_values_dict["timestamp"] = new Date();
 
     for (const [field, cell] of Object.entries(cells_client_dict)) {
-        inv_field_values_dict[field] = client_form_sheet.getRange(cell).getValue();
+        client_field_values_dict[field] = client_form_sheet.getRange(cell).getValue();
     }
 
-    inv_field_values_dict["external_notification"] = "notify"
-    inv_field_values_dict["upload_source"]         = "manual"
-    inv_field_values_dict["counterpart_id"]        = hash_str(inv_field_values_dict["counterpart"]);
+    client_field_values_dict["external_notification"] = "notify"
+    client_field_values_dict["upload_source"]         = "manual"
+    client_field_values_dict["counterpart_id"]        = hash_str(client_field_values_dict["counterpart"]);
 }
 
 function get_internal_data(){
