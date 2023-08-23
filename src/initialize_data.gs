@@ -138,61 +138,6 @@ function load_inv_dicts(){
     }
 }
 
-function initialize_inv_field_value_dict(){
-    upload_table_fields_l = ["timestamp", "counterpart",
-    "recurrence_periodicity", "installments", "installments_periodicity",
-    "invoice_date", "due_date", "invoice_id", "payment_id", "invoice_group_1",
-    "invoice_group_2", "invoice_group_3", "invoice_group_4", "invoice_group_5", "currency"];
-
-    for (let i = 0; i < inv_item_q; i++) {
-        upload_table_fields_l.push("item_" + (i+1));
-        upload_table_fields_l.push("quantity_" + (i+1));
-        upload_table_fields_l.push("unit_price_" + (i+1));
-    }
-
-    upload_table_fields_l.push("url_invoice", "url_source_reference" ,"is_invoice");
-
-    inv_field_values_dict = {};
-    for (const field_name of upload_table_fields_l) {
-        inv_field_values_dict[field_name] = "";
-    }
-}
-
-
-function initialize_payment_field_value_dict(){
-    var payment_table_fields_l = ["timestamp", "invoice_key",
-    "id", "counterpart", "is_income",
-    "date", "currency"];
-
-    for (let i = 0; i < payment_concept_q; i++) {
-        payment_table_fields_l.push("name_concept_" + (i+1));
-        payment_table_fields_l.push("amount_concept_" + (i+1));
-    }
-
-    payment_table_fields_l.push("documents_url", "source_reference_url" ,"payment_method",
-                             "payment_group_1","payment_group_2", "payment_group_3",
-                             "payment_group_4", "payment_group_5",);
-
-    payment_field_values_dict = {};
-    for (const field_name of payment_table_fields_l) {
-        payment_field_values_dict[field_name] = "";
-    }
-}
-
-
-function initialize_client_field_value_dict(){
-    upload_table_fields_l = ["timestamp", "counterpart", "relation",
-    "payment_methods", "payment_bank", "payment_alias_cbu", "cuit",
-    "contact_email", "country", "city", "address",
-    "language","client_group_1", "client_group_2", "client_group_3",
-    "url_logo", "external_notification", "counterpart_id", "upload_source"];
-
-    inv_field_values_dict = {};
-    for (const field_name of upload_table_fields_l) {
-        inv_field_values_dict[field_name] = "";
-    }
-}
-
 function load_payment_dicts(){
     if (!is_approved){
         return;
@@ -220,29 +165,6 @@ function load_payment_dicts(){
 
     payment_field_values_dict["amount_concept_1"] = calculate_invoice_total_amount();
 
-    for (const [field, cell] of Object.entries(cells_inv_dict)) {
-        inv_field_values_dict[field] = invoice_upload_sheet.getRange(cell).getValue();
-    }
-
-    var items_col       = cells_inv_dict['item_1'][0];
-    var first_item_row  = cells_inv_dict['item_1'].substring(1);
-    for (let i = 1; i < inv_item_q; i++) {
-        let initial_cell  = Number(first_item_row) + 3*(spacing*i);
-        let cell = items_col + (initial_cell  );
-
-        cells_inv_dict["item_" + (i+1)]        = cell;
-        inv_field_values_dict["item_" + (i+1)]        = invoice_upload_sheet.getRange(cell).getValue();
-
-        cell = items_col + (initial_cell + spacing);
-        cells_inv_dict["quantity_" + (i+1)]    = cell;
-        inv_field_values_dict["quantity_" + (i+1)]    = invoice_upload_sheet.getRange(cell).getValue();
-
-        cell = items_col + (initial_cell + (2 * spacing));
-        cells_inv_dict["unit_price_" + (i+1)]  = cell;
-        inv_field_values_dict["unit_price_" + (i+1)]  = invoice_upload_sheet.getRange(cell).getValue();
-    }
-
-    inv_field_values_dict["is_invoice"] = false;
 }
 
 
