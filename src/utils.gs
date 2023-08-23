@@ -26,6 +26,17 @@ function letterToColumn(letter){
   return column;
 }
 
+function hash_str(str_to_hash){
+  let sum = 0;
+
+  for (let i = 0; i < str_to_hash.length; i++) {
+    sum += str_to_hash.charCodeAt(i);
+  }
+  sum *= str_to_hash.charCodeAt(0);
+
+  return sum;
+}
+
 
 function run_dbt() {
   // Use the OpenID token inside App Scripts
