@@ -1,5 +1,5 @@
 function onOpen(){
-    set_global_variables("CLIENT");
+    set_global_variables("MANUAL");
     clear_inv_form_background();
     clear_inv_form_content();
     set_ready_status();
@@ -21,7 +21,7 @@ function add_new_client(){
 }
 
 function generate_invoice(){
-    set_global_variables("CLIENT");
+    set_global_variables("MANUAL");
     set_running_status();
     clear_inv_form_background();
     validate_inv_fields();

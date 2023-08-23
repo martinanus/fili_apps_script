@@ -22,7 +22,7 @@ function set_global_variables(trig_source){
 
 
 
-    if (source == "CLIENT"){
+    if (source == "MANUAL"){
         initialize_inv_field_value_dict();
         load_inv_dicts();
         validate_sheet      = invoice_upload_sheet;
@@ -47,10 +47,10 @@ function set_global_variables(trig_source){
 
 
 function initialize_inv_field_value_dict(){
-    upload_table_fields_l = ["timestamp", "counterpart", "is_approved",
+    upload_table_fields_l = ["timestamp", "counterpart",
     "recurrence_periodicity", "installments", "installments_periodicity",
-    "invoice_date", "due_date", "invoice_id", "invoice_group_1",
-    "invoice_group_2", "invoice_group_3", "invoice_group_4", "invoice_group_5", "currency", "tax"];
+    "invoice_date", "due_date", "invoice_id", "payment_id", "invoice_group_1",
+    "invoice_group_2", "invoice_group_3", "invoice_group_4", "invoice_group_5", "currency"];
 
     for (let i = 0; i < item_q; i++) {
         upload_table_fields_l.push("item_" + (i+1));
@@ -69,7 +69,8 @@ function initialize_inv_field_value_dict(){
 
 function initialize_client_field_value_dict(){
     upload_table_fields_l = ["timestamp", "counterpart", "relation",
-    "payment_methods", "contact_email", "country", "city", "address",
+    "payment_methods", "payment_bank", "payment_alias_cbu", "cuit",
+    "contact_email", "country", "city", "address",
     "language","client_group_1", "client_group_2", "client_group_3",
     "url_logo", "external_notification", "counterpart_id", "upload_source"];
 

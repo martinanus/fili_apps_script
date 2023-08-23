@@ -18,7 +18,7 @@ function validate_client_fields(){
 
 
 function validate_inv_mandatory_fields(){
-    const mandatory_field_l = ["timestamp", "counterpart", "is_approved",
+    const mandatory_field_l = ["timestamp", "counterpart",
                           "recurrence_periodicity", "installments", "invoice_date",
                           "due_date", "invoice_id", "currency",
                           "item_1", "unit_price_1", "quantity_1", "is_invoice"];
@@ -34,8 +34,14 @@ function validate_inv_mandatory_fields(){
         }
     }
 
-
-    if (source == "INTERNAL"){
+    // TODO - check is_approved
+    if (source == "MANUAL"){
+        var is_approved = invoice_upload_sheet.getRange(is_approved_cell).getValue();
+        if (is_approved == ''){
+            console.log("is approved field is empty");
+            validate_sheet.getRange(is_approved_cell).setBackground(error_bg_colour);
+        }
+    } else if (source == "INTERNAL"){
         for (const field of mandatory_internal_field_l){
             if (field_values_dict[field] == '' && typeof(field_values_dict[field]) != "boolean"){
                 console.log(field, " field is empty");
@@ -48,7 +54,8 @@ function validate_inv_mandatory_fields(){
         validate_sheet.getRange(cell_validate_dict[field]).setBackground(error_bg_colour);
     }
 
-    if (error_field_l.length){
+
+    if ((error_field_l.length) || (is_approved == '')){
         exit_on_error("Campos obligatorios incompletos");
     }
 

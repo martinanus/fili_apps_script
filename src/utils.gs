@@ -1,5 +1,5 @@
 function exit_on_error(error_msg){
-  if (source == "CLIENT"){
+  if (source == "MANUAL"){
     set_error_status();
   }
 

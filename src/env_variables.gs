@@ -47,18 +47,18 @@ validated_bg_colour       = "#0ADB3A";   // green
 // Cells declaration
 status_cell               = "B2";       // in invoice_upload_page
 invoice_id_cell_to_clear  = "B18";      // in invoice_upload_page
+is_approved_cell          = "B6";
 
 first_row_internal_load   = 2;          // in manual_upload
 first_col_internal_load   = "A";        // in manual_upload
-inv_id_col_internal_load  = 'I';        // in manual_upload
-url_inv_col_internal_load = 'BY';       // in manual_upload
+inv_id_col_internal_load  = 'H';        // in manual_upload
+url_inv_col_internal_load = 'BX';       // in manual_upload
 duplicated_counterpart_cell = "B5";     // in client_form_page
 
 spacing                   = 2;          // separation btw content cells int invoice_upload_page
 
 cells_inv_dict = {
     "counterpart"               : "B4", // in invoice_upload_page
-    "is_approved"               : "B6",
     "recurrence_periodicity"    : "B8",
     "installments"              : "B10",
     "installments_periodicity"  : "B12",
@@ -71,23 +71,25 @@ cells_inv_dict = {
     "invoice_group_4"           : "B26",
     "invoice_group_5"           : "B28",
     "currency"                  : "B30",
-    "tax"                       : "B32",
-    "item_1"                    : "B34",
-    "quantity_1"                : "B36",
-    "unit_price_1"              : "B38"
+    "item_1"                    : "B32",
+    "quantity_1"                : "B34",
+    "unit_price_1"              : "B36"
 };
 
 cells_client_dict = {
     "counterpart"        : "B4", // in client_form_page_name
     "relation"           : "B6",
     "payment_methods"    : "B8",
-    "contact_email"      : "B10",
-    "country"            : "B12",
-    "city"               : "B14",
-    "address"            : "B16",
-    "language"           : "B18",
-    "client_group_1"     : "B20",
-    "client_group_2"     : "B22",
-    "client_group_3"     : "B24",
-    "url_logo"           : "B26"
+    "payment_bank"       : "B10",
+    "payment_alias_cbu"  : "B12",
+    "cuit"               : "B14",
+    "contact_email"      : "B16",
+    "country"            : "B18",
+    "city"               : "B20",
+    "address"            : "B22",
+    "language"           : "B24",
+    "client_group_1"     : "B26",
+    "client_group_2"     : "B28",
+    "client_group_3"     : "B30",
+    "url_logo"           : "B32"
 };
