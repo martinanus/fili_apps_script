@@ -68,7 +68,7 @@ function validate_client_mandatory_fields(){
     var error_field_l = []
 
     for (const field of mandatory_field_l){
-        if (client_upload_table_fields_l[field] == '' && typeof(client_upload_table_fields_l[field]) != "boolean"){
+        if (client_field_values_dict[field] == '' && typeof(client_field_values_dict[field]) != "boolean"){
             console.log(field, " field is empty");
             error_field_l.push(field);
         }
@@ -176,7 +176,7 @@ function validate_duplicated_field(arr, col, field, allow_empties=false){
 
 function validate_duplicated_counterpart(){
 
-    counterpart_duplicated = client_form_sheet.getRange(duplicated_counterpart_cell).getValue();
+    var counterpart_duplicated = client_form_sheet.getRange(duplicated_counterpart_cell).getValue();
 
     if (counterpart_duplicated == true){
         validate_sheet.getRange(cell_validate_dict["counterpart"]).setBackground(error_bg_colour);
