@@ -35,7 +35,7 @@ function set_global_variables(trig_source){
     } else if (source == "INTERNAL"){
         initialize_inv_field_value_dict();
         validate_sheet      = internal_upload_sheet;
-        last_col            = columnToLetter(upload_table_fields_l.length);
+        last_col            = columnToLetter(inv_upload_table_fields_l.length);
         last_row            = internal_upload_sheet.getLastRow();
         internal_data       = [[]];
         cells_internal_dict = {};
@@ -189,7 +189,7 @@ function get_internal_data(){
 
 function load_field_values_from_internal(row){
     var i = 0;
-    for (const field_name of upload_table_fields_l) {
+    for (const field_name of inv_upload_table_fields_l) {
         let cell   = columnToLetter(letterToColumn(first_col_internal_load) + i) + row;
         inv_field_values_dict[field_name]   = internal_data[row - first_row_internal_load][i]
         cells_internal_dict[field_name] = cell;
