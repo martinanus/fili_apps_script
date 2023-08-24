@@ -24,7 +24,7 @@ multicurrency_allowed     = true;
 spreadsheetId = "1F381Giziox3YlES1_ZilnSod7eWWkbBgoclU5dwzM54"
 
 // WebApp to upload portal
-upload_portal_deploy_url = "https://script.google.com/macros/s/AKfycbwRloQ-7jyu6epgRRj10xqafDK0-3aiFH8BDPf4ZIp1C75ZaTywUQklOZ9npLB0r55i6g/exec"
+upload_portal_deploy_url = "https://script.google.com/macros/s/AKfycbynvCyzB_I8q9MWeMdRt_L3gMZeEnvln0QAtthQNsvsjWTKK3NWb0HkgD6cY9cjPrmb4g/exec"
 
 invoice_upload_fix_fields_l     = ["recurrence_periodicity", "installments", "due_date", "is_approved"]
 counterpart_upload_fix_fields_l = ["relation"]
