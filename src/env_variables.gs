@@ -20,6 +20,9 @@ fili_notif_email          = 'soporte@somosfili.com';
 // Set true to allow multicurrency use - ommit formating and clearing currency field
 multicurrency_allowed     = false;
 
+// WebApp to upload portal
+upload_portal_deploy_url = "https://script.google.com/macros/s/AKfycbwRloQ-7jyu6epgRRj10xqafDK0-3aiFH8BDPf4ZIp1C75ZaTywUQklOZ9npLB0r55i6g/exec"
+
 invoice_upload_fix_fields_l     = ["recurrence_periodicity", "installments", "due_date", "is_approved"]
 counterpart_upload_fix_fields_l = ["relation"]
 
