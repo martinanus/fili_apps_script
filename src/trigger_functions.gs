@@ -1,3 +1,25 @@
+function doPost(e){
+    var trigger = e.queryString;
+
+    switch (trigger){
+      case "add_new_client":
+        add_new_client();
+        break;
+      case "generate_invoice":
+        generate_invoice();
+        break;
+      case "check_internal_data":
+        check_internal_data();
+        break;
+      case "load_internal_data":
+        load_internal_data();
+        break;
+      case "onOpen":
+        onOpen();
+        break;
+    }
+}
+
 function onOpen(){
     set_global_variables("MANUAL");
     clear_inv_form_background();

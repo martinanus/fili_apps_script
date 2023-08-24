@@ -1,24 +1,27 @@
-//----------------------------------------------------------------
+///----------------------------------------------------------------
 // Client Custom variables
 //----------------------------------------------------------------
 
 // Client name
-client_name               = 'REPLACE_ME';
+client_name               = 'Iberogram';
 
 // Client email config
-user_email              = 'REPLACE_ME';
+user_email              = 'iberogram.fili@gmail.com';
 
 // Drive upload Folder for generated invoices
-upload_folder_id          = 'REPLACE_ME';
+upload_folder_id          = '1mqCvVzf1Mdb7lq4Beo9MHByESQGYETjw';
 
 // Specific DBT client service URL
-dbt_run_url               = 'REPLACE_ME';
+dbt_run_url               = 'https://dbt-iberogram-7txkfbm3yq-uc.a.run.app';
 
 // Internal email configuration
 fili_notif_email          = 'soporte@somosfili.com';
 
 // Set true to allow multicurrency use - ommit formating and clearing currency field
-multicurrency_allowed     = false;
+multicurrency_allowed     = true;
+
+// sheet master id
+spreadsheetId = "1F381Giziox3YlES1_ZilnSod7eWWkbBgoclU5dwzM54"
 
 // WebApp to upload portal
 upload_portal_deploy_url = "https://script.google.com/macros/s/AKfycbwRloQ-7jyu6epgRRj10xqafDK0-3aiFH8BDPf4ZIp1C75ZaTywUQklOZ9npLB0r55i6g/exec"

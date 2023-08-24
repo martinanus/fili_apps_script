@@ -11,7 +11,7 @@ function set_global_variables(trig_source){
             throw new Error("Complete client specific variables");
     }
 
-    spreadsheet           = SpreadsheetApp.getActiveSpreadsheet();
+    spreadsheet           = SpreadsheetApp.openById(spreadsheetId)
     invoice_upload_sheet  = spreadsheet.getSheetByName(invoice_upload_page_name);
     receipt_sheet         = spreadsheet.getSheetByName(receipt_page_name);
     manual_upload_sheet   = spreadsheet.getSheetByName(manual_upload_page_name);
