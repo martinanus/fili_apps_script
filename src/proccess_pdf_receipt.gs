@@ -62,7 +62,7 @@ function upload_pdf(http_response){
 
     if(is_approved){
       payment_field_values_dict["documents_url"]        = file_url;
-      payment_field_values_dict["source_reference_url"] = file_url;
+      payment_field_values_dict["url_source_reference"] = file_url;
     }
 
     return uploaded_file;

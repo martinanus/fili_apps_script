@@ -84,7 +84,7 @@ function initialize_payment_field_value_dict(){
         payment_table_fields_l.push("amount_concept_" + (i+1));
     }
 
-    payment_table_fields_l.push("documents_url", "source_reference_url" ,"payment_method",
+    payment_table_fields_l.push("documents_url", "url_source_reference" ,"payment_method",
                              "payment_group_1","payment_group_2", "payment_group_3",
                              "payment_group_4", "payment_group_5",);
 
