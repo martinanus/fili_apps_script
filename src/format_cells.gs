@@ -40,6 +40,7 @@ function clear_inv_form_content(){
         invoice_upload_sheet.getRange(cell).clearContent();
 
     }
+    invoice_upload_sheet.getRange(custom_mail_content_cell).clearContent();
     SpreadsheetApp.flush();
 }
 

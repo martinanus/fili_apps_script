@@ -65,6 +65,7 @@ status_cell               = "B2";       // in invoice_upload_page
 invoice_id_cell_to_clear  = "B18";      // in invoice_upload_page
 language_cell             = "B31";      // in invoice_upload_page
 contact_email_cell        = "B33";      // in invoice_upload_page
+custom_mail_content_cell  = "B25";      // in invoice_upload_page
 
 first_row_internal_load   = 2;          // in manual_upload
 first_col_internal_load   = "A";        // in manual_upload

@@ -66,28 +66,31 @@ function get_translated_message(){
     let invoice_month = get_month_in_translated_text();
     let emoji_html = "&#128075;"
 
+    let en_body = `Attached you will find the invoice regarding the `
+                + `SEO services provided during ${invoice_month}.`
     let en_message = `Hello ${emoji_html}, <BR><BR>`
-                + `Attached you will find the invoice regarding the `
-                + `SEO services provided during ${invoice_month}.<BR><BR>`
-                + `Thank you and have a nice day! <BR><BR>`
+                + add_body(en_body)
+                + `<BR><BR>Thank you and have a nice day! <BR><BR>`
                 + `Lucio Laria,`
                 + `<font size="-2">`
                 + getFiliUrlWithUtm(counterpart,"Sent with Fili")
                 +`</font>`
 
+    let fr_body = `Vous trouverez ci-joint la facture correspondante aux services `
+                + `de référencement naturel réalisés lors du mois de ${invoice_month}.`
     let fr_message = `Bonjour ${emoji_html}, <BR><BR>`
-                  + `Vous trouverez ci-joint la facture correspondante aux services `
-                  + `de référencement naturel réalisés lors du mois de ${invoice_month}.<BR><BR>`
-                  + `Merci beaucoup et bonne journée! <BR><BR>`
+                  + add_body(fr_body)
+                  + `<BR><BR>Merci beaucoup et bonne journée! <BR><BR>`
                   + `Lucio Laria, `
                   + `<font size="-2">`
                   + getFiliUrlWithUtm(counterpart,"Envoyé avec Fili")
                   +`</font>`
 
+    let es_body = `Adjunta encontrarán la factura correspondiente a los servicios `
+                  + `de SEO brindados en ${invoice_month}.`
     let es_message = `Hola ${emoji_html}, <BR><BR>`
-                + `Adjunta encontrarán la factura correspondiente a los servicios `
-                + `de SEO brindados en ${invoice_month}.<BR><BR>`
-                + `¡Muchas gracias! <BR><BR>`
+                + add_body(es_body)
+                + `<BR><BR>¡Muchas gracias! <BR><BR>`
                 + `Lucio Laria,`
                 + `<font size="-2">`
                 + getFiliUrlWithUtm(counterpart,"Enviado con Fili")
@@ -134,4 +137,15 @@ function get_month_in_translated_text(){
 
   return invoice_month;
 
+}
+
+function add_body(default_msg){
+
+  let custom_mail = invoice_upload_sheet.getRange(custom_mail_content_cell).getValue();
+
+  if (custom_mail){
+      return custom_mail.replaceAll("\n", "<BR>");
+  }
+
+  return default_msg;
 }
