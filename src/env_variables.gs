@@ -6,7 +6,7 @@
 client_name               = 'Iberogram';
 
 // Client email config
-user_email              = 'iberogram.fili@gmail.com';
+user_email              = 'cintia.acevedo@iberogram.com';
 
 // Drive upload Folder for generated invoices
 upload_folder_id          = '1mqCvVzf1Mdb7lq4Beo9MHByESQGYETjw';
@@ -23,8 +23,11 @@ multicurrency_allowed     = true;
 // sheet master id
 spreadsheetId = "1F381Giziox3YlES1_ZilnSod7eWWkbBgoclU5dwzM54"
 
+// Root folder for receipt
+rootDriveFolderId = "1CoCeYNKA0IF5Yog3z4UzdwdMoJhIOEPe"
+
 // WebApp to upload portal
-upload_portal_deploy_url = "https://script.google.com/macros/s/AKfycbxcFawbsr6CGTzyj28D5TfvB21H8fNQISzHBLjzVnSW3OENRCrFB8iqi-3C68CfZw6wvQ/exec"
+upload_portal_deploy_url = "https://script.google.com/macros/s/AKfycbzA4TAF_STM3zUo5MyvK0dzDIUHnhr0O_7Jb4j33RTJLgbn9NmudA0WCdydeMATWSfr0A/exec"
 
 invoice_upload_fix_fields_l     = ["recurrence_periodicity", "installments", "due_date", "is_approved"]
 counterpart_upload_fix_fields_l = ["relation"]
@@ -62,6 +65,7 @@ is_approved_cell          = "B7";
 payment_id_cell           = "B17";
 relation_cell             = "B6";
 duplicated_indirect_counterpart = "B3";
+drive_folder_cell         = "B27";
 
 first_row_internal_load   = 2;          // in manual_upload
 first_col_internal_load   = "A";        // in manual_upload
