@@ -19,7 +19,7 @@ function makePost(args){
 }
 
 
-function onOpen(){
+function customOnOpen(){
     makePost("onOpen");
 }
 
