@@ -62,6 +62,7 @@ function get_translated_subject(){
 }
 
 function get_translated_message(){
+    let counterpart = field_values_dict["counterpart"];
     let invoice_month = get_month_in_translated_text();
     let emoji_html = "&#128075;"
 
@@ -69,24 +70,28 @@ function get_translated_message(){
                 + `Attached you will find the invoice regarding the `
                 + `SEO services provided during ${invoice_month}.<BR><BR>`
                 + `Thank you and have a nice day! <BR><BR>`
-                + `Lucio Laria, <BR> `
-                + `<font size="-2">Sent with Fili</font>`
-
+                + `Lucio Laria,`
+                + `<font size="-2">`
+                + getFiliUrlWithUtm(counterpart,"Sent with Fili")
+                +`</font>`
 
     let fr_message = `Bonjour ${emoji_html}, <BR><BR>`
                   + `Vous trouverez ci-joint la facture correspondante aux services `
                   + `de référencement naturel réalisés lors du mois de ${invoice_month}.<BR><BR>`
                   + `Merci beaucoup et bonne journée! <BR><BR>`
-                  + `Lucio Laria, <BR> `
-                  + `<font size="-2">Envoyé avec Fili</font>`
-
+                  + `Lucio Laria, `
+                  + `<font size="-2">`
+                  + getFiliUrlWithUtm(counterpart,"Envoyé avec Fili")
+                  +`</font>`
 
     let es_message = `Hola ${emoji_html}, <BR><BR>`
                 + `Adjunta encontrarán la factura correspondiente a los servicios `
                 + `de SEO brindados en ${invoice_month}.<BR><BR>`
                 + `¡Muchas gracias! <BR><BR>`
-                + `Lucio Laria, <BR> `
-                + `<font size="-2">Enviado con Fili</font>`
+                + `Lucio Laria,`
+                + `<font size="-2">`
+                + getFiliUrlWithUtm(counterpart,"Enviado con Fili")
+                +`</font>`
 
 
     switch (language) { // LL_specific

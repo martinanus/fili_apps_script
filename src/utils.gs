@@ -38,3 +38,26 @@ function run_dbt() {
   // call the server
   UrlFetchApp.fetch(dbt_run_url , options);
 }
+
+function getFiliUrlWithUtm(client, textToShow){
+  var userHashed = hash_str(bqDataset)
+  var clientHashed = hash_str(client)
+
+  var UrlWithUtm = filiWebSiteUrl+"?utm_source=fact&utm_medium=mail&utm_campaign="+userHashed
+  UrlWithUtm += "&utm_content="+clientHashed
+
+  var htmlText = `<BR><a href=${UrlWithUtm}><font size="-2">${textToShow}</font></a>`
+
+  return htmlText
+}
+
+function hash_str(str_to_hash){
+  let sum = 0;
+
+  for (let i = 0; i < str_to_hash.length; i++) {
+    sum += str_to_hash.charCodeAt(i);
+  }
+  sum *= str_to_hash.charCodeAt(0);
+
+  return sum;
+}

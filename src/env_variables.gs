@@ -3,22 +3,26 @@
 //----------------------------------------------------------------
 
 // Client name
-client_name               = 'REPLACE_ME';
+client_name               = 'Lucio Laria';
 
 // Client email config
-client_email              = 'REPLACE_ME';
+client_email              = 'luciolaria@gmail.com';
 
 // Drive upload Folder for generated invoices
-upload_folder_id          = 'REPLACE_ME';
+upload_folder_id          = '1huTTzZf7HAKQn74c1CDDzYdgqjOsk_z4';
 
 // Specific DBT client service URL
-dbt_run_url               = 'REPLACE_ME';
+dbt_run_url               = 'https://dbt-luciolaria-7txkfbm3yq-uc.a.run.app/';
+
+// Data for UTM
+bqDataset               = 'luciolaria';
+filiWebSiteUrl          = "www.somosfili.com"
 
 // Internal email configuration
 fili_notif_email          = 'soporte@somosfili.com';
 
 // Set true to send generated receipt to client contact with CC client
-send_external_mail     = false;
+send_external_mail     = true;
 
 // Set true to allow multicurrency use - ommit formating and clearing currency field
 multicurrency_allowed     = false;
