@@ -35,7 +35,7 @@ function populate_payment_data_table(){
 
 function populate_client_data_table(){
 
-    if (source == "INTERNAL" && counterpart_duplicated){
+    if (source == "MANUAL" && counterpart_duplicated){
         return;
     }
 

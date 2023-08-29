@@ -235,5 +235,5 @@ function calculate_invoice_total_amount(){
 }
 
 function get_counterpart_duplicated(){
-    return invoice_upload_sheet.getRange(duplicated_counterpart_cell).getValue();
+    return invoice_upload_sheet.getRange(duplicated_indirect_counterpart).getValue();
 }

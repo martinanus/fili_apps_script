@@ -118,28 +118,37 @@ function validate_installments(){
 
 function validate_dates(){
 
-    var payment_date = invoice_upload_sheet.getRange(payment_date_cell).getValue();
-    if ((is_approved) && payment_date == '' ){
-        validate_sheet.getRange(payment_date_cell).setBackground(error_bg_colour);
-        exit_on_error("La fecha de pago no puede estar vacía si el movimiento está pago/cobrado");
-    }
-    if ((!is_approved) && payment_date != '' ){
-        validate_sheet.getRange(payment_date_cell).setBackground(error_bg_colour);
-        exit_on_error("La fecha de pago debe estar vacía si el movimiento está pago/cobrado");
-    }
+    if (source == "MANUAL"){
+        var payment_date = invoice_upload_sheet.getRange(payment_date_cell).getValue();
+        if ((is_approved) && payment_date == '' ){
+            validate_sheet.getRange(payment_date_cell).setBackground(error_bg_colour);
+            exit_on_error("La fecha de pago no puede estar vacía si el movimiento está pago/cobrado");
+        }
+        if ((!is_approved) && payment_date != '' ){
+            validate_sheet.getRange(payment_date_cell).setBackground(error_bg_colour);
+            exit_on_error("La fecha de pago debe estar vacía si el movimiento está pago/cobrado");
+        }
 
-    if ((!is_approved) && inv_field_values_dict["due_date"] == '' ){
-        validate_sheet.getRange(cell_validate_dict["due_date"]).setBackground(error_bg_colour);
-        exit_on_error("La fecha de vencimiento no puede estar vacía si el movimiento no está pago/cobrado");
-    }
+        if ((!is_approved) && inv_field_values_dict["due_date"] == '' ){
+            validate_sheet.getRange(cell_validate_dict["due_date"]).setBackground(error_bg_colour);
+            exit_on_error("La fecha de vencimiento no puede estar vacía si el movimiento no está pago/cobrado");
+        }
 
-    if(inv_field_values_dict["due_date"] == ''){
-        inv_field_values_dict["due_date"] = payment_date;
+        if(inv_field_values_dict["due_date"] == ''){
+            inv_field_values_dict["due_date"] = payment_date;
+        }
+
+        if (inv_field_values_dict["due_date"] < inv_field_values_dict["invoice_date"]){
+            inv_field_values_dict["invoice_date"] = inv_field_values_dict["due_date"];
+        }
     }
 
     if (inv_field_values_dict["due_date"] < inv_field_values_dict["invoice_date"]){
-        inv_field_values_dict["invoice_date"] = inv_field_values_dict["due_date"];
+        validate_sheet.getRange(cell_validate_dict["due_date"]).setBackground(error_bg_colour);
+        validate_sheet.getRange(cell_validate_dict["invoice_date"]).setBackground(error_bg_colour);
+        exit_on_error("La fecha de vencimiento no puede ser anterior a la fecha de emisión");
     }
+
 
     return;
 }
@@ -207,9 +216,9 @@ function validate_duplicated_field(arr, col, field, allow_empties=false){
 
 function validate_duplicated_counterpart(){
 
-    var counterpart_duplicated = client_form_sheet.getRange(duplicated_counterpart_cell).getValue();
+    var counterpart_duplicated_crm = client_form_sheet.getRange(duplicated_counterpart_cell).getValue();
 
-    if (counterpart_duplicated == true){
+    if (counterpart_duplicated_crm == true){
         validate_sheet.getRange(cell_validate_dict["counterpart"]).setBackground(error_bg_colour);
         exit_on_error(`La contraparte ya ha sido dada de alta. Para modificaciones, contacte al administrador.`);
     }
