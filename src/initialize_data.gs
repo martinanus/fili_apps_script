@@ -4,7 +4,6 @@ function set_global_variables(trig_source){
 
     // Check for client custom variables
     if (client_name.includes("REPLACE_ME") ||
-        upload_folder_id.includes("REPLACE_ME") ||
         user_email.includes("REPLACE_ME") ||
         dbt_run_url.includes("REPLACE_ME")){
 
@@ -146,9 +145,6 @@ function load_payment_dicts(){
     }
     payment_field_values_dict["timestamp"] = inv_field_values_dict["timestamp"];
 
-    // This ref is not supported by DBT process right now
-    //payment_field_values_dict["invoice_key"] = inv_field_values_dict["invoice_id"];
-
     payment_field_values_dict["id"] = invoice_upload_sheet.getRange(payment_id_cell).getValue();
 
     payment_field_values_dict["counterpart"] = inv_field_values_dict["counterpart"];
@@ -160,10 +156,10 @@ function load_payment_dicts(){
         payment_field_values_dict["is_income"] = false;
     }
 
-    payment_field_values_dict["date"] = inv_field_values_dict["due_date"];
+    payment_field_values_dict["date"] = invoice_upload_sheet.getRange(payment_date_cell).getValue();
     payment_field_values_dict["currency"] = inv_field_values_dict["currency"];
 
-    payment_field_values_dict["name_concept_1"] = "Monto Factura";
+    payment_field_values_dict["name_concept_1"] = "Pago Factura";
 
     payment_field_values_dict["amount_concept_1"] = calculate_invoice_total_amount();
 

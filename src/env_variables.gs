@@ -6,31 +6,29 @@
 client_name               = 'Iberogram';
 
 // Client email config
-user_email              = 'cintia.acevedo@iberogram.com';
-
-// Drive upload Folder for generated invoices
-upload_folder_id          = '1mqCvVzf1Mdb7lq4Beo9MHByESQGYETjw';
+user_email              = 'soporte@somosfili.com';
 
 // Specific DBT client service URL
-dbt_run_url               = 'https://dbt-iberogram-7txkfbm3yq-uc.a.run.app';
+dbt_run_url               = 'https://dbt-dev-7txkfbm3yq-uc.a.run.app';
+
+// sheet master id
+spreadsheetId = "1UA373gL5oJm0Yru6vc7Wcvo4f9PuGQ-krPWXdldG66U"
+
+// Root folder for receipt
+rootDriveFolderId = "1VB_0wCNZwdmbxsTq3frPpJyX7yQ2hCeU"
+
+// WebApp to upload portal
+upload_portal_deploy_url = "https://script.google.com/macros/s/AKfycbzA4TAF_STM3zUo5MyvK0dzDIUHnhr0O_7Jb4j33RTJLgbn9NmudA0WCdydeMATWSfr0A/exec"
+
+
+invoice_upload_fix_fields_l     = ["recurrence_periodicity", "installments", "invoice_date", "is_approved"]
+counterpart_upload_fix_fields_l = ["relation"]
 
 // Internal email configuration
 fili_notif_email          = 'soporte@somosfili.com';
 
 // Set true to allow multicurrency use - ommit formating and clearing currency field
 multicurrency_allowed     = true;
-
-// sheet master id
-spreadsheetId = "1F381Giziox3YlES1_ZilnSod7eWWkbBgoclU5dwzM54"
-
-// Root folder for receipt
-rootDriveFolderId = "1CoCeYNKA0IF5Yog3z4UzdwdMoJhIOEPe"
-
-// WebApp to upload portal
-upload_portal_deploy_url = "https://script.google.com/macros/s/AKfycbzA4TAF_STM3zUo5MyvK0dzDIUHnhr0O_7Jb4j33RTJLgbn9NmudA0WCdydeMATWSfr0A/exec"
-
-invoice_upload_fix_fields_l     = ["recurrence_periodicity", "installments", "due_date", "is_approved"]
-counterpart_upload_fix_fields_l = ["relation"]
 
 //----------------------------------------------------------------
 // Standard variables
@@ -61,8 +59,9 @@ validated_bg_colour       = "#0ADB3A";   // green
 // Cells declaration
 status_cell               = "B2";       // in invoice_upload_page
 invoice_id_cell_to_clear  = "B18";      // in invoice_upload_page
-is_approved_cell          = "B7";
+is_approved_cell          = "B9";
 payment_id_cell           = "B17";
+payment_date_cell         = "B11"
 relation_cell             = "B6";
 duplicated_indirect_counterpart = "B3";
 drive_folder_cell         = "B27";

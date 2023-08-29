@@ -20,8 +20,9 @@ function validate_client_fields(){
 function validate_inv_mandatory_fields(){
     const mandatory_field_l = ["timestamp", "counterpart",
                           "recurrence_periodicity", "installments", "invoice_date",
-                          "due_date", "invoice_id", "currency",
-                          "item_1", "unit_price_1", "quantity_1", "is_invoice"];
+                          "invoice_id", "currency",
+                          "item_1", "unit_price_1", "quantity_1", "is_invoice",
+                          "invoice_group_1", "invoice_group_2", "invoice_group_3"];
 
     const mandatory_internal_field_l = ["url_source_reference"];
 
@@ -46,6 +47,12 @@ function validate_inv_mandatory_fields(){
             console.log("relation field is empty");
             validate_sheet.getRange(relation_cell).setBackground(error_bg_colour);
         }
+
+        var drive_folder = invoice_upload_sheet.getRange(drive_folder_cell).getValue();
+        if (drive_folder == ''){
+            console.log("drive_folder field is empty");
+            validate_sheet.getRange(drive_folder_cell).setBackground(error_bg_colour);
+        }
     } else if (source == "INTERNAL"){
         for (const field of mandatory_internal_field_l){
             if (inv_field_values_dict[field] == '' && typeof(inv_field_values_dict[field]) != "boolean"){
@@ -68,7 +75,7 @@ function validate_inv_mandatory_fields(){
 }
 
 function validate_client_mandatory_fields(){
-    const mandatory_field_l = ["timestamp", "counterpart", "relation", "contact_email"];
+    const mandatory_field_l = ["timestamp", "counterpart", "relation"];
 
 
     var error_field_l = []
@@ -110,10 +117,28 @@ function validate_installments(){
 
 
 function validate_dates(){
-    if (inv_field_values_dict["due_date"] < inv_field_values_dict["invoice_date"]){
-        validate_sheet.getRange(cell_validate_dict["invoice_date"]).setBackground(error_bg_colour);
+
+    var payment_date = invoice_upload_sheet.getRange(payment_date_cell).getValue();
+    if ((is_approved) && payment_date == '' ){
+        validate_sheet.getRange(payment_date_cell).setBackground(error_bg_colour);
+        exit_on_error("La fecha de pago no puede estar vacía si el movimiento está pago/cobrado");
+    }
+    if ((!is_approved) && payment_date != '' ){
+        validate_sheet.getRange(payment_date_cell).setBackground(error_bg_colour);
+        exit_on_error("La fecha de pago debe estar vacía si el movimiento está pago/cobrado");
+    }
+
+    if ((!is_approved) && inv_field_values_dict["due_date"] == '' ){
         validate_sheet.getRange(cell_validate_dict["due_date"]).setBackground(error_bg_colour);
-        exit_on_error("La fecha de vencimiento no puede ser anterior a la fecha de emisión");
+        exit_on_error("La fecha de vencimiento no puede estar vacía si el movimiento no está pago/cobrado");
+    }
+
+    if(inv_field_values_dict["due_date"] == ''){
+        inv_field_values_dict["due_date"] = payment_date;
+    }
+
+    if (inv_field_values_dict["due_date"] < inv_field_values_dict["invoice_date"]){
+        inv_field_values_dict["invoice_date"] = inv_field_values_dict["due_date"];
     }
 
     return;
