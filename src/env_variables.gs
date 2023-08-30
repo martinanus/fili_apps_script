@@ -64,13 +64,17 @@ payment_id_cell           = "B17";
 payment_date_cell         = "B11"
 relation_cell             = "B6";
 duplicated_indirect_counterpart = "B3";
+duplicated_counterpart_cell = "B5";     // in client_form_page
 drive_folder_cell         = "B27";
 
-first_row_internal_load   = 2;          // in manual_upload
-first_col_internal_load   = "A";        // in manual_upload
+first_row   = 2;          // in internal/manual/counterpart_upload
+first_col   = "A";        // in internal/manual/counterpart_upload
+
 inv_id_col_internal_load  = 'H';        // in manual_upload
 url_inv_col_internal_load = 'BX';       // in manual_upload
-duplicated_counterpart_cell = "B5";     // in client_form_page
+counterpart_col_crm_load  = 'B';        // in counterpart_upload
+id_col_payment_load       = 'C';        // in payment_upload
+
 
 spacing                   = 2;          // separation btw content cells int invoice_upload_page
 

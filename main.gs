@@ -1,4 +1,4 @@
-var webAppUrl = "https://script.google.com/macros/s/AKfycbw4a3GbKvch1Z4F9CNRb1QBkMLQmrzWbO2F5GVflmeO4a2W1UaxnbJIw4FNra5LldhDpg/exec"
+var webAppUrl = "https://script.google.com/macros/s/AKfycbzwfAwI9e3BK0JGDWUGF-Vh15bnWY--YUUUmRV33nkAZf1kT8aoj7mIv1fAOD4lUfE0tQ/exec"
 
 function makePost(args){
 
@@ -35,6 +35,14 @@ function check_internal_data(){
     makePost("check_internal_data");
 }
 
-function load_internal_data(){
-    makePost("load_internal_data");
+function check_crm_data(){
+  makePost("check_crm_data");
+}
+
+function check_payment_data(){
+  makePost("check_payment_data");
+}
+
+function load_data(){
+    makePost("load_data");
 }
