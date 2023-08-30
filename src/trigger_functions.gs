@@ -20,13 +20,13 @@ function doPost(e){
       case "load_data":
         load_data();
         break;
-      case "onOpen":
-        onOpen();
+      case "customOnOpen":
+        customOnOpen();
         break;
     }
 }
 
-function onOpen(){
+function customOnOpen(){
     set_global_variables("MANUAL");
     clear_inv_form_background();
     clear_inv_form_content();

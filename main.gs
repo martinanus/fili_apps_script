@@ -3,24 +3,18 @@ var webAppUrl = "https://script.google.com/macros/s/AKfycbzwfAwI9e3BK0JGDWUGF-Vh
 function makePost(args){
 
   // Make a POST request with a JSON payload.
-  var data = {
-    'trigger': 'notUsed'
-  };
+  var urlWithArgs = webAppUrl + "?" + args;
   var options = {
-    'method' : 'post',
-    'contentType': 'application/json',
-    // Convert the JavaScript object to a JSON string.
-    'payload' : JSON.stringify(data)
+    'method' : 'post'
   };
 
-  var urlWithArgs = webAppUrl + "?" + args;
   UrlFetchApp.fetch(urlWithArgs, options);
   console.log("URL: "+ urlWithArgs)
 }
 
 
 function customOnOpen(){
-    makePost("onOpen");
+    makePost("customOnOpen");
 }
 
 function add_new_client(){
