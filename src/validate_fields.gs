@@ -16,6 +16,14 @@ function validate_client_fields(){
     return;
 }
 
+function validate_payment_fields(){
+
+    validate_payment_mandatory_fields();
+    validate_concepts();
+
+    return;
+}
+
 
 function validate_inv_mandatory_fields(){
     const mandatory_field_l = ["timestamp", "counterpart",
@@ -86,6 +94,34 @@ function validate_client_mandatory_fields(){
     return;
 }
 
+
+function validate_payment_mandatory_fields(){
+    const mandatory_field_l = ["timestamp", "id", "counterpart", "is_income", "date",
+                                "currency", "name_concept_1", "amount_concept_1",
+                                "source_reference_url"];
+
+
+    var error_field_l = []
+
+    for (const field of mandatory_field_l){
+        if (payment_field_values_dict[field] == '' && typeof(payment_field_values_dict[field]) != "boolean"){
+            console.log(field, " field is empty");
+            error_field_l.push(field);
+        }
+    }
+
+
+    for (const field of error_field_l){
+        validate_sheet.getRange(cell_validate_dict[field]).setBackground(error_bg_colour);
+    }
+
+    if (error_field_l.length){
+        exit_on_error("Campos obligatorios incompletos");
+    }
+
+    return;
+}
+
 function validate_installments(){
 
     if (Number(inv_field_values_dict["installments"] > 1) && (inv_field_values_dict["installments_periodicity"] == '')) {
@@ -139,6 +175,30 @@ function validate_items(){
     return;
 }
 
+function validate_concepts(){
+
+    var error_flag = false;
+
+    for (let i = 0; i < payment_concept_q; i++) {
+        let name_i        = payment_field_values_dict["name_concept_" + (i+1)];
+        let amount_i    = payment_field_values_dict["amount_concept_" + (i+1)];
+
+        if (name_i != '' || amount_i != ''){
+            if (name_i == '' || amount_i == ''){
+                validate_sheet.getRange(cell_validate_dict["name_concept_" + (i+1)]).setBackground(error_bg_colour);
+                validate_sheet.getRange(cell_validate_dict["amount_concept_" + (i+1)]).setBackground(error_bg_colour);
+                error_flag = true;
+            }
+        }
+    }
+
+    if (error_flag){
+        exit_on_error("Se debe indicar el nombre y monto para cada concepto.");
+    }
+
+    return;
+}
+
 function validate_duplicated(){
     validate_duplicated_field(invoice_id_l, inv_id_col_internal_load, "invoice_id");
     validate_duplicated_field(url_invoice_l, url_inv_col_internal_load, "url_invoice",
@@ -157,7 +217,7 @@ function validate_duplicated_field(arr, col, field, allow_empties=false){
     }
 
     var error_flag  = false;
-    var row_i       = first_row_internal_load;
+    var row_i       = first_row;
 
     for (const element of arr) {
         if(dup_elements.includes(element)){
@@ -176,9 +236,9 @@ function validate_duplicated_field(arr, col, field, allow_empties=false){
 
 function validate_duplicated_counterpart(){
 
-    var counterpart_duplicated = client_form_sheet.getRange(duplicated_counterpart_cell).getValue();
+    var counterpart_duplicated_crm = client_form_sheet.getRange(duplicated_counterpart_cell).getValue();
 
-    if (counterpart_duplicated == true){
+    if (counterpart_duplicated_crm == true){
         validate_sheet.getRange(cell_validate_dict["counterpart"]).setBackground(error_bg_colour);
         exit_on_error(`La contraparte ya ha sido dada de alta. Para modificaciones, contacte al administrador.`);
     }

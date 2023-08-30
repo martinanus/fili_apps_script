@@ -36,19 +36,52 @@ function generate_invoice(){
 
 
 function check_internal_data(){
-    set_global_variables("INTERNAL");
+    set_global_variables("INTERNAL_CHECK");
     clear_internal_upload_background();
 
     get_internal_data();
 
-    for (let row = first_row_internal_load; row <= last_row ; row++ ){
+    for (let row = first_row; row <= last_row ; row++ ){
         load_field_values_from_internal(row);
         validate_inv_fields();
     }
     validate_duplicated();
 }
 
-function load_internal_data(){
-    check_internal_data();
+function check_crm_data(){
+  set_global_variables("CRM_CHECK");
+  clear_crm_upload_background();
+
+  get_crm_data();
+
+  for (let row = first_row; row <= last_row ; row++ ){
+      load_field_values_from_crm(row);
+      validate_client_fields();
+  }
+  validate_duplicated_field(counterpart_l, counterpart_col_crm_load, "counterpart", false);
+}
+
+
+function check_payment_data(){
+  set_global_variables("PAYMENT_CHECK");
+  clear_payment_upload_background();
+
+  get_payment_data();
+
+  for (let row = first_row; row <= last_row ; row++ ){
+      load_field_values_from_payment(row);
+      validate_payment_fields();
+  }
+  validate_duplicated_field(payment_id_l, id_col_payment_load, "id", false);
+}
+
+function check_all_data(){
+  check_internal_data();
+  check_payment_data();
+  check_crm_data();
+}
+
+function load_data(){
+    check_all_data();
     run_dbt();
 }

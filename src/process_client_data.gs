@@ -1,4 +1,4 @@
- function process_form_data(){
+function process_form_data(){
     var response = generate_pdf_receipt();
     var uploaded_file = upload_pdf(response);
 

@@ -31,8 +31,7 @@ function set_global_variables(trig_source){
         load_payment_dicts();
         validate_sheet      = invoice_upload_sheet;
         cell_validate_dict  = cells_inv_dict;
-
-    } else if (source == "INTERNAL"){
+    } else if (source == "INTERNAL_CHECK"){
         initialize_inv_field_value_dict();
         validate_sheet      = internal_upload_sheet;
         last_col            = columnToLetter(inv_upload_table_fields_l.length);
@@ -46,6 +45,22 @@ function set_global_variables(trig_source){
         load_client_dicts();
         validate_sheet      = client_form_sheet;
         cell_validate_dict  = cells_client_dict;
+    } else if (source == "CRM_CHECK"){
+        initialize_client_field_value_dict();
+        validate_sheet      = client_upload_sheet;
+        last_col            = columnToLetter(client_upload_table_fields_l.length);
+        last_row            = client_upload_sheet.getLastRow();
+        crm_data            = [[]];
+        cells_crm_dict      = {};
+        counterpart_l       = [];
+    } else if (source == "PAYMENT_CHECK"){
+        initialize_payment_field_value_dict();
+        validate_sheet      = payment_upload_sheet;
+        last_col            = columnToLetter(payment_table_fields_l.length);
+        last_row            = payment_upload_sheet.getLastRow();
+        payment_data        = [[]];
+        cells_payment_dict  = {};
+        payment_id_l        = [];
     }
 
 }
@@ -73,7 +88,7 @@ function initialize_inv_field_value_dict(){
 
 
 function initialize_payment_field_value_dict(){
-    var payment_table_fields_l = ["timestamp", "invoice_key",
+    payment_table_fields_l = ["timestamp", "invoice_key",
     "id", "counterpart", "is_income",
     "date", "currency"];
 
@@ -144,9 +159,6 @@ function load_payment_dicts(){
     }
     payment_field_values_dict["timestamp"] = inv_field_values_dict["timestamp"];
 
-    // This ref is not supported by DBT process right now
-    //payment_field_values_dict["invoice_key"] = inv_field_values_dict["invoice_id"];
-
     payment_field_values_dict["id"] = invoice_upload_sheet.getRange(payment_id_cell).getValue();
 
     payment_field_values_dict["counterpart"] = inv_field_values_dict["counterpart"];
@@ -161,7 +173,7 @@ function load_payment_dicts(){
     payment_field_values_dict["date"] = inv_field_values_dict["due_date"];
     payment_field_values_dict["currency"] = inv_field_values_dict["currency"];
 
-    payment_field_values_dict["name_concept_1"] = "Monto Factura";
+    payment_field_values_dict["name_concept_1"] = "Pago Factura";
 
     payment_field_values_dict["amount_concept_1"] = calculate_invoice_total_amount();
 
@@ -181,23 +193,65 @@ function load_client_dicts(){
 }
 
 function get_internal_data(){
-    var range   = first_col_internal_load + first_row_internal_load + ":"
+    var range   = first_col + first_row + ":"
                 + last_col + last_row;
 
     internal_data = internal_upload_sheet.getRange(range).getValues();
 }
 
+function get_crm_data(){
+    var range   = first_col + first_row + ":"
+                + last_col + last_row;
+
+    crm_data = client_upload_sheet.getRange(range).getValues();
+}
+
+function get_payment_data(){
+    var range   = first_col + first_row + ":"
+                + last_col + last_row;
+
+    payment_data = payment_upload_sheet.getRange(range).getValues();
+}
+
 function load_field_values_from_internal(row){
     var i = 0;
     for (const field_name of inv_upload_table_fields_l) {
-        let cell   = columnToLetter(letterToColumn(first_col_internal_load) + i) + row;
-        inv_field_values_dict[field_name]   = internal_data[row - first_row_internal_load][i]
+        let cell   = columnToLetter(letterToColumn(first_col) + i) + row;
+        inv_field_values_dict[field_name]   = internal_data[row - first_row][i]
         cells_internal_dict[field_name] = cell;
         i++;
     }
     cell_validate_dict  = cells_internal_dict;
     invoice_id_l.push(inv_field_values_dict["invoice_id"]);
     url_invoice_l.push(inv_field_values_dict["url_invoice"]);
+}
+
+
+function load_field_values_from_crm(row){
+    var i = 0;
+    for (const field_name of client_upload_table_fields_l) {
+        let cell   = columnToLetter(letterToColumn(first_col) + i) + row;
+        client_field_values_dict[field_name]   = crm_data[row - first_row][i]
+        cells_client_dict[field_name] = cell;
+        i++;
+    }
+    cell_validate_dict  = cells_client_dict;
+
+    counterpart_l.push(client_field_values_dict["counterpart"]);
+}
+
+
+function load_field_values_from_payment(row){
+    var i = 0;
+    for (const field_name of payment_table_fields_l) {
+        let cell   = columnToLetter(letterToColumn(first_col) + i) + row;
+        payment_field_values_dict[field_name]   = payment_data[row - first_row][i]
+        cells_payment_dict[field_name] = cell;
+        i++;
+    }
+    cell_validate_dict  = cells_payment_dict;
+
+    payment_id_l.push(payment_field_values_dict["id"]);
 }
 
 function get_approve_status(){
