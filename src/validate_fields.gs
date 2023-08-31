@@ -83,7 +83,8 @@ function validate_inv_mandatory_fields(){
 }
 
 function validate_client_mandatory_fields(){
-    const mandatory_field_l = ["timestamp", "counterpart", "relation"];
+    const mandatory_field_l = ["timestamp", "counterpart", "relation",
+                                "external_notification",	"counterpart_id",	"upload_source"];
 
 
     var error_field_l = []

@@ -63,7 +63,7 @@ is_approved_cell          = "B9";
 payment_id_cell           = "B17";
 payment_date_cell         = "B11"
 relation_cell             = "B6";
-duplicated_indirect_counterpart = "B3";
+duplicated_indirect_counterpart_cell = "B3";
 duplicated_counterpart_cell = "B5";     // in client_form_page
 drive_folder_cell         = "B27";
 
