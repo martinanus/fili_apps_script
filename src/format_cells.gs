@@ -7,6 +7,9 @@ function clear_background(page_name, clear_range){
 
 function clear_inv_form_background(){
     for (const [field, cell] of Object.entries(cells_inv_dict)) {
+        if (invoice_upload_fix_fields_l.includes(field)){
+            continue;
+        }
         invoice_upload_sheet.getRange(cell).setBackground(default_bg_colour);
     }
     invoice_upload_sheet.getRange(is_approved_cell).setBackground(default_bg_colour);
@@ -15,6 +18,9 @@ function clear_inv_form_background(){
 
 function clear_client_form_background(){
     for (const [field, cell] of Object.entries(cells_client_dict)) {
+        if (counterpart_upload_fix_fields_l.includes(field)){
+            continue;
+        }
         client_form_sheet.getRange(cell).setBackground(default_bg_colour);
     }
     SpreadsheetApp.flush();
@@ -38,7 +44,7 @@ function clear_payment_upload_background(){
 
 function clear_inv_form_content(){
     for (const [field, cell] of Object.entries(cells_inv_dict)) {
-        if (multicurrency_allowed==false && field == "currency"){
+        if (invoice_upload_fix_fields_l.includes(field)){
             continue;
         }
         if (field == "invoice_id"){
@@ -54,6 +60,9 @@ function clear_inv_form_content(){
 
 function clear_client_form_content(){
     for (const [field, cell] of Object.entries(cells_client_dict)) {
+        if (counterpart_upload_fix_fields_l.includes(field)){
+            continue;
+        }
         client_form_sheet.getRange(cell).clearContent();
     }
     SpreadsheetApp.flush();

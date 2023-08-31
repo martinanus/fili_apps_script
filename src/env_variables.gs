@@ -17,8 +17,10 @@ dbt_run_url               = 'REPLACE_ME';
 // Internal email configuration
 fili_notif_email          = 'soporte@somosfili.com';
 
-// Set true to allow multicurrency use - ommit formating and clearing currency field
-multicurrency_allowed     = false;
+
+// Fix fields - this fields won't be cleared
+invoice_upload_fix_fields_l     = ["recurrence_periodicity", "installments"]
+counterpart_upload_fix_fields_l = []
 
 //----------------------------------------------------------------
 // Standard variables
