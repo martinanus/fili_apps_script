@@ -14,18 +14,15 @@ upload_folder_id          = 'REPLACE_ME';
 // Specific DBT client service URL
 dbt_run_url               = 'REPLACE_ME';
 
-// WebApp to upload portal
-upload_portal_deploy_url = "REPLACE_ME"
+// Internal email configuration
+fili_notif_email          = 'soporte@somosfili.com';
 
 // Fix fields - this fields won't be cleared
-invoice_upload_fix_fields_l     = ["recurrence_periodicity", "installments", "invoice_date", "is_approved"]
-counterpart_upload_fix_fields_l = ["relation"]
+invoice_upload_fix_fields_l     = []
+counterpart_upload_fix_fields_l = []
 
 // Additional custom mandatory fields
 //TODO - add this
-
-// Internal email configuration
-fili_notif_email          = 'soporte@somosfili.com';
 
 //----------------------------------------------------------------
 // Standard variables
