@@ -45,7 +45,12 @@ function check_internal_data(){
         load_field_values_from_internal(row);
         validate_inv_fields();
     }
-    validate_duplicated();
+
+    validate_duplicated_field(invoice_id_l, inv_id_col_internal_load, "invoice_id");
+    validate_duplicated_field(url_invoice_l, url_inv_col_internal_load, "url_invoice",
+                              allow_empties=true);
+
+    validate_counterpart_in_crm(inv_counterpart_l);
 }
 
 function check_crm_data(){

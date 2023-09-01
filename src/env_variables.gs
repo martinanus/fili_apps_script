@@ -14,11 +14,18 @@ upload_folder_id          = 'REPLACE_ME';
 // Specific DBT client service URL
 dbt_run_url               = 'REPLACE_ME';
 
+// WebApp to upload portal
+upload_portal_deploy_url = "REPLACE_ME"
+
+// Fix fields - this fields won't be cleared
+invoice_upload_fix_fields_l     = ["recurrence_periodicity", "installments", "invoice_date", "is_approved"]
+counterpart_upload_fix_fields_l = ["relation"]
+
+// Additional custom mandatory fields
+//TODO - add this
+
 // Internal email configuration
 fili_notif_email          = 'soporte@somosfili.com';
-
-// Set true to allow multicurrency use - ommit formating and clearing currency field
-multicurrency_allowed     = false;
 
 //----------------------------------------------------------------
 // Standard variables
@@ -59,6 +66,7 @@ first_col   = "A";        // in manual_upload
 
 inv_id_col_internal_load  = 'H';        // in manual_upload
 url_inv_col_internal_load = 'BX';       // in manual_upload
+counterpart_col_internal_load  = 'B';   // in internal_upload
 counterpart_col_crm_load  = 'B';        // in counterpart_upload
 id_col_payment_load       = 'C';        // in payment_upload
 
