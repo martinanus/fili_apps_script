@@ -241,11 +241,6 @@ function validate_concepts(){
     return;
 }
 
-function validate_duplicated(){
-    validate_duplicated_field(invoice_id_l, inv_id_col_internal_load, "invoice_id");
-    validate_duplicated_field(url_invoice_l, url_inv_col_internal_load, "url_invoice",
-                              allow_empties=true);
-}
 
 function validate_duplicated_field(arr, col, field, allow_empties=false){
     const find_duplicates   = arr => arr.filter((item, index) => arr.indexOf(item) !== index);
@@ -286,4 +281,31 @@ function validate_duplicated_counterpart(){
     }
 
     return;
+}
+
+function validate_counterpart_in_crm(inv_counterpart_l){
+
+    var counterpart_index_not_added_l = []
+    var crm_counterparts_l = [];
+    var crm_counterparts = get_crm_counterparts();
+
+    for (let i = 0; i < crm_counterparts.length ; i++ ){
+        crm_counterparts_l.push(crm_counterparts[i][0])
+    }
+
+    for (let i = 0; i < inv_counterpart_l.length ; i++ ){
+        if (!crm_counterparts_l.includes(inv_counterpart_l[i])){
+            console.log(inv_counterpart_l[i] + " no está dado de alta en el CRM!")
+            counterpart_index_not_added_l.push(i);
+        }
+    }
+
+    for (const i of counterpart_index_not_added_l){
+        let cell = counterpart_col_internal_load + (first_row + i)
+        internal_upload_sheet.getRange(cell).setBackground(error_bg_colour);
+    }
+
+    if (counterpart_index_not_added_l.length){
+        exit_on_error("Hay contrapartes no dadas de alta");
+    }
 }

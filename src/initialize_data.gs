@@ -20,13 +20,12 @@ function set_global_variables(trig_source){
     client_form_sheet     = spreadsheet.getSheetByName(client_form_page_name);
     client_upload_sheet   = spreadsheet.getSheetByName(client_upload_page_name);
 
-
+    initialize_inv_field_value_dict();
+    initialize_payment_field_value_dict();
+    initialize_client_field_value_dict();
 
     if (source == "MANUAL"){
         is_approved         = get_approve_status();
-        initialize_inv_field_value_dict();
-        initialize_payment_field_value_dict();
-        initialize_client_field_value_dict();
         load_inv_dicts();
         load_payment_dicts();
         load_indirect_client_dicts();
@@ -34,7 +33,6 @@ function set_global_variables(trig_source){
         cell_validate_dict  = cells_inv_dict;
         counterpart_duplicated = get_counterpart_duplicated();
     } else if (source == "INTERNAL_CHECK"){
-        initialize_inv_field_value_dict();
         validate_sheet      = internal_upload_sheet;
         last_col            = columnToLetter(inv_upload_table_fields_l.length);
         last_row            = internal_upload_sheet.getLastRow();
@@ -42,13 +40,12 @@ function set_global_variables(trig_source){
         cells_internal_dict = {};
         invoice_id_l        = [];
         url_invoice_l       = [];
+        inv_counterpart_l   = [];
     } else if (source == "CRM"){
-        initialize_client_field_value_dict();
         load_client_dicts();
         validate_sheet      = client_form_sheet;
         cell_validate_dict  = cells_client_dict;
     } else if (source == "CRM_CHECK"){
-        initialize_client_field_value_dict();
         validate_sheet      = client_upload_sheet;
         last_col            = columnToLetter(client_upload_table_fields_l.length);
         last_row            = client_upload_sheet.getLastRow();
@@ -56,7 +53,6 @@ function set_global_variables(trig_source){
         cells_crm_dict      = {};
         counterpart_l       = [];
     } else if (source == "PAYMENT_CHECK"){
-        initialize_payment_field_value_dict();
         validate_sheet      = payment_upload_sheet;
         last_col            = columnToLetter(payment_table_fields_l.length);
         last_row            = payment_upload_sheet.getLastRow();
@@ -226,6 +222,17 @@ function get_payment_data(){
     payment_data = payment_upload_sheet.getRange(range).getValues();
 }
 
+
+function get_crm_counterparts(){
+    var last_row_crm        = client_upload_sheet.getLastRow();
+    var range               = counterpart_col_crm_load + first_row + ":"
+                            + counterpart_col_crm_load + last_row_crm;
+
+    var crm_counterparts = client_upload_sheet.getRange(range).getValues();
+
+    return crm_counterparts;
+}
+
 function load_field_values_from_internal(row){
     var i = 0;
     for (const field_name of inv_upload_table_fields_l) {
@@ -237,6 +244,7 @@ function load_field_values_from_internal(row){
     cell_validate_dict  = cells_internal_dict;
     invoice_id_l.push(inv_field_values_dict["invoice_id"]);
     url_invoice_l.push(inv_field_values_dict["url_invoice"]);
+    inv_counterpart_l.push(inv_field_values_dict["counterpart"]);
 }
 
 

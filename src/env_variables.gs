@@ -18,7 +18,7 @@ spreadsheetId = "1UA373gL5oJm0Yru6vc7Wcvo4f9PuGQ-krPWXdldG66U"
 rootDriveFolderId = "1VB_0wCNZwdmbxsTq3frPpJyX7yQ2hCeU"
 
 // WebApp to upload portal
-upload_portal_deploy_url = "https://script.google.com/macros/s/AKfycbzA4TAF_STM3zUo5MyvK0dzDIUHnhr0O_7Jb4j33RTJLgbn9NmudA0WCdydeMATWSfr0A/exec"
+upload_portal_deploy_url = "https://script.google.com/macros/s/AKfycbyuykK56GpKD7ajEjWTZZDSssS-ioZhVTCiW0bn6dd-tpyC0ERSIYzALbQFUbZuAS1toA/exec"
 
 
 invoice_upload_fix_fields_l     = ["recurrence_periodicity", "installments", "invoice_date", "is_approved"]
@@ -26,9 +26,6 @@ counterpart_upload_fix_fields_l = ["relation"]
 
 // Internal email configuration
 fili_notif_email          = 'soporte@somosfili.com';
-
-// Set true to allow multicurrency use - ommit formating and clearing currency field
-multicurrency_allowed     = true;
 
 //----------------------------------------------------------------
 // Standard variables
@@ -73,6 +70,7 @@ first_col   = "A";        // in internal/manual/counterpart_upload
 inv_id_col_internal_load  = 'H';        // in manual_upload
 url_inv_col_internal_load = 'BX';       // in manual_upload
 counterpart_col_crm_load  = 'B';        // in counterpart_upload
+counterpart_col_internal_load  = 'B';   // in internal_upload
 id_col_payment_load       = 'C';        // in payment_upload
 
 
