@@ -41,6 +41,13 @@ function validate_inv_mandatory_fields(){
         }
     }
 
+    for (const field of invoice_custom_mandatory_fields_l){
+        if (inv_field_values_dict[field] == '' && typeof(inv_field_values_dict[field]) != "boolean"){
+            console.log(field, " field is empty");
+            error_field_l.push(field);
+        }
+    }
+
     if (source == "MANUAL"){
         var is_approve_value = invoice_upload_sheet.getRange(is_approved_cell).getValue();
         if (is_approve_value == ''){
@@ -79,6 +86,15 @@ function validate_client_mandatory_fields(){
         if (client_field_values_dict[field] == '' && typeof(client_field_values_dict[field]) != "boolean"){
             console.log(field, " field is empty");
             error_field_l.push(field);
+        }
+    }
+
+    if (source == "CRM"){
+        for (const field of counterpart_custom_mandatory_fields_l){
+            if (client_field_values_dict[field] == '' && typeof(client_field_values_dict[field]) != "boolean"){
+                console.log(field, " field is empty");
+                error_field_l.push(field);
+            }
         }
     }
 

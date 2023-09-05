@@ -22,7 +22,8 @@ invoice_upload_fix_fields_l     = []
 counterpart_upload_fix_fields_l = []
 
 // Additional custom mandatory fields
-//TODO - add this
+invoice_custom_mandatory_fields_l     = []
+counterpart_custom_mandatory_fields_l = []
 
 //----------------------------------------------------------------
 // Standard variables
