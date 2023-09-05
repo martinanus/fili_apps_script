@@ -62,7 +62,6 @@ payment_date_cell         = "B11"
 relation_cell             = "B6";
 duplicated_indirect_counterpart_cell = "B3";
 duplicated_counterpart_cell = "B5";     // in client_form_page
-drive_folder_cell         = "B27";
 
 first_row   = 2;          // in internal/manual/counterpart_upload
 first_col   = "A";        // in internal/manual/counterpart_upload

@@ -29,7 +29,7 @@ function validate_inv_mandatory_fields(){
                           "recurrence_periodicity", "installments", "invoice_date",
                           "invoice_id", "currency",
                           "item_1", "unit_price_1", "quantity_1", "is_invoice",
-                          "invoice_group_1", "invoice_group_2", "invoice_group_3"];
+                          "invoice_group_1", "invoice_group_2", "invoice_group_3", "invoice_group_4"];
 
     const mandatory_internal_field_l = ["url_source_reference"];
 
@@ -55,11 +55,6 @@ function validate_inv_mandatory_fields(){
             validate_sheet.getRange(relation_cell).setBackground(error_bg_colour);
         }
 
-        var drive_folder = invoice_upload_sheet.getRange(drive_folder_cell).getValue();
-        if (drive_folder == ''){
-            console.log("drive_folder field is empty");
-            validate_sheet.getRange(drive_folder_cell).setBackground(error_bg_colour);
-        }
     } else if (source == "INTERNAL_CHECK"){
         for (const field of mandatory_internal_field_l){
             if (inv_field_values_dict[field] == '' && typeof(inv_field_values_dict[field]) != "boolean"){

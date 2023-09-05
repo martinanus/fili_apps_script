@@ -13,7 +13,6 @@ function clear_inv_form_background(){
         invoice_upload_sheet.getRange(cell).setBackground(default_bg_colour);
     }
     invoice_upload_sheet.getRange(relation_cell).setBackground(default_bg_colour);
-    invoice_upload_sheet.getRange(drive_folder_cell).setBackground(default_bg_colour);
     invoice_upload_sheet.getRange(is_approved_cell).setBackground(default_bg_colour);
     invoice_upload_sheet.getRange(payment_date_cell).setBackground(default_bg_colour);
 
@@ -58,7 +57,6 @@ function clear_inv_form_content(){
         invoice_upload_sheet.getRange(cell).clearContent();
     }
     invoice_upload_sheet.getRange(relation_cell).clearContent();
-    invoice_upload_sheet.getRange(drive_folder_cell).clearContent();
     invoice_upload_sheet.getRange(is_approved_cell).clearContent();
     invoice_upload_sheet.getRange(payment_date_cell).clearContent();
 

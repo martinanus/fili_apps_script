@@ -1,10 +1,11 @@
 
 function getFolderToUpload(){
     var relation = invoice_upload_sheet.getRange(relation_cell).getValue();
+    var driveFolderName = inv_field_values_dict["invoice_group_4"]
+
     if (relation == "Cliente"){
         var folderToUpload = searchFolderId("Cobranzas")
     } else {
-        var driveFolderName = invoice_upload_sheet.getRange(drive_folder_cell).getValue();
         var folderToUpload = searchFolderId("Pagos", driveFolderName)
     }
     return folderToUpload;

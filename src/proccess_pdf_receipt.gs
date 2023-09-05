@@ -60,6 +60,7 @@ function upload_pdf(http_response){
     inv_field_values_dict["url_invoice"]            = file_url;
     inv_field_values_dict["url_source_reference"]   = file_url;
 
+
     if(is_approved){
       payment_field_values_dict["documents_url"]        = file_url;
       payment_field_values_dict["url_source_reference"] = file_url;
