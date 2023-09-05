@@ -11,7 +11,6 @@ function validate_inv_fields(){
 function validate_client_fields(){
 
     validate_client_mandatory_fields();
-    validate_duplicated_counterpart();
 
     return;
 }

@@ -63,7 +63,6 @@ function check_crm_data(){
       load_field_values_from_crm(row);
       validate_client_fields();
   }
-  validate_duplicated_field(counterpart_l, counterpart_col_crm_load, "counterpart", false);
 }
 
 
