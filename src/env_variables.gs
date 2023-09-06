@@ -14,6 +14,9 @@ upload_folder_id          = 'REPLACE_ME';
 // Specific DBT client service URL
 dbt_run_url               = 'REPLACE_ME';
 
+// Upload Portal deploy URL
+upload_portal_deploy_url    = "REPLACE_ME"
+
 // Internal email configuration
 fili_notif_email          = 'soporte@somosfili.com';
 

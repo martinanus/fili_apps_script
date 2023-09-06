@@ -49,3 +49,7 @@ function run_dbt() {
   // call the server
   UrlFetchApp.fetch(dbt_run_url , options);
 }
+
+function getToUploadPortalForm(){
+  var response = UrlFetchApp.fetch(upload_portal_deploy_url);
+}

@@ -18,6 +18,7 @@ function add_new_client(){
     populate_client_data_table();
     clear_client_form_content();
     set_ready_status();
+    getToUploadPortalForm();
 }
 
 function generate_invoice(){
@@ -32,6 +33,7 @@ function generate_invoice(){
     clear_inv_form_content();
     set_ready_status();
     run_dbt();
+    getToUploadPortalForm();
 }
 
 
@@ -88,4 +90,5 @@ function check_all_data(){
 function load_data(){
     check_all_data();
     run_dbt();
+    getToUploadPortalForm();
 }
