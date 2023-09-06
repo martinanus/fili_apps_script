@@ -1,4 +1,38 @@
-function onOpen(){
+function doPost(e){
+    var trigger = e.queryString;
+
+    try {
+        switch (trigger){
+        case "add_new_client":
+            add_new_client();
+            break;
+        case "generate_invoice":
+            generate_invoice();
+            break;
+        case "check_internal_data":
+            check_internal_data();
+            break;
+        case "check_crm_data":
+            check_crm_data();
+            break;
+        case "check_payment_data":
+            check_payment_data();
+            break;
+        case "load_data":
+            load_data();
+            break;
+        case "customOnOpen":
+            customOnOpen();
+            break;
+        }
+    } catch (error_msg) {
+        return ContentService.createTextOutput(error_msg)
+    }
+
+    return ContentService.createTextOutput("OK")
+}
+
+function customOnOpen(){
     set_global_variables("MANUAL");
     clear_inv_form_background();
     clear_inv_form_content();
@@ -17,8 +51,8 @@ function add_new_client(){
     set_validated_status();
     populate_client_data_table();
     clear_client_form_content();
-    set_ready_status();
     getToUploadPortalForm();
+    set_ready_status();
 }
 
 function generate_invoice(){
@@ -30,6 +64,7 @@ function generate_invoice(){
     process_form_data();
     populate_inv_data_table();
     populate_payment_data_table();
+    populate_client_data_table();
     clear_inv_form_content();
     set_ready_status();
     run_dbt();
@@ -47,7 +82,6 @@ function check_internal_data(){
         load_field_values_from_internal(row);
         validate_inv_fields();
     }
-
     validate_duplicated_field(invoice_id_l, inv_id_col_internal_load, "invoice_id");
     validate_duplicated_field(url_invoice_l, url_inv_col_internal_load, "url_invoice",
                               allow_empties=true);

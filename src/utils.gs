@@ -2,7 +2,7 @@ function exit_on_error(error_msg){
   if (source == "MANUAL"){
     set_error_status();
   }
-
+  return ContentService.createTextOutput(error_msg)
   throw new Error(error_msg);
 }
 
