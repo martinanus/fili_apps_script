@@ -3,16 +3,16 @@
 //----------------------------------------------------------------
 
 // Client name
-client_name               = 'REPLACE_ME';
+client_name                 = 'REPLACE_ME';
 
 // Client email config
-user_email              = 'REPLACE_ME';
+user_email                  = 'REPLACE_ME';
 
-// Drive upload Folder for generated invoices
-upload_folder_id          = 'REPLACE_ME';
+// Drive root upload Folder for generated receipt
+drive_root_folder_id        = "REPLACE_ME"
 
 // Specific DBT client service URL
-dbt_run_url               = 'REPLACE_ME';
+dbt_run_url                 = 'REPLACE_ME';
 
 // Upload Portal deploy URL
 upload_portal_deploy_url    = "REPLACE_ME"

@@ -2,14 +2,6 @@
 function set_global_variables(trig_source){
     source = trig_source;
 
-    // Check for client custom variables
-    if (client_name.includes("REPLACE_ME") ||
-        upload_folder_id.includes("REPLACE_ME") ||
-        user_email.includes("REPLACE_ME") ||
-        dbt_run_url.includes("REPLACE_ME")){
-
-            throw new Error("Complete client specific variables");
-    }
 
     spreadsheet           = SpreadsheetApp.getActiveSpreadsheet();
     invoice_upload_sheet  = spreadsheet.getSheetByName(invoice_upload_page_name);
