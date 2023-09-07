@@ -1,4 +1,4 @@
-var webAppUrl = "https://script.google.com/macros/s/AKfycbxjQaV6MURBEA0rilBpg5ugJm-CczzOeTUTw-R3FETDxyr05heK6YP90QWvqxqJkNtbbQ/exec"
+var webAppUrl = "https://script.google.com/macros/s/AKfycbxGI1Gfo8NP6RbRfYPp2GhZfgMAsJHaXd41MxjErq-NtVHyL0OA8nrEwXqDkq3ClwucSA/exec"
 
 function makePost(args){
 
@@ -8,8 +8,16 @@ function makePost(args){
     'method' : 'post'
   };
 
-  UrlFetchApp.fetch(urlWithArgs, options);
-  console.log("URL: "+ urlWithArgs)
+  Logger.log("URL: "+ urlWithArgs)
+
+  var response = UrlFetchApp.fetch(urlWithArgs, options);
+  var responseContentText = response.getContentText();
+
+  Logger.log("responseContentText: " + responseContentText)
+
+  if(responseContentText != "OK"){
+    throw new Error(responseContentText)
+  }
 }
 
 
