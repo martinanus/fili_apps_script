@@ -48,10 +48,12 @@ validated_bg_colour       = "#0ADB3A";   // green
 status_cell               = "B2";       // in invoice_upload_page
 invoice_id_cell_to_clear  = "B18";      // in invoice_upload_page
 
-first_row_internal_load   = 2;          // in manual_upload
+first_row   = 2;          // in manual_upload
 first_col_internal_load   = "A";        // in manual_upload
 inv_id_col_internal_load  = 'I';        // in manual_upload
 url_inv_col_internal_load = 'BY';       // in manual_upload
+counterpart_col_internal_load  = 'B';   // in internal_upload
+counterpart_col_crm_load  = 'B';        // in counterpart_upload
 duplicated_counterpart_cell = "B5";     // in client_form_page
 
 spacing                   = 2;          // separation btw content cells int invoice_upload_page

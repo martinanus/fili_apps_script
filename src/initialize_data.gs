@@ -36,6 +36,7 @@ function set_global_variables(trig_source){
         cells_internal_dict = {};
         invoice_id_l        = [];
         url_invoice_l       = [];
+        inv_counterpart_l   = [];
     } else if (source == "CRM"){
         initialize_client_field_value_dict();
         load_client_dicts();
@@ -119,21 +120,33 @@ function load_client_dicts(){
 }
 
 function get_internal_data(){
-    var range   = first_col_internal_load + first_row_internal_load + ":"
+    var range   = first_col_internal_load + first_row + ":"
                 + last_col + last_row;
 
     internal_data = internal_upload_sheet.getRange(range).getValues();
+}
+
+
+function get_crm_counterparts(){
+    var last_row_crm        = client_upload_sheet.getLastRow();
+    var range               = counterpart_col_crm_load + first_row + ":"
+                            + counterpart_col_crm_load + last_row_crm;
+
+    var crm_counterparts = client_upload_sheet.getRange(range).getValues();
+
+    return crm_counterparts;
 }
 
 function load_field_values_from_internal(row){
     var i = 0;
     for (const field_name of upload_table_fields_l) {
         let cell   = columnToLetter(letterToColumn(first_col_internal_load) + i) + row;
-        field_values_dict[field_name]   = internal_data[row - first_row_internal_load][i]
+        field_values_dict[field_name]   = internal_data[row - first_row][i]
         cells_internal_dict[field_name] = cell;
         i++;
     }
     cell_validate_dict  = cells_internal_dict;
     invoice_id_l.push(field_values_dict["invoice_id"]);
     url_invoice_l.push(field_values_dict["url_invoice"]);
+    inv_counterpart_l.push(field_values_dict["counterpart"]);
 }

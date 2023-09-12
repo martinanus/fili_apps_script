@@ -40,11 +40,13 @@ function check_internal_data(){
 
     get_internal_data();
 
-    for (let row = first_row_internal_load; row <= last_row ; row++ ){
+    for (let row = first_row; row <= last_row ; row++ ){
         load_field_values_from_internal(row);
         validate_inv_fields();
     }
     validate_duplicated();
+
+    validate_counterpart_in_crm(inv_counterpart_l);
 }
 
 function load_internal_data(){

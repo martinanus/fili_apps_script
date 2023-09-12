@@ -151,7 +151,7 @@ function validate_duplicated_field(arr, col, field, allow_empties=false){
     }
 
     var error_flag  = false;
-    var row_i       = first_row_internal_load;
+    var row_i       = first_row;
 
     for (const element of arr) {
         if(dup_elements.includes(element)){
@@ -178,4 +178,33 @@ function validate_duplicated_counterpart(){
     }
 
     return;
+}
+
+
+function validate_counterpart_in_crm(inv_counterpart_l){
+
+    var counterpart_index_not_added_l = []
+    var crm_counterparts_l = [];
+    var crm_counterparts = get_crm_counterparts();
+
+    for (let i = 0; i < crm_counterparts.length ; i++ ){
+        crm_counterparts_l.push(crm_counterparts[i][0])
+    }
+
+    for (let i = 0; i < inv_counterpart_l.length ; i++ ){
+        if (!crm_counterparts_l.includes(inv_counterpart_l[i])){
+            console.log(inv_counterpart_l[i] + " no está dado de alta en el CRM!")
+            counterpart_index_not_added_l.push(i);
+        }
+    }
+
+    for (const i of counterpart_index_not_added_l){
+        let cell = counterpart_col_internal_load + (first_row + i)
+        internal_upload_sheet.getRange(cell).setBackground(error_bg_colour);
+    }
+
+    if (counterpart_index_not_added_l.length){
+        exit_on_error("Hay contrapartes no dadas de alta");
+    }
+
 }
