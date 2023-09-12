@@ -49,7 +49,23 @@ function check_internal_data(){
     validate_counterpart_in_crm(inv_counterpart_l);
 }
 
+
+function check_crm_data(){
+    set_global_variables("CRM_CHECK");
+    clear_crm_upload_background();
+
+    get_crm_data();
+
+    for (let row = first_row; row <= last_row ; row++ ){
+        load_field_values_from_crm(row);
+        validate_client_fields();
+    }
+    validate_duplicated_field(counterpart_l, counterpart_col_crm_load, "counterpart", false);
+  }
+
+
 function load_internal_data(){
     check_internal_data();
+    check_crm_data();
     run_dbt();
 }

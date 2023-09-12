@@ -20,9 +20,16 @@ function clear_client_form_background(){
 }
 
 function clear_internal_upload_background(){
-    var clear_range = first_col_internal_load + first_row + ":"
+    var clear_range = first_col + first_row + ":"
                   + last_col + last_row;
     clear_background(internal_upload_page_name, clear_range);
+}
+
+
+function clear_crm_upload_background(){
+    var clear_range = first_col + first_row + ":"
+                  + last_col + last_row;
+    clear_background(client_upload_page_name, clear_range);
 }
 
 function clear_inv_form_content(){

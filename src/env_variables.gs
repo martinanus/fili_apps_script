@@ -49,7 +49,7 @@ status_cell               = "B2";       // in invoice_upload_page
 invoice_id_cell_to_clear  = "B18";      // in invoice_upload_page
 
 first_row   = 2;          // in manual_upload
-first_col_internal_load   = "A";        // in manual_upload
+first_col   = "A";        // in manual_upload
 inv_id_col_internal_load  = 'I';        // in manual_upload
 url_inv_col_internal_load = 'BY';       // in manual_upload
 counterpart_col_internal_load  = 'B';   // in internal_upload
