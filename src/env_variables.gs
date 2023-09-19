@@ -7,18 +7,19 @@ client_name                 = 'Lucio Laria';
 
 // Client email config
 user_email                  = 'soporte@somosfili.com'; // TODO - This need to be updated
+//user_email                  = 'luciolaria@gmail.com';
 
 // Drive root upload Folder for generated receipt
 drive_root_folder_id        = "12FHFOmdji-CftGIowrxuYNt6cRngK4-P" // TODO - This need to be updated
 
 // Specific DBT client service URL
-dbt_run_url                 = ''; // TODO - This need to be updated
+//dbt_run_url               = 'https://dbt-luciolaria-7txkfbm3yq-uc.a.run.app/';
 
 // Upload Portal deploy URL
 upload_portal_deploy_url    = "www.google.com" // TODO - This need to be updated
 
 // Sheet Master id
-spreadsheetId               = "1rQ0H0jv7ov9-gd-ksGD3opRRvdHVYs5VUBwCTQkfbbk" // TODO - This need to be updated
+spreadsheetId               = "1mkSS7eWwTxa22tGKtyGouuXSKyRn4adekLRrqVbgyeU"
 
 // Internal email configuration
 fili_notif_email          = 'soporte@somosfili.com';
@@ -40,7 +41,7 @@ filiWebSiteUrl          = "www.somosfili.com"
 //----------------------------------------------------------------
 
 // Sheet pages name
-client_form_page_name     = "Alta de Clientes"; // LL_specific
+client_form_page_name     = "Alta de Contraparte";
 client_upload_page_name   = "counterpart_upload";
 
 invoice_upload_page_name  = "Carga de Facturas"; // LL_specific
