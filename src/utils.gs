@@ -1,5 +1,5 @@
 function exit_on_error(error_msg){
-  if (source == "MANUAL"){
+  if (source == "MANUAL" || source == "CRM"){
     set_error_status();
   }
   throw new Error(error_msg);
