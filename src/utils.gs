@@ -1,8 +1,7 @@
 function exit_on_error(error_msg){
-  if (source == "CLIENT"){
+  if (source == "MANUAL" || source == "CRM"){
     set_error_status();
   }
-
   throw new Error(error_msg);
 }
 
@@ -27,18 +26,6 @@ function letterToColumn(letter){
 }
 
 
-function run_dbt() {
-  // Use the OpenID token inside App Scripts
-  const token = ScriptApp.getIdentityToken();
-  var options = {
-      'method' : 'get',
-      'headers': {'Authorization': 'Bearer ' + token},
-  };
-
-  // call the server
-  UrlFetchApp.fetch(dbt_run_url , options);
-}
-
 function getFiliUrlWithUtm(client, textToShow){
   var userHashed = hash_str(bqDataset)
   var clientHashed = hash_str(client)
@@ -60,4 +47,21 @@ function hash_str(str_to_hash){
   sum *= str_to_hash.charCodeAt(0);
 
   return sum;
+}
+
+
+function run_dbt() {
+  // Use the OpenID token inside App Scripts
+  const token = ScriptApp.getIdentityToken();
+  var options = {
+      'method' : 'get',
+      'headers': {'Authorization': 'Bearer ' + token},
+  };
+
+  // call the server
+  UrlFetchApp.fetch(dbt_run_url , options);
+}
+
+function getToUploadPortalForm(){
+  var response = UrlFetchApp.fetch(upload_portal_deploy_url);
 }

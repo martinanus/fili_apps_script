@@ -1,12 +1,8 @@
- function process_form_data(){
+function process_form_data(){
     var response = generate_pdf_receipt();
     var uploaded_file = upload_pdf(response);
 
-    if (send_external_mail == true){
-        send_email_to_client(uploaded_file);
-    } else {
-        send_email_to_user(uploaded_file);
-    }
+    send_email_to_client(uploaded_file);
 
     return
 }
@@ -14,7 +10,7 @@
 function populate_inv_data_table(){
 
     var data_arr = [];
-    for (const [field, value] of Object.entries(field_values_dict)) {
+    for (const [field, value] of Object.entries(inv_field_values_dict)) {
         data_arr.push(value);
     }
 
@@ -23,10 +19,24 @@ function populate_inv_data_table(){
     return;
 }
 
+function populate_payment_data_table(){
+    if (!is_approved){
+        return;
+    }
+    var data_arr = [];
+    for (const [field, value] of Object.entries(payment_field_values_dict)) {
+        data_arr.push(value);
+    }
+
+    payment_upload_sheet.appendRow(data_arr);
+
+    return;
+}
+
 function populate_client_data_table(){
 
     var data_arr = [];
-    for (const [field, value] of Object.entries(field_values_dict)) {
+    for (const [field, value] of Object.entries(client_field_values_dict)) {
         data_arr.push(value);
     }
 

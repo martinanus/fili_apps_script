@@ -70,15 +70,19 @@ function get_http_options(){
 
 
 function upload_pdf(http_response){
-    var folder          = DriveApp.getFolderById(upload_folder_id);
-    var invoice_id      = field_values_dict["invoice_id"];
-    var the_blob        = http_response.getBlob().getAs('application/pdf').setName(invoice_id +'.pdf');
-    var uploaded_file   = folder.createFile(the_blob);
+  var folder          = getFolderToUpload();
+  var invoice_id      = inv_field_values_dict["invoice_id"];
+  var the_blob        = http_response.getBlob().getAs('application/pdf').setName(invoice_id +'.pdf');
+  var uploaded_file   = folder.createFile(the_blob);
+  var file_url        = uploaded_file.getUrl();
 
-    field_values_dict["url_invoice"]            = uploaded_file.getUrl();
-    field_values_dict["url_source_reference"]   = uploaded_file.getUrl();
+  inv_field_values_dict["url_invoice"]            = file_url;
+  inv_field_values_dict["url_source_reference"]   = file_url;
 
-    return uploaded_file;
+  if(is_approved){
+    payment_field_values_dict["documents_url"]        = file_url;
+    payment_field_values_dict["url_source_reference"] = file_url;
+  }
+
+  return uploaded_file;
 }
-
-
