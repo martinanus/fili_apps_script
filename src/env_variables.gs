@@ -16,7 +16,7 @@ drive_root_folder_id        = "12FHFOmdji-CftGIowrxuYNt6cRngK4-P" // TODO - This
 //dbt_run_url               = 'https://dbt-luciolaria-7txkfbm3yq-uc.a.run.app/';
 
 // Upload Portal deploy URL
-upload_portal_deploy_url    = "www.google.com" // TODO - This need to be updated
+upload_portal_deploy_url    = "https://script.google.com/macros/s/AKfycby9huSbp7k-QQOH2PpGLVBL7sJXKiBvmpmIhOVO8PQ-mIjll-Lsedg0SCd_vzmXP_jZJQ/exec"
 
 // Sheet Master id
 spreadsheetId               = "1mkSS7eWwTxa22tGKtyGouuXSKyRn4adekLRrqVbgyeU"
