@@ -113,7 +113,7 @@ function validate_client_mandatory_fields(){
 function validate_payment_mandatory_fields(){
     const mandatory_field_l = ["timestamp", "id", "counterpart", "is_income", "date",
                                 "currency", "name_concept_1", "amount_concept_1",
-                                "source_reference_url"];
+                                "url_source_reference"];
 
 
     var error_field_l = []
